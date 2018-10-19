@@ -31,7 +31,7 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource PurchasedItemConverter}">
                         <Binding Path="ID"/>
-                        <Binding Path="Label"/>
+                        <Binding Path="Name"/>
                         <Binding Path="Price"/>
                     </MultiBinding>
                 </Button.CommandParameter>
@@ -50,11 +50,11 @@
                                         <RowDefinition Height="0.3*"/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Source="{Binding ImagePath}"  Stretch="UniformToFill"/>
+                                    <Image Source="{Binding Image}"  Stretch="UniformToFill"/>
 
 
                                     <StackPanel Grid.Row="1" Background="#9B9B9B" Opacity="0.9" >
-                                        <TextBlock Margin="5,8" TextWrapping="WrapWithOverflow" Text="{Binding Label}" Foreground="White" TextTrimming="CharacterEllipsis"   />
+                                        <TextBlock Margin="5,8" TextWrapping="WrapWithOverflow" Text="{Binding Name}" Foreground="White" TextTrimming="CharacterEllipsis"   />
                                     </StackPanel>
                                 </Grid>
                             </Border>

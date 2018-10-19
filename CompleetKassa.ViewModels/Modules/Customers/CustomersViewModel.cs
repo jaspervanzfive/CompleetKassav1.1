@@ -14,10 +14,10 @@ namespace CompleetKassa.ViewModels
 {
     public class CustomersViewModel : BaseViewModel
     {
-        private IList<Product> _dbProductList;
+        private IList<ProductModel> _dbProductList;
 
-        private ObservableCollection<ProductCategory> _categories;
-        private ObservableCollection<ProductSubCategory> _subCategories;
+        private ObservableCollection<ProductCategoryModel> _categories;
+        private ObservableCollection<ProductSubCategoryModel> _subCategories;
 
 
         private string _categoryFilter;
@@ -42,8 +42,8 @@ namespace CompleetKassa.ViewModels
             }
         }
 
-        private ProductSubCategory _selectedSubCategory;
-        public ProductSubCategory SelectedSubCategory
+        private ProductSubCategoryModel _selectedSubCategory;
+        public ProductSubCategoryModel SelectedSubCategory
         {
             get { return _selectedSubCategory; }
             set
@@ -56,8 +56,8 @@ namespace CompleetKassa.ViewModels
             }
         }
 
-        private ProductCategory _selectedCategory;
-        public ProductCategory SelectedCategory
+        private ProductCategoryModel _selectedCategory;
+        public ProductCategoryModel SelectedCategory
         {
             get { return _selectedCategory; }
             set
@@ -85,7 +85,7 @@ namespace CompleetKassa.ViewModels
             set { SetProperty(ref _purchasedProducts, value); }
         }
 
-        public ObservableCollection<ProductCategory> Categories
+        public ObservableCollection<ProductCategoryModel> Categories
         {
             get { return _categories; }
             set
@@ -94,7 +94,7 @@ namespace CompleetKassa.ViewModels
             }
         }
 
-        public ObservableCollection<ProductSubCategory> SubCategories
+        public ObservableCollection<ProductSubCategoryModel> SubCategories
         {
             get { return _subCategories; }
             set
@@ -104,7 +104,7 @@ namespace CompleetKassa.ViewModels
         }
         public CustomersViewModel () : base ("Customers", "#C06C84", "Icons/customer.png")
 		{
-            _categories = new ObservableCollection<ProductCategory>();
+            _categories = new ObservableCollection<ProductCategoryModel>();
 
             _categoryFilter = string.Empty;
             _subCategoryFilter = string.Empty;
@@ -122,17 +122,17 @@ namespace CompleetKassa.ViewModels
         }
         private bool ProductCategoryFilter(object item)
         {
-            var product = item as Product;
+            var product = item as ProductModel;
             return item == null ? true : product.Category.Contains(_categoryFilter);
         }
 
         private bool ProductSubCategoryFilter(object item)
         {
-            var product = item as Product;
+            var product = item as ProductModel;
             return (product.Category.Contains(_categoryFilter) &&
                 product.SubCategory.Contains(_subCategoryFilter));
         }
-        private void GetCategories(IList<Product> products)
+        private void GetCategories(IList<ProductModel> products)
         {
             //Dummy Colors of Categories
             String[] categories_colors = new string[] { "#D0A342", "#B422B9", "#6BB4FA", "#39985D", "#CEBA5E", "#962525", "#7E8085", "#7E8085" };
@@ -147,17 +147,17 @@ namespace CompleetKassa.ViewModels
                 var subCategories = products.Where(x => x.Category == category)
                                     .Select(x => x.SubCategory).Distinct();
 
-                var productSubCategories = new List<ProductSubCategory>();
+                var productSubCategories = new List<ProductSubCategoryModel>();
                 foreach (var subCategory in subCategories)
                 {
-                    productSubCategories.Add(new ProductSubCategory
+                    productSubCategories.Add(new ProductSubCategoryModel
                     {
                         Name = subCategory,
                         Color = categories_colors[z]
                     });
                 }
 
-                _categories.Add(new ProductCategory
+                _categories.Add(new ProductCategoryModel
                 {
                     Name = category,
                     Color = categories_colors[z],
@@ -174,84 +174,84 @@ namespace CompleetKassa.ViewModels
 
         private void GetProducts()
         {
-            _dbProductList = new List<Product> {
-                 new Product
+            _dbProductList = new List<ProductModel> {
+                 new ProductModel
                 {
                     ID = 1,
-                    Label = "Cheyene Hawk pen Purle with 25mm grip including spacersd dasdas das d ds ds dsas",
-                    ImagePath ="/CompleetKassa.ViewModels;component/Images/sample.png",
+                    Name = "Cheyene Hawk pen Purle with 25mm grip including spacersd dasdas das d ds ds dsas",
+                    Image ="/CompleetKassa.ViewModels;component/Images/sample.png",
                     Price = 100.0m,
-                    Description = "This is sample 1",
+                    // Description = "This is sample 1",
                     Category = "All",
                     SubCategory = "Running"
                 },
-                new Product
+                new ProductModel
                 {
                     ID = 2,
-                    Label = "Shoes 2",
-                    ImagePath ="/CompleetKassa.ViewModels;component/Images/sample.png",
+                    Name = "Shoes 2",
+                    Image ="/CompleetKassa.ViewModels;component/Images/sample.png",
                     Price = 20.0m,
-                    Description = "This is sample 2",
+                    // Description = "This is sample 2",
                     Category = "Consumer",
                     SubCategory = "Walking"
                 },
-                new Product
+                new ProductModel
                 {
                     ID = 3,
-                    Label = "Bag 1",
-                    ImagePath ="/CompleetKassa.ViewModels;component/Images/sumi_black.jpg",
+                    Name = "Bag 1",
+                    Image ="/CompleetKassa.ViewModels;component/Images/sumi_black.jpg",
                     Price = 20.0m,
-                    Description = "This is sample 2",
+                    // Description = "This is sample 2",
                     Category = "Business customers",
                     SubCategory = "Shoulder Bag"
                 },
-                new Product
+                new ProductModel
                 {
                     ID = 5,
-                    Label = "Belt 1",
-                    ImagePath ="/CompleetKassa.ViewModels;component/Images/sample.png",
+                    Name = "Belt 1",
+                    Image ="/CompleetKassa.ViewModels;component/Images/sample.png",
                     Price = 10.0m,
-                    Description = "This is Belt 1",
+                    // Description = "This is Belt 1",
                     Category = "Blocked Clients",
                     SubCategory = "Men's Belt"
                 },
-                new Product
+                new ProductModel
                 {
                     ID = 5,
-                    Label = "Belt 11",
-                    ImagePath ="/CompleetKassa.ViewModels;component/Images/sample.png",
+                    Name = "Belt 11",
+                    Image ="/CompleetKassa.ViewModels;component/Images/sample.png",
                     Price = 10.0m,
-                    Description = "This is Belt 1",
+                    // Description = "This is Belt 1",
                     Category = "Discount Clients",
                     SubCategory = "Men's BeltXX"
                 },
-                new Product
+                new ProductModel
                 {
                     ID = 6,
-                    Label = "Nike Shoes",
-                    ImagePath ="/CompleetKassa.ViewModels;component/Images/nike.jpg",
+                    Name = "Nike Shoes",
+                    Image ="/CompleetKassa.ViewModels;component/Images/nike.jpg",
                     Price = 10.0m,
-                    Description = "This is Belt 1",
+                    // Description = "This is Belt 1",
                     Category = "Marked clients",
                     SubCategory = "Basketball"
                 },
-                new Product
+                new ProductModel
                 {
                     ID = 6,
-                    Label = "Nike Shoes",
-                    ImagePath ="/CompleetKassa.ViewModels;component/Images/nike.jpg",
+                    Name = "Nike Shoes",
+                    Image ="/CompleetKassa.ViewModels;component/Images/nike.jpg",
                     Price = 10.0m,
-                    Description = "This is Belt 1",
+                    // Description = "This is Belt 1",
                     Category = "Clients notes",
                     SubCategory = "Basketball"
                 },
-                new Product
+                new ProductModel
                 {
                     ID = 6,
-                    Label = "Nike Shoes",
-                    ImagePath ="/CompleetKassa.ViewModels;component/Images/nike.jpg",
+                    Name = "Nike Shoes",
+                    Image ="/CompleetKassa.ViewModels;component/Images/nike.jpg",
                     Price = 10.0m,
-                    Description = "This is Belt 1",
+                    // Description = "This is Belt 1",
                     Category = "Newsletter subscribers",
                     SubCategory = "Basketball"
                 }
@@ -279,8 +279,8 @@ namespace CompleetKassa.ViewModels
         //}
 
 
-        private Product m_selectedroduct;
-        public Product SelectedProduct
+        private ProductModel m_selectedroduct;
+        public ProductModel SelectedProduct
         {
             get { return m_selectedroduct; }
             set { SetProperty(ref m_selectedroduct, value); }

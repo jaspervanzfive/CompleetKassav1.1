@@ -13,7 +13,7 @@ namespace CompleetKassa.Converters
             return new SelectedProductViewModel
             {
                 ID = (int)values[0],
-                Label = (string)values[1],
+                Name = (string)values[1],
                 Price = (decimal)values[2]
                
              
