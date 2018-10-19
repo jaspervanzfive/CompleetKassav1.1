@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D961A431-F2A9-407E-AC14-9AB8027B1003}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CompleetKassa.ViewModels</RootNamespace>
+    <AssemblyName>CompleetKassa.ViewModels</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks, Version=2.3.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.2.3.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Modules\Lock\LockViewModel.cs" />
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="ProductsViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BaseViewModel.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SelectedProductViewModel.cs" />
+    <Compile Include="PurchasedProductViewModel.cs" />
+    <Compile Include="ReceiptsViewModel.cs" />
+    <Compile Include="Modules\Settings\SettingsViewModel.cs" />
+    <Compile Include="SalesViewModel.cs" />
+    <Compile Include="Modules\Support\SupportViewModel.cs" />
+    <Compile Include="Modules\Totals\TotalsViewModel.cs" />
+    <Compile Include="Modules\Transactions\TransactionsViewModel.cs" />
+    <Compile Include="Modules\Users\UsersViewModel.cs" />
+    <Compile Include="Modules\Customers\CustomersViewModel.cs" />
+    <Compile Include="SelectedSideButton.cs" />
+    <Compile Include="SoundsComponent.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CompleetKassa.DataTypes\CompleetKassa.DataTypes.csproj">
+      <Project>{4A30F1E9-0A08-4347-9324-CDCF24F79ABA}</Project>
+      <Name>CompleetKassa.DataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CompleetKassa.Models\CompleetKassa.Models.csproj">
+      <Project>{c4466761-0b4d-4bbc-a70e-cbcc77c98c18}</Project>
+      <Name>CompleetKassa.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sample.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\Products\" />
+    <Folder Include="Modules\Sales\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sumi_black.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\nike.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sound\delete.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Access denied %285%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-product %285%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back to pos %289%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonpress Sounds %2813%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Enter-after-lock %285%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\go to numpad %287%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logout %286%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainCat %282%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Numpad %286%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pay %282%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pin %2810%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red notification %281%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save %2816%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screen Lock %281%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\startup.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Swipe %2812%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wrong-login-field %2815%29.wav" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

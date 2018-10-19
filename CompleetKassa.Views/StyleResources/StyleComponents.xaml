@@ -1,0 +1,98 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+     <!-- Fonts Resources-->
+    <Style x:Key="FontBold">
+        <Setter Property="TextElement.FontFamily" Value="Open Sans Semibold"/>
+    </Style>
+    <Style x:Key="FontLight">
+        <Setter Property="TextElement.FontFamily" Value="Open Sans Light"/>
+    </Style>
+
+    <Style TargetType="{x:Type Border}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    </Style>
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    </Style>
+    <Style TargetType="{x:Type RepeatButton}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    </Style>
+    <!--Style for textbox , disable mouseover and cursor color-->
+    <Style TargetType="{x:Type TextBox}" x:Key="StyleTextBox">
+        <Setter Property="CaretBrush" Value="White"/>
+        <Setter Property="TextElement.Foreground" Value="White"/>
+        <Setter Property="TextElement.FontFamily" Value="Open Sans Semibold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Style for textfield-->
+    <ControlTemplate x:Key="TextFieldStyle">
+        <Grid Width="{TemplateBinding Width}"
+                   Height="{TemplateBinding Width}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="0.75*"/>
+            </Grid.ColumnDefinitions>
+            <Border  CornerRadius="7,0,0,7" Background="#3D4954" >
+
+            </Border>
+            <Border Grid.Column="1" CornerRadius="0,7,7,0" Background="#43505B" >
+
+            </Border>
+        </Grid>
+    </ControlTemplate>
+
+
+    <!--button as border-->
+    <Style TargetType="{x:Type Button}" x:Key="BorderButtonStyle">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid >
+                        <Border Background="{TemplateBinding Background}" x:Name="elipse" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"/>
+
+                        <Grid RenderTransformOrigin="0.5,0.5" x:Name="RootGrid">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Grid>
+              
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property ="IsPressed" Value ="True">
+                            <Setter TargetName="RootGrid" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="PreviewMouseDown">
+                <SoundPlayerAction Source="pack://application:,,,/CompleetKassa.Views;component/Sounds/numpad.wav" />
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>
