@@ -6,20 +6,37 @@ using CompleetKassa.Models;
 
 namespace CompleetKassa.Database.Services
 {
-	public interface IProductService : IService
-	{
-		Task<IListResponse<ProductModel>> GetProductsAsync(int pageSize = 0, int pageNumber = 0);
-		Task<IListResponse<ProductModel>> GetProductsWithCategoryAsync(int pageSize = 0, int pageNumber = 0);
+    public interface IProductService : IService
+    {
+        #region Product
+        #region Read Product
+        Task<IListResponse<ProductModel>> GetProductsAsync(int pageSize = 0, int pageNumber = 0);
+        Task<IListResponse<ProductModel>> GetProductsWithDetailsAsync(int pageSize = 0, int pageNumber = 0);
+        Task<ISingleResponse<ProductModel>> GetProductByIDAsync(int productID);
+        Task<ISingleResponse<ProductModel>> GetProductByIDWithDetailsAsync(int productID);
+        #endregion Read Product
 
-		Task<ISingleResponse<ProductModel>> GetProductByIDAsync(int productID);
-		Task<ISingleResponse<ProductModel>> GetProductByIDWithCategoryAsync(int productID);
+        #region Write Product
+        Task<ISingleResponse<ProductModel>> UpdateProductAsync(ProductModel updates);
+        Task<ISingleResponse<ProductModel>> AddProductAsync(ProductModel details);
+        Task<ISingleResponse<ProductModel>> RemoveProductAsync(int productID);
+        #endregion Write Product
+        #endregion Product
 
-		Task<ISingleResponse<ProductModel>> UpdateProductAsync(ProductModel updates);
+        #region Category
+        Task<IListResponse<CategoryModel>> GetCategoriesAsync(int pageSize = 0, int pageNumber = 0);
+        Task<IListResponse<CategoryModel>> GetCategoriesWithParentCategoriesAsync(int pageSize = 0, int pageNumber = 0);
 
-		Task<ISingleResponse<ProductModel>> AddProductAsync(ProductModel details);
+        Task<ISingleResponse<CategoryModel>> GetCategoryByIDAsync(int categoryID);
+        Task<ISingleResponse<CategoryModel>> GetCategoryByIDWithParentCategoryAsync(int categoryID);
 
-		Task<IListResponse<ProductModel>> AddProductsAsync(IEnumerable<ProductModel> details);
+        Task<ISingleResponse<CategoryModel>> UpdateCategoryAsync(CategoryModel updates);
 
-		Task<ISingleResponse<ProductModel>> RemoveProductAsync(int productID);
-	}
+        Task<ISingleResponse<CategoryModel>> AddCategoryAsync(CategoryModel details);
+
+        Task<IListResponse<CategoryModel>> AddCategoriesAsync(IEnumerable<CategoryModel> details);
+
+        Task<ISingleResponse<CategoryModel>> RemoveCategoryAsync(int categoryID);
+        #endregion Category
+    }
 }

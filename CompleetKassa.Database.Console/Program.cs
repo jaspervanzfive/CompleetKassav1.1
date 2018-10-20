@@ -35,8 +35,6 @@ namespace CompleetKassa.Database.Console
                 .UseSqlite("Data Source=CompleetKassa.db3;").Options;
             #endregion SQLite
 
-            //container.RegisterType<ILogger>(new InjectionFactory(l => LogManager.GetCurrentClassLogger()));
-            //container.RegisterType<ILogger>(LogHelper.GetLogger<NLog>(LogManager.GetCurrentClassLogger()));
             container.RegisterType<AppDbContext>(new TransientLifetimeManager(), new InjectionConstructor(options));
 
             container.RegisterType<ObjectMapperProvider>(new TransientLifetimeManager());
@@ -44,91 +42,67 @@ namespace CompleetKassa.Database.Console
 
             container.RegisterType<IAppUser, AppUser>(new InjectionConstructor(1, "LoggedUser"));
             container.RegisterType<ILogger, Logger>(new InjectionConstructor());
-            container.RegisterType<IAccountService, AccountService>();
-            container.RegisterType<ICategoryService, CategoryService>();
             container.RegisterType<IProductService, ProductService>();
             container.RegisterType<IAccountService, AccountService>();
 
-            //UserTest(container).Wait();
-            //CategoryTest(container).Wait();
-            //ProductTest(container).Wait();
-            //ProductWithCategoryTest(container).Wait();
-            //UserWithRolesAndResourcesTest(container).Wait();
-            //AccountServiceTest(container).Wait();
-            GetUserEagerTest(container).Wait();
+            InitializeDatabase(container).Wait();
+
+            // Get All Products with complete details
 
         }
 
-        private static async Task ProductTest(IUnityContainer container)
+        private static async Task InitializeDatabase(IUnityContainer container)
         {
-            IProductService repo = container.Resolve<IProductService>();
+            IProductService productService = container.Resolve<IProductService>();
 
-            //var allProductsWithCategory = await repo.GetProductsWithCategoryAsync();
+            await productService.AddProductAsync(CreateProduct(1, brand: "AAA"));
+            await productService.AddProductAsync(CreateProduct(2, brand: "BBB"));
+            await productService.AddProductAsync(CreateProduct(3, brand: "CCC"));
+            await productService.AddProductAsync(CreateProduct(3, brand: "DDD"));
 
-            //var result = await repo.GetByIDWithCategoryAsync(2);
-
-            var newProduct = new ProductModel
-            {
-                Name = "Product-" + DateTime.Now.ToString(),
-                CategoryID = 0,
-                Status = 1
-            };
-
-            await repo.AddProductAsync(newProduct);
-
-            await repo.GetProductByIDAsync(newProduct.ID);
+            await productService.AddCategoryAsync(CreateCategory("cat1", "red"));
+            await productService.AddCategoryAsync(CreateCategory("cat2", "red"));
+            await productService.AddCategoryAsync(CreateCategory("cat11", "red", 1 /*cat1 ID*/));
+            await productService.AddCategoryAsync(CreateCategory("cat22", "red", 2 /*cat2 ID*/));
         }
 
-        private static async Task ProductWithCategoryTest(IUnityContainer container)
+        #region Factory
+        private static int _productCount = 0;
+        private static ProductModel CreateProduct(int count, string brand, int status = 1)
         {
-            ICategoryService categoryService = container.Resolve<ICategoryService>();
-            IProductService repo = container.Resolve<IProductService>();
+            int code = 0;
 
-            // Category with no parent
-            var newCategory = new CategoryModel
+            _productCount++;
+            code = 100 * _productCount;
+
+            return new ProductModel
             {
-                Name = "Category-" + DateTime.Now.ToString(),
-                Status = 0,
-                Parent = 0
+                Code = code.ToString(),
+                Name = $"{code}{code}{code}{code}",
+                Brand = $"Brand{brand}",
+                Price = code,
+                SalePrice = (decimal)(code - (code * .1)),
+                Image = "Image Path",
+                Favorite = true,
+                Quantity = _productCount,
+                MinimumStock = _productCount,
+                Status = status
             };
-
-            await categoryService.AddCategoryAsync(newCategory);
-
-            var newProduct = new ProductModel
-            {
-                Name = "Product-" + DateTime.Now.ToString(),
-                CategoryID = 1,
-                Status = 1
-            };
-
-            await repo.AddProductAsync(newProduct);
         }
 
-        private static async Task CategoryTest(IUnityContainer container)
+        private static CategoryModel CreateCategory(string name, string color, int parentID = 0)
         {
-            ICategoryService repo = container.Resolve<ICategoryService>();
-
-            // Category with no parent
-            var newCategory = new CategoryModel
+            return new CategoryModel
             {
-                Name = "Category-" + DateTime.Now.ToString(),
-                Status = 0,
-                Parent = 0
+                Name = name,
+                Detail = $"{name} details",
+                Parent = parentID,
+                ParentName = "",
+                Status = 1,
+                Color = color
             };
-
-            await repo.AddCategoryAsync(newCategory);
-
-            // Category with Parent
-            var anotherCategory = new CategoryModel
-            {
-                Name = "Category-" + DateTime.Now.ToString(),
-                Status = 0,
-                Parent = 1
-            };
-
-            await repo.AddCategoryAsync(anotherCategory);
-
         }
+        #endregion Factory
 
         private static async Task UserTest(IUnityContainer container)
         {
@@ -232,7 +206,7 @@ namespace CompleetKassa.Database.Console
 
             #region Role Resources
             // 4. Create Role <-> Resources
-            
+
 
             #endregion Role Resources
 
