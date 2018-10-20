@@ -19,9 +19,9 @@ namespace CompleetKassa.Database.Services
         private IUserService _userService;
         private IRoleService _roleService;
         private IResourceService _resourceService;
-        protected IUserRepository _userRepository { get; }
-        protected IUserCredentialRepository _userCredentialRepository { get; }
-        protected IJUserRoleRepository _userRoleRepository { get; }
+        private IUserRepository _userRepository { get; }
+        private IUserCredentialRepository _userCredentialRepository { get; }
+        private IJUserRoleRepository _userRoleRepository { get; }
 
         public AccountService(ILogger logger, IMapper mapper, IAppUser userInfo, AppDbContext dbContext)
             : base(logger, mapper, userInfo, dbContext)
