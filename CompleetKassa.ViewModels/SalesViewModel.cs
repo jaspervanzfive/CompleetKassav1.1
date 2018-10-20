@@ -1144,7 +1144,6 @@ namespace CompleetKassa.ViewModels
 
           //  RemainingOrder = ReceiptList.IndexOf(ReceiptList.Where(x => x.Label == ReceiptName.ToString()).FirstOrDefault()) - 1;
 
-          
             if (RemainingOrder <= 0)
                 PrevVisibility = Visibility.Hidden;
 
