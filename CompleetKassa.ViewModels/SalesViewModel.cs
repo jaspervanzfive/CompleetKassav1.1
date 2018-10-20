@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 
+
 namespace CompleetKassa.ViewModels
 {
     public class SalesViewModel : BaseViewModel
@@ -233,6 +234,8 @@ namespace CompleetKassa.ViewModels
             SetSubCategories(_categoryFilter);
             SelectFirstCategory();
 
+            
+
             CreateNewReceipt(null);
 
             // Commands
@@ -240,7 +243,7 @@ namespace CompleetKassa.ViewModels
             OnIncrementPurchased = new BaseCommand(IncrementPurchase);
             OnDecrementPurchased = new BaseCommand(DecrementPurchase);
             OnSelectAllPurchased = new BaseCommand(SelectAllPurchased);
-            OnNewReceipt = new BaseCommand(CreateNewReceipt);
+            OnNewReceipt = new BaseCommand(AddOrNextReceipt);
             OnPreviousReceipt = new BaseCommand(SelectPreviousReceipt);
             OnNextReceipt = new BaseCommand(SelectNextReceipt);
             OnPay = new BaseCommand(Pay);
@@ -553,7 +556,7 @@ namespace CompleetKassa.ViewModels
         SoundsComponent sounds = new SoundsComponent();
         private void QuantityPopOpen(object obj)
         {
-           
+            
             int selectedProducts = _purchasedProducts.Where(x => x.IsSelected).Count();
 
            
@@ -1020,48 +1023,199 @@ namespace CompleetKassa.ViewModels
             foreach (var item in _purchasedProducts)
             {
                 
-                MessageBox.Show(item.Label.ToString());
+                MessageBox.Show(item.Name.ToString());
             }
         }
 
+        public string imgAddReceiptPath = "ViewIcons/order_add.png";
+        public string imgNextReceiptPath = "ViewIcons/order_next.png";
+
+        public string _receiptImagePath;
+        public string ReceiptImagePath
+        {
+            get { return _receiptImagePath; }
+            set
+            {
+                _receiptImagePath = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int _remainingOrder=0;
+        public int RemainingOrder
+        {
+            get { return _remainingOrder; }
+            set
+            {
+                _remainingOrder = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _prevVisibility=Visibility.Hidden;
+        public Visibility PrevVisibility
+        {
+            get { return _prevVisibility; }
+            set
+            {
+                SetProperty(ref _prevVisibility, value);
+            }
+        }
+
+
+        private void AddOrNextReceipt(object obj)
+        {
+            if (ReceiptImagePath == imgAddReceiptPath)
+            {
+                CreateNewReceipt(null);
+            }
+            else if (ReceiptImagePath == imgNextReceiptPath)
+                SelectNextReceipt(null);
+
+            PrevVisibility = Visibility.Visible;
+        }
+
+
         // TODO: Temporary Receipt counter
-        private int _receiptCounter;
+        private int _receiptCounter =0;
+
+
+        private int OrderName=100000;
+
+
+        public string _receiptName ;
+        public string ReceiptName
+        {
+            get { return _receiptName; }
+            set
+            {
+                _receiptName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // TODO: Need to refractor for SelectPrevious and SelectNext
+
+
 
         private void CreateNewReceipt(object obj)
         {
             CurrentPurchase = new PurchasedProductViewModel();
-            CurrentPurchase.Name = $"{++_receiptCounter}";
+            CurrentPurchase.Name = (ReceiptList.Count()).ToString();
+            CurrentPurchase.Label = $"{OrderName++}";
+            ReceiptName = CurrentPurchase.Label;
+
             ReceiptList.Add(CurrentPurchase);
             ReceiptIndex = ReceiptList.Count() - 1;
+            ReceiptImagePath = imgAddReceiptPath;
+
+            RemainingOrder = ReceiptList.IndexOf(ReceiptList.Where(x => x.Label == ReceiptName.ToString()).FirstOrDefault());
+
         }
 
         private void SelectPreviousReceipt(object obj)
         {
-            if (ReceiptIndex == 0) return;
+            
+
+            RemainingOrder = ReceiptList.IndexOf(ReceiptList.Where(x => x.Label == ReceiptName.ToString()).FirstOrDefault()) - 1;
+
+            Console.WriteLine(RemainingOrder);
+
+            if (RemainingOrder <= 0)
+                PrevVisibility = Visibility.Hidden;
+            
+            else
+                PrevVisibility = Visibility.Visible;
+
+            ReceiptImagePath = imgNextReceiptPath;
+
+          
+
+            if (ReceiptIndex <= 0) return;
             ReceiptIndex--;
+            ReceiptName = CurrentPurchase.Label;
+
         }
+
+        private void SelectPreviousReceipt1(object obj)
+        {
+
+            RemainingOrder = RemainingOrder-1;
+
+          //  RemainingOrder = ReceiptList.IndexOf(ReceiptList.Where(x => x.Label == ReceiptName.ToString()).FirstOrDefault()) - 1;
+
+          
+            if (RemainingOrder <= 0)
+                PrevVisibility = Visibility.Hidden;
+
+            else
+                PrevVisibility = Visibility.Visible;
+
+
+            if (RemainingOrder + 1 >= _receiptList.Count)
+                ReceiptImagePath = imgAddReceiptPath;
+            else
+                ReceiptImagePath = imgNextReceiptPath;
+
+
+
+
+            if (ReceiptIndex <= 0) return;
+            ReceiptIndex--;
+            ReceiptName = CurrentPurchase.Label;
+
+        }
+
 
         private void SelectNextReceipt(object obj)
         {
+
+         
+
+            RemainingOrder = ReceiptList.IndexOf(ReceiptList.Where(x => x.Label == ReceiptName.ToString()).FirstOrDefault()) + 1;
+
+        
+
+
+            if (RemainingOrder + 1 >= _receiptList.Count)
+                ReceiptImagePath = imgAddReceiptPath;
+            else
+                ReceiptImagePath = imgNextReceiptPath;
+
+
+
             if (ReceiptIndex == _receiptList.Count() - 1) return;
             ReceiptIndex++;
+            ReceiptName = CurrentPurchase.Label;
+
+
         }
 
         private void Pay(object obj)
         {
+
+
             ReceiptList.Remove(CurrentPurchase);
 
             if (ReceiptList.Count == 0)
             {
                 CreateNewReceipt(obj);
             }
+            else if (ReceiptIndex == 0)
+            {
+
+                SelectNextReceipt(obj);
+                ReceiptIndex = 0;
+                ReceiptName = CurrentPurchase.Label;
+
+            }
             else
             {
-                SelectPreviousReceipt(obj);
+                SelectPreviousReceipt1(obj);
             }
         }
 
-		private void DiscountedProduct (SelectedProductViewModel product, ProductDiscountOptions option)
+        private void DiscountedProduct (SelectedProductViewModel product, ProductDiscountOptions option)
 		{
 			decimal discount = 0.0m;
 			if(Decimal.TryParse (DiscountValue, out discount) == false) {
@@ -1089,7 +1243,7 @@ namespace CompleetKassa.ViewModels
 			var item = new SelectedProductViewModel {
 				Quantity = 1,
 				ID = product.ID,
-				Name = product.Label,
+				Name = product.Name,
 				Price = product.Price,
 				Discount = product.Discount
 			};

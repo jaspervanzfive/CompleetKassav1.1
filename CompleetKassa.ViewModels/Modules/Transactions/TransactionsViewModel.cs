@@ -8,7 +8,7 @@ namespace CompleetKassa.ViewModels
 {
     public class TransactionsViewModel : BaseViewModel
     {
-        public TransactionsViewModel()  : base("Transactions", "#254662", "Icons/transactions.png")
+        public TransactionsViewModel()  : base("Transactions", "#C06C84", "Icons/transactions.png")
         {
 
         }

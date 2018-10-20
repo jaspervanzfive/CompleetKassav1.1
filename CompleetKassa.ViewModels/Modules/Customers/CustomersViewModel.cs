@@ -102,7 +102,7 @@ namespace CompleetKassa.ViewModels
                 SetProperty(ref _subCategories, value);
             }
         }
-        public CustomersViewModel () : base ("Customers", "#C06C84", "Icons/customer.png")
+        public CustomersViewModel () : base ("Customers", "#F67280", "Icons/customer.png")
 		{
             _categories = new ObservableCollection<ProductCategoryModel>();
 

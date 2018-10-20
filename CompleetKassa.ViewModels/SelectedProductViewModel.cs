@@ -7,7 +7,7 @@ namespace CompleetKassa.ViewModels
     public class SelectedProductViewModel : BaseViewModel
     {
         public int ID { get; set; }
-        public string Label { get; set; }
+        public string Name { get; set; }
         public decimal Price { get; set; }
 
       
@@ -80,7 +80,7 @@ namespace CompleetKassa.ViewModels
         public SelectedProductViewModel() : base(string.Empty, string.Empty, string.Empty)
         {
             ID = 0;
-            Label = string.Empty;
+            Name = string.Empty;
             Price = 0.0m;
             Quantity = 0;
             Discount = 0.0m;

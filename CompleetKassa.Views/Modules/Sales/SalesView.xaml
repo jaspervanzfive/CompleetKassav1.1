@@ -200,6 +200,35 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="{x:Type Button}" x:Key="EmptyButton2">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid RenderTransformOrigin="0.5,0.5" x:Name="RootGrid">
+                            <Border Background="{TemplateBinding Background}" />
+
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property ="IsPressed" Value ="True">
+                                <Setter TargetName="RootGrid" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <SoundPlayerAction Source="pack://application:,,,/CompleetKassa.Views;component/Sounds/buttonpress.wav" />
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
 
         <Style TargetType="{x:Type Button}" x:Key="CircleButton">
             <Setter Property="Template">
@@ -263,11 +292,37 @@
                 </Grid.RowDefinitions>
 
                 <Grid Background="#EBEBEB">
-                    <Viewbox  VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="Order 100004" Style="{StaticResource MainFont}" Foreground="#555555" Margin="3"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.15*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding PrevVisibility}">
+                        <Button Command="{Binding OnPreviousReceipt}" Style="{StaticResource EmptyButton2}"  HorizontalAlignment="Left" Margin="3" Background="#EBEBEB">
+                            <Image Source="ViewIcons/order_prev.png"/>
+                        </Button>
+
+                        <Viewbox >
+                            <TextBlock Text="{Binding RemainingOrder}" Style="{StaticResource MainFont}" Foreground="#555555" Margin="0,3,3,3"/>
+                        </Viewbox>
+                    </StackPanel>
+                    
+                    
+                    <Viewbox  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding ReceiptName, StringFormat=Order {0}}" Style="{StaticResource MainFont}" Foreground="#555555" Margin="3"/>
                     </Viewbox>
 
-                    <Image Source="ViewIcons/order_add.png" HorizontalAlignment="Right" Margin="3"/>
+                    <Button Command="{Binding OnNewReceipt}" Grid.Column="2" Style="{StaticResource EmptyButton2}"  HorizontalAlignment="Right" Margin="3" Background="#EBEBEB">
+                        <Image Source="{Binding ReceiptImagePath}"/>
+                    </Button>
+
+                    <!--<Button Content="Previous" Command="{Binding OnPreviousReceipt}" Style="{StaticResource EmptyButton2}"  HorizontalAlignment="Left" Margin="3" Background="#EBEBEB">
+                       
+                    </Button>
+                    <Button Content="Next" Command="{Binding OnNextReceipt}" Style="{StaticResource EmptyButton2}"  HorizontalAlignment="Left" Margin="55,3,3,3" Background="#EBEBEB">
+
+                    </Button>-->
                 </Grid>
 
                 
@@ -465,7 +520,7 @@
                                         </Border>
                                         <StackPanel>
                                             <TextBlock Text="{Binding ID}" Style="{StaticResource ReceiptFont}" Padding="10,3,3,0" Foreground="#0193C6"/>
-                                            <TextBlock Text="{Binding Label}" Style="{StaticResource ReceiptFont}" HorizontalAlignment="Left" Padding="10,3,3,0" Foreground="#4C4C4C" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" Width="230" MaxHeight="44"/>
+                                            <TextBlock Text="{Binding Name}" Style="{StaticResource ReceiptFont}" HorizontalAlignment="Left" Padding="10,3,3,0" Foreground="#4C4C4C" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" Width="230" MaxHeight="44"/>
                                            
                                             <TextBlock Style="{StaticResource ReceiptFont}" Padding="10,3,3,0" Foreground="#4C4C4C">
                                                 <TextBlock.Text >
@@ -575,7 +630,7 @@
                 <Border Grid.Row="3" Background="#0193C6" >
                     <Border.InputBindings>
                         <MouseBinding MouseAction="LeftClick"
-                              Command="{Binding OnNumpadPurchased}"/>
+                              Command="{Binding OnPay}"/>
                     </Border.InputBindings>
                     <Grid>
                         <Grid.RowDefinitions>
