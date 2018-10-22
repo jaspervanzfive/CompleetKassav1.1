@@ -69,7 +69,7 @@
             </Style.Triggers>
         </Style>
 
-        
+
 
         <Style TargetType="Button" x:Key="TabButtonFirst">
 
@@ -119,7 +119,7 @@
 
                             <ContentPresenter RenderTransformOrigin="0.5,0.5" x:Name="RootGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         </Border>
-                       
+
                         <ControlTemplate.Triggers>
                             <Trigger Property ="IsPressed" Value ="True">
                                 <Setter TargetName="RootGrid" Property="RenderTransform">
@@ -140,8 +140,8 @@
         </Style>
 
         <Style TargetType="{x:Type Button}" x:Key="ReceiptSideButtons">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Template">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid  >
@@ -172,13 +172,13 @@
         </Style>
 
         <Style TargetType="{x:Type RepeatButton}" x:Key="EmptyButton">
-        
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RepeatButton}">
                         <Grid RenderTransformOrigin="0.5,0.5" x:Name="RootGrid">
                             <Border Background="{TemplateBinding Background}" />
-                            
+
                             <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -230,12 +230,13 @@
         </Style>
 
 
-        <Style TargetType="{x:Type Button}" x:Key="CircleButton">
+        <Style TargetType="{x:Type Button}" x:Key="CircleButton2">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
                             <Ellipse Fill="{TemplateBinding Background}" x:Name="elipse"/>
+                            <Ellipse Fill="#0AC450" Width="20" Height="20"/>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
                         <!--<ControlTemplate.Triggers>
@@ -243,6 +244,64 @@
                                 <Setter Property="Background"  Value="Red"/>
                             </Trigger>
                         </ControlTemplate.Triggers>-->
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style TargetType="{x:Type Button}" x:Key="CircleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border  Background="{TemplateBinding Background}" CornerRadius="100">
+                            <ContentPresenter RenderTransformOrigin="0.5,0.5" Name="rootgrid" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property ="IsPressed" Value ="True">
+                                <Setter TargetName="rootgrid" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type ToggleButton}" x:Key="RadButton">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border RenderTransformOrigin="0.5,0.5" Name="rootgrid" Background="{TemplateBinding Background}" CornerRadius="100">
+                            <Border  Margin="5" CornerRadius="100" Background="#0AC450" Name="elps" Visibility="Visible"/>
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property ="IsChecked" Value ="True">
+                                <Setter TargetName="elps" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property ="IsChecked" Value ="False">
+                                <Setter TargetName="elps" Property="Visibility" Value="Hidden" />
+                            </Trigger>
+                            <Trigger Property ="IsPressed" Value ="True">
+                                <Setter TargetName="rootgrid" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
 
                     </ControlTemplate>
 
@@ -269,7 +328,8 @@
 
                 <TextBlock Foreground="#fff" Text="compleetshop" x:Name="Compleet" FontFamily="Open Sans Semibold" Margin="0,5"></TextBlock>
             </Viewbox>
-
+            <Button x:Name="ButtonDelete" Command="{Binding OnDeleteProducts}"  HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
+            <Button x:Name="ButtonOpenDelete" Command="{Binding OnDeleteOpen}"  HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
         </Grid>
 
         <!--Page-->
@@ -307,8 +367,8 @@
                             <TextBlock Text="{Binding RemainingOrder}" Style="{StaticResource MainFont}" Foreground="#555555" Margin="0,3,3,3"/>
                         </Viewbox>
                     </StackPanel>
-                    
-                    
+
+
                     <Viewbox  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="{Binding ReceiptName, StringFormat=Order {0}}" Style="{StaticResource MainFont}" Foreground="#555555" Margin="3"/>
                     </Viewbox>
@@ -325,7 +385,7 @@
                     </Button>-->
                 </Grid>
 
-                
+
 
                 <!--Receipt-->
                 <StackPanel Orientation="Vertical" Background="#fff" Grid.Row="1">
@@ -336,6 +396,8 @@
                     <!-- Discount/Amount Popout -->
 
                     <Grid>
+
+
                         <Border x:Name="fold" Background="#CACACA" Height="{Binding ElementName=discountfold, Path=ActualHeight}" Margin="15,3,0,0" CornerRadius="30,0,0,30" Visibility="{Binding  QuantityPopVisibility }">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -431,13 +493,13 @@
                                         <Image Source="ViewIcons/select.png" Stretch="Uniform" Margin="6"/>
                                     </Button>
 
-                                    
+
 
                                     <Button  Command="{Binding OnDiscountChangeButton}" Style="{StaticResource CircleButton}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize, Path=ActualHeight}" Width="{Binding ElementName=circleSize, Path=ActualWidth}" Background="#999999">
-                                       
+
                                         <Image Source="{Binding DiscountImagePath}" Stretch="Uniform"  Margin="10" />
-                                  
-                                       
+
+
 
                                     </Button>
 
@@ -481,6 +543,91 @@
                             </Grid>
 
                         </Border>
+
+                        <Grid Height="{Binding ElementName=sideSize, Path=ActualHeight}" Visibility="Collapsed">
+                            <Grid Background="#0193C6" Margin="0,0,0,3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.15*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.15*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Vertical" Grid.Column="1">
+                                    <Viewbox x:Name="emailReceipt" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="75,20,75,0" MaxHeight="35">
+                                        <TextBlock Style="{StaticResource FontBold}" Text="Email Receipt" Foreground="White"/>
+                                    </Viewbox>
+
+
+                                    <Border Grid.Column="1" Background="#E5E5E5" CornerRadius="15" Height="{Binding ElementName=emailReceipt, Path=ActualHeight}" Margin="20,30,20,5"/>
+
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15" >
+
+                                        <ToggleButton Width="20" Height="20" Margin="15,0,0,0" Style="{StaticResource RadButton}" ></ToggleButton>
+
+                                        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,5,0">
+                                            <TextBlock Style="{StaticResource FontBold}" Text="Subscribe to newsletter" Foreground="White"/>
+                                        </Viewbox>
+
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="30">
+                                        <Button Style="{StaticResource CircleButton2}" Background="#F67280" Height="45" Width="45" Margin="0,0,10,0">
+                                            <Image Source="ViewIcons/cancel.png" Margin="10"/>
+                                        </Button>
+                                        <Button Style="{StaticResource CircleButton2}" Background="#355C7D" Height="45" Width="45" Margin="10,0,0,0">
+                                            <Image Source="ViewIcons/sent.png" Margin="10"/>
+                                        </Button>
+
+                                    </StackPanel>
+
+
+                                </StackPanel>
+
+                                <!--<Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,0">
+                                    <TextBlock Style="{StaticResource FontBold}" Text="Email Receipt" Foreground="White"/>
+                                </Viewbox>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.2*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="0.2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="1" Background="#E5E5E5" CornerRadius="15" Grid.Row="1" Margin="20,10" />
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="0.3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+
+                                        <ToggleButton Width="20" Height="20" Margin="15,0,0,0" Style="{StaticResource RadButton}" ></ToggleButton>
+                                        
+                                        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="13">
+                                            <TextBlock Style="{StaticResource FontBold}" Text="Subscribe to newsletter" Foreground="White"/>
+                                        </Viewbox>
+
+                                    </StackPanel>
+                                </Grid>-->
+
+
+
+
+                                <!--<ToggleButton Height="20" Width="20" Style="{StaticResource RadButton}" ></ToggleButton>-->
+
+
+
+
+                            </Grid>
+                        </Grid>
+
                     </Grid>
 
 
@@ -521,7 +668,7 @@
                                         <StackPanel>
                                             <TextBlock Text="{Binding ID}" Style="{StaticResource ReceiptFont}" Padding="10,3,3,0" Foreground="#0193C6"/>
                                             <TextBlock Text="{Binding Name}" Style="{StaticResource ReceiptFont}" HorizontalAlignment="Left" Padding="10,3,3,0" Foreground="#4C4C4C" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" Width="230" MaxHeight="44"/>
-                                           
+
                                             <TextBlock Style="{StaticResource ReceiptFont}" Padding="10,3,3,0" Foreground="#4C4C4C">
                                                 <TextBlock.Text >
                                                     <MultiBinding StringFormat='{}{0:C} x {1}' ConverterCulture='nl-NL'>
@@ -538,7 +685,7 @@
                                         </StackPanel>
 
                                     </StackPanel>
-                                    
+
                                     <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                                         <!-- Total and Discount-->
                                         <TextBlock Text="{Binding OrigTotal, StringFormat='{}{0:C}', ConverterCulture='nl-NL'}" Style="{StaticResource ReceiptFont}" Padding="3,3,15,0" Foreground="#355C7D" TextAlignment="Right" Width="100"/>
@@ -590,6 +737,57 @@
 
                     </ListBox>
                 </StackPanel>
+
+                <Grid  Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.6*" MaxHeight="352" />
+                        <RowDefinition Height="0.4*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid >
+                    </Grid>
+                    <Grid>
+                    </Grid>
+
+
+
+                    <Grid Grid.Row="1" Height="{Binding ElementName=sideBottom, Path=ActualHeight}" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+
+                        <Border x:Name="asd" Grid.Row="1" Background="#F67280" Height="{Binding ElementName=DeleteButton, Path=ActualHeight}" Margin="15,5,0,5" CornerRadius="30,0,0,30" MaxHeight="65" Visibility="{Binding DeleteVisibility}">
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.25*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.25*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Viewbox>
+                                    <Button Command="{Binding OnDeleteWholeOrder}" Margin="10"  Grid.Column="0" Style="{StaticResource ButtonSubmit}"/>
+                                </Viewbox>
+
+
+
+                                <Viewbox Grid.Column="1" Margin="10">
+                                    <TextBlock Style="{StaticResource FontBold}" Text="Are you sure you want to &#x0a; delete this whole order?" Foreground="#fff"/>
+                                </Viewbox>
+
+                                <Viewbox Grid.Column="2">
+                                    <Button Command="{Binding OnDeleteOpen}"  Margin="10"   Style="{StaticResource ButtonCancel}"/>
+                                </Viewbox>
+
+
+                            </Grid>
+
+                        </Border>
+                    </Grid>
+
+                </Grid>
 
                 <Grid Background="#EBEBEB" Row="2">
                     <Grid.RowDefinitions>
@@ -647,8 +845,8 @@
                             <TextBlock Margin="0,0,0,5" Foreground="White" Text="{Binding CurrentPurchase.Due, StringFormat='{}{0:C}', ConverterCulture='nl-NL'}" HorizontalAlignment="Center"/>
                         </Viewbox>
                     </Grid>
-                    
-                    
+
+
                     <!--<StackPanel Orientation="Vertical">
                         <Viewbox  VerticalAlignment="Top" HorizontalAlignment="Center">
                             <TextBlock Text="Order 100004" Style="{StaticResource MainFont}" Foreground="White" Margin="0"/>
@@ -657,7 +855,9 @@
                             <TextBlock Text="Order 100sad04" Style="{StaticResource MainFont}" Foreground="White" Margin="0"/>
                         </Viewbox>
 
-                        --><!--<TextBlock Foreground="White" Text="{Binding CurrentPurchase.Due, StringFormat='{}{0:C}', ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" FontSize="35" HorizontalAlignment="Center"/>--><!--
+                        -->
+                    <!--<TextBlock Foreground="White" Text="{Binding CurrentPurchase.Due, StringFormat='{}{0:C}', ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" FontSize="35" HorizontalAlignment="Center"/>-->
+                    <!--
                     </StackPanel>-->
                 </Border>
             </Grid>
@@ -676,7 +876,7 @@
 
                 <Grid  Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.6*" MaxHeight="352"/>
+                        <RowDefinition Height="0.6*" MaxHeight="352" />
                         <RowDefinition Height="0.4*"/>
                     </Grid.RowDefinitions>
 
@@ -708,93 +908,36 @@
                         </Button>
 
 
-
-                        <!--<StackPanel x:Name="stackpanel" Orientation="Vertical" Grid.Row="1">
-                            --><!--<Button Command="{Binding OnQuantityPopOpen}" Grid.Row="0" Style="{StaticResource ReceiptSideButtons}" Background="#2E4051" Margin="0,10,0,3" >
-                                <Border  x:Name="discountfold"  Background="#1F2E3C"  CornerRadius="0,29,29,0"  HorizontalAlignment="Left" MaxHeight="65" MaxWidth="78">
-                                    <Image Source="ViewIcons/quantity.png" Stretch="Uniform" Margin="13,13,18,13" />
-                                </Border>
-                            </Button>
-
-
-
-                            <Border x:Name="discountx" CornerRadius="0,29,29,0" Grid.Row="1" HorizontalAlignment="Left" Margin="0,3,20,3" MaxHeight="65" MaxWidth="78" Style="{StaticResource SideButtons}">
-
-                                <Image Source="ViewIcons/discount.png" Stretch="Uniform" Margin="13,13,18,13"/>
-                            </Border>--><!--
-                            <Border  CornerRadius="0,29,29,0" HorizontalAlignment="Left" Margin="0,3,20,3" MaxHeight="65" MaxWidth="78" Style="{StaticResource SideButtons}">
-                                <Image Source="ViewIcons/print.png" Stretch="Uniform" Margin="13,13,18,13"/>
-                            </Border>
-
-                            <Border  CornerRadius="0,29,29,0"  HorizontalAlignment="Left" Margin="0,3,20,3" MaxHeight="65" MaxWidth="78" Style="{StaticResource SideButtons}">
-                                <Image Source="ViewIcons/send.png" Stretch="Uniform" Margin="13,13,18,13"/>
-                            </Border>
-
-                            <Border  CornerRadius="0,29,29,0"  HorizontalAlignment="Left" Margin="0,3,20,3" MaxHeight="65" MaxWidth="78" Style="{StaticResource SideButtons}">
-                                <Image Source="ViewIcons/client.png" Stretch="Uniform" Margin="13,13,18,13"/>
-                            </Border>
+                    </Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="sideSize">
 
 
-                        </StackPanel>-->
-
-
+                        </Grid>
                     </Grid>
 
 
-                    
-                    <!--<StackPanel>
-                        <Button Content="+" Command="{Binding OnIncrementPurchased}" />
-                        <Button Content="-" Command="{Binding OnDecrementPurchased}" />
-                        -->
-                    <!--<Button Content="Discount" Command="{Binding OnDiscount}" />-->
-                    <!--
-						<ToggleButton x:Name="Btn" IsHitTestVisible="{Binding ElementName=Popup, Path=IsOpen, Mode=OneWay, Converter={c:BoolInverter}}" >
-							<TextBlock x:Name="DiscountTextblock" Text="Discount"/>
-						</ToggleButton>
 
-                        <Button Content="-" Command="{Binding OnDecrementPurchased}" />
-
-                        <Popup IsOpen="{Binding IsChecked, ElementName=Btn}" x:Name="Popup" StaysOpen="False" PlacementTarget="{Binding ElementName=DiscountTextblock}">
-							<Grid>
-								<StackPanel Orientation="Horizontal">
-									<TextBox Width="50" Text="{Binding DiscountValue}"/>
-									<Button Content="$" Command="{Binding OnDiscountDollar}"/>
-									<Button Content="%" Command="{Binding OnDiscountPercent}"/>
-								</StackPanel>
-							</Grid>
-						</Popup>
-
-                        <Border CornerRadius="0,20,20,0" Height="50" Margin="0,0,10,0" Background="#1F2E3C">
-                            
-                        </Border>
-
-					</StackPanel>-->
-
-
-
-                    <!--<Border Background="#FF24323E"  CornerRadius="40" Height="40px" Width="40px" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                        <Border Background="#FF24323E"
-                      Margin="0,0,22,0">
-
-                        </Border>
-                    </Border>-->
-
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" x:Name="sideBottom">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <Button Command="{Binding OnDeleteProducts}" Grid.Row="1" Style="{StaticResource ReceiptSideButtons2}" Background="#EF6F7C"  Margin="0,5,5,5" >
+                        <Button x:Name="DeleteButton" Grid.Row="1" Style="{StaticResource ReceiptSideButtons2}" Background="#F67280"  Margin="0,5,5,5" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp">
                             <Image Source="ViewIcons/delete2.png" Stretch="Uniform" Margin="10,10,15,10"/>
 
                         </Button>
-                        
+
                     </Grid>
 
                 </Grid>
-                <Button Command="{Binding OnNumpadOpen}" Grid.Row="2" Style="{StaticResource ReceiptSideButtons2}" Background="#0193C6" >
+                <Button x:Name="ButtonNumpad" Command="{Binding OnNumpadOpen}" Grid.Row="2" Style="{StaticResource ReceiptSideButtons2}" Background="#0193C6" >
                     <Image Source="ViewIcons/numpd.png" Stretch="Uniform" Margin="10,10,15,10"/>
                 </Button>
             </Grid>
@@ -813,7 +956,7 @@
                 </Grid>
 
 
-                <ListBox x:Name="parentcat" Grid.Row="1"  HorizontalContentAlignment="Stretch"  ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" Background="{StaticResource Background}" Margin="0,5">
+                <ListBox x:Name="parentcat" Grid.Row="1"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch"  ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" Background="{StaticResource Background}" Margin="0,5,0,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
@@ -851,9 +994,9 @@
                                     <!--<Setter TargetName="selectedTriangle" Property="Visibility" Value="Visible"/>-->
                                 </DataTrigger>
 
-                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"  Value="True">
+                                <!--<DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"  Value="True">
                                     <Setter TargetName="grid" Property="Background" Value="#1A2530"/>
-                                </DataTrigger>
+                                </DataTrigger>-->
 
                             </DataTemplate.Triggers>
                         </DataTemplate>
@@ -979,9 +1122,9 @@
                     <Grid Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition/> 
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        
+
 
                         <Grid Grid.Column="0">
                             <Grid.RowDefinitions>
@@ -999,9 +1142,9 @@
                                           Text="{Binding NumpadPrice, Mode=TwoWay,
                           StringFormat='{}{0:C}', ConverterCulture='nl-NL'}"
                                        />
-                                    
+
                                 </Viewbox>
-                                
+
 
                             </Border>
 
@@ -1097,10 +1240,10 @@
                                          Text="{Binding NumpadText, Mode=TwoWay}"
                                          />
                                 </Viewbox>-->
-                           
+
 
                             </Border>
-                            
+
                             <Grid Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -1128,8 +1271,8 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <Button Command="{Binding OnNumpadNumPressed}" Grid.Row="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="6">
                                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
@@ -1160,14 +1303,14 @@
                                     <TextBlock  Text="Add this" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                 </Viewbox>
                             </Button>
-                            
+
 
                         </Grid>
-                        
-                        
-                       
 
-                        
+
+
+
+
 
                     </Grid>
 
@@ -1184,7 +1327,7 @@
                                     </StackPanel>
                                     <DataTemplate.Triggers>
                                         <DataTrigger Value="True" Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}">
-                                            
+
                                             <Setter TargetName="border" Property="Background" Value="#19232D"/>
                                             <!--<Setter TargetName="selectedTriangle" Property="Visibility" Value="Visible"/>-->
                                         </DataTrigger>
@@ -1200,7 +1343,7 @@
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <!--<Setter Property="HorizontalContentAlignment" Value="Stretch"/>-->
-                                    
+
                                     <Setter Property="Padding" Value="3,0"/>
                                     <Setter Property="Template" Value="{StaticResource SelectedItem}"/>
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

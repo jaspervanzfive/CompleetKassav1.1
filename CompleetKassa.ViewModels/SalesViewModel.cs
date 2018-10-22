@@ -211,6 +211,12 @@ namespace CompleetKassa.ViewModels
         public ICommand OnPurchaseSelectMultiple { get; private set; }
 
 
+        //Delete Commands
+        public ICommand OnDeleteOpen { get; private set; }
+        public ICommand OnDeleteWholeOrder { get; private set; }
+
+
+
         #endregion
 
         public SalesViewModel() : base ("Sales", "#FDAC94","Icons/product.png")
@@ -289,7 +295,70 @@ namespace CompleetKassa.ViewModels
             OnPurchaseSelectMultiple = new BaseCommand(PurchaseSelectMultiple);
             SelectionMode = SelectionMode.Extended;
             SelectionColor = (Brush)(new BrushConverter().ConvertFrom("#999999"));
+
+
+            //DeleteOrder
+            OnDeleteOpen = new BaseCommand(DeleteOpen);
+            OnDeleteWholeOrder = new BaseCommand(DeleteWholeOrder);
+
+
         }
+
+        #region Delete Methods
+        private void DeleteOpen(object item)
+        {
+            int purchaseItem = _purchasedProducts.Count();
+            if (DeleteVisibility == Visibility.Hidden && purchaseItem >= 1)
+            {
+                DeleteVisibility = Visibility.Visible;
+                sounds.Press();
+            }
+            else if (DeleteVisibility == Visibility.Hidden && purchaseItem < 1)
+            {
+                sounds.Error();
+            }
+            else
+                DeleteVisibility = Visibility.Hidden;
+
+
+
+        }
+        private void DeleteWholeOrder(object item)
+        {
+            ReceiptList.Remove(CurrentPurchase);
+
+            if (ReceiptList.Count == 0)
+            {
+                CreateNewReceipt(item);
+            }
+            else if (ReceiptIndex == 0)
+            {
+
+                SelectNextReceipt(item);
+                ReceiptIndex = 0;
+                ReceiptName = CurrentPurchase.Label;
+
+            }
+            else
+            {
+                SelectPreviousReceipt1(item);
+            }
+
+            DeleteOpen(item);
+            sounds.Delete();
+
+        }
+        private Visibility _deleteVisibility = Visibility.Hidden;
+        public Visibility DeleteVisibility
+        {
+            get { return _deleteVisibility; }
+            set
+            {
+                SetProperty(ref _deleteVisibility, value);
+            }
+        }
+
+        #endregion
 
         private void PurchaseSelectMultiple(object item)
         {
@@ -960,9 +1029,10 @@ namespace CompleetKassa.ViewModels
             }
         }
 
+      
         private void DeleteProducts(object obj)
         {
-            //MessageBox.Show(_purchasedProducts.Count().ToString());  
+      
             var selectedItems = _purchasedProducts.Where(x => x.IsSelected).ToList();
             foreach (var item in selectedItems)
             {
@@ -970,7 +1040,8 @@ namespace CompleetKassa.ViewModels
             }
 
             CurrentPurchase.ComputeTotal();
-          
+            sounds.Delete();
+
         }
 
         private void DecrementPurchase(object obj)

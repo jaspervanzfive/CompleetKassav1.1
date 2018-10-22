@@ -37,5 +37,11 @@ namespace CompleetKassa.ViewModels
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Resources.buttonpress_Sounds__13_);
             player.Play();
         }
+
+        public void Delete()
+        {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Resources.delete);
+            player.Play();
+        }
     }
 }
