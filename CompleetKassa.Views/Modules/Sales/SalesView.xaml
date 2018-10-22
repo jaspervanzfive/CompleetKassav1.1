@@ -335,6 +335,9 @@
 
             <Button x:Name="ButtonSelectAll" Command="{Binding OnPurchaseSelectAll}" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
 
+            <Button  Content="Check" Command="{Binding OnSetDollarDiscount}" HorizontalAlignment="Left" Height="17" Margin="254,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
+            <Button x:Name="ButtonQuantityClick" Command="{Binding  OnSelectQuantityOption}" CommandParameter="{Binding QuantitySelectOption}" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
+            <Button x:Name="ButtonQuantityLongPress" Command="{Binding OnSelectQuantityOptionLongPress}" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
         </Grid>
 
         <!--Page-->
@@ -402,7 +405,7 @@
 
                     <Grid>
 
-
+                        <!--Quantity-->
                         <Border x:Name="fold" Background="#CACACA" Height="{Binding ElementName=discountfold, Path=ActualHeight}" Margin="15,3,0,0" CornerRadius="30,0,0,30" Visibility="{Binding  QuantityPopVisibility }">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -418,7 +421,7 @@
                                     </Grid.ColumnDefinitions>
 
 
-                                    <Border  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" CornerRadius="50" Background="#0193C6">
+                                    <Border x:Name="circleSize2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" CornerRadius="50" Background="#0193C6">
                                         <Border.InputBindings>
                                             <MouseBinding Command="{Binding OnApplyQuantityPop}" MouseAction="LeftClick"/>
                                         </Border.InputBindings>
@@ -426,16 +429,15 @@
 
                                     </Border>
 
-                                    <Button  x:Name="selectMulti2"  Background="{Binding SelectionColor}" Style="{StaticResource CircleButton}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize, Path=ActualHeight}" Width="{Binding ElementName=circleSize, Path=ActualWidth}" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp" >
+                                    <Button  x:Name="selectMulti2"  Background="{Binding SelectionColor}" Style="{StaticResource CircleButton}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp" >
                                         <Image Source="ViewIcons/select.png" Stretch="Uniform" Margin="6"/>
                                     </Button>
 
-                                    <Border Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" CornerRadius="50" Background="#999999">
-
-                                        <Image Source="ViewIcons/select.png" Stretch="Uniform" Margin="6"/>
-
-
-                                    </Border>
+                                    <Button  x:Name="ButtonQuantitySelection" Grid.Column="2" Style="{StaticResource CircleButton}"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" Background="#999999" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp">
+                                        <Viewbox Margin="5">
+                                            <TextBlock Text="{Binding QuantitySelectOption}" Foreground="White"/>
+                                        </Viewbox>
+                                    </Button>
 
                                 </Grid>
 
@@ -448,7 +450,7 @@
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <RepeatButton Command="{Binding OnIncrementQuantityPop}" Style="{StaticResource EmptyButton}" Background="Transparent" Delay="500" Interval="100" >
+                                        <RepeatButton Command="{Binding OnIncrementQuantityPop}" Style="{StaticResource EmptyButton}" Background="Transparent" >
                                             <Image Source="ViewIcons/add.png" Margin="10"/>
                                         </RepeatButton>
 
@@ -470,6 +472,7 @@
                             </Grid>
 
                         </Border>
+                        <!--Discount fold-->
                         <Border x:Name="foldx" Background="#CACACA" Height="{Binding ElementName=discountfold, Path=ActualHeight}" Margin="15,3,0,0" CornerRadius="30,0,0,30" Visibility="{Binding DiscountPopVisibility}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -632,6 +635,51 @@
 
                             </Grid>
                         </Grid>
+
+                    </Grid>
+                    <Grid Visibility="{Binding QuantitySelectionVisibility}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.15*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.05*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Border Grid.Column="1" Background="#999999" Height="{Binding ElementName=discountfold, Path=ActualHeight}" Margin="5,0,5,0" CornerRadius="0,0,30,30" Visibility="{Binding  QuantityPopVisibility }">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                                <Button  Command="{Binding OnSelectQuantityOption}" CommandParameter="6" Style="{StaticResource CircleButton}"  Margin="5"  Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" Background="#757575">
+                                    <Viewbox Margin="5">
+                                        <TextBlock Text="6" Foreground="White"/>
+                                    </Viewbox>
+                                </Button>
+                                <Button  Command="{Binding OnSelectQuantityOption}" CommandParameter="10" Style="{StaticResource CircleButton}"  Margin="5"  Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" Background="#757575">
+                                    <Viewbox Margin="5">
+                                        <TextBlock Text="10" Foreground="White"/>
+                                    </Viewbox>
+                                </Button>
+                                <Button  Command="{Binding OnSelectQuantityOption}" CommandParameter="12" Style="{StaticResource CircleButton}"  Margin="5"  Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" Background="#757575">
+                                    <Viewbox Margin="5">
+                                        <TextBlock Text="12" Foreground="White"/>
+                                    </Viewbox>
+                                </Button>
+                                <Button  Command="{Binding OnSelectQuantityOption}" CommandParameter="50" Style="{StaticResource CircleButton}"  Margin="5"  Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" Background="#757575">
+                                    <Viewbox Margin="5">
+                                        <TextBlock Text="50" Foreground="White"/>
+                                    </Viewbox>
+                                </Button>
+                                <Button  Command="{Binding OnSelectQuantityOption}" CommandParameter="60" Style="{StaticResource CircleButton}"  Margin="5"  Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" Background="#757575">
+                                    <Viewbox Margin="5">
+                                        <TextBlock Text="60" Foreground="White"/>
+                                    </Viewbox>
+                                </Button>
+                                <Button  Command="{Binding OnSelectQuantityOption}" CommandParameter="100" Style="{StaticResource CircleButton}"  Margin="5" Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" Background="#757575">
+                                    <Viewbox Margin="5">
+                                        <TextBlock Text="100" Foreground="White"/>
+                                    </Viewbox>
+                                </Button>
+                            </StackPanel>
+
+                        </Border>
 
                     </Grid>
 

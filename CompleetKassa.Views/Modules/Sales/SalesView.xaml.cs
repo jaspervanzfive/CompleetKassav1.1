@@ -57,6 +57,8 @@ namespace CompleetKassa.Views
 
                 if(button_name.Equals("DeleteButton"))
                     ButtonOpenDelete.Command.Execute(ButtonOpenDelete.CommandParameter);
+                else if (button_name.Equals("ButtonQuantitySelection"))
+                    ButtonQuantityLongPress.Command.Execute(ButtonQuantityLongPress.CommandParameter);
                 else
                     ButtonSelectAll.Command.Execute(ButtonSelectAll.CommandParameter);
             }
@@ -86,6 +88,8 @@ namespace CompleetKassa.Views
             {
                 if (button_name.Equals("DeleteButton"))
                     ButtonDelete.Command.Execute(ButtonDelete.CommandParameter);
+                else if (button_name.Equals("ButtonQuantitySelection"))
+                    ButtonQuantityClick.Command.Execute(ButtonQuantityClick.CommandParameter);
                 else
                     ButtonSelectMultiple.Command.Execute(ButtonSelectMultiple.CommandParameter);
 
@@ -110,6 +114,8 @@ namespace CompleetKassa.Views
             {
                 if (button_name.Equals("DeleteButton"))
                     ButtonDelete.Command.Execute(ButtonDelete.CommandParameter);
+                else if (button_name.Equals("ButtonQuantitySelection"))
+                    ButtonQuantityClick.Command.Execute(ButtonQuantityClick.CommandParameter);
                 else
                     ButtonSelectMultiple.Command.Execute(ButtonSelectMultiple.CommandParameter);
             }

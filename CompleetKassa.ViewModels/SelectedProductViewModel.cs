@@ -111,6 +111,13 @@ namespace CompleetKassa.ViewModels
                 SetProperty(ref _discountVisibility, value);
             }
         }
+
+        public void ComputeeDiscount()
+        {
+            if (DiscountOption == ProductDiscountOptions.Dollar) return;
+            //    Discount=
+        }
+
         public void ShowDiscount()
         {
             if (Discount > 0)

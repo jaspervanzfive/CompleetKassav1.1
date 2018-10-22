@@ -155,6 +155,12 @@ namespace CompleetKassa.ViewModels
                     QuantityPop = _selectedPurchasedProduct.Quantity;
                     DiscountDollar = _selectedPurchasedProduct.Discount;
 
+                    if (_selectedPurchasedProduct.DiscountOption == ProductDiscountOptions.Percent)
+                        DiscountImagePath = DiscountImagePath;
+                    else if (_selectedPurchasedProduct.DiscountOption == ProductDiscountOptions.Dollar)
+                        DiscountImagePath = DollarSignPath;
+
+
                     decimal Calculation = (_selectedPurchasedProduct.Discount / _selectedPurchasedProduct.Price) * 100;
 
                     DiscountPercentage = (int)Calculation;
@@ -198,7 +204,8 @@ namespace CompleetKassa.ViewModels
         public ICommand OnDecrementQuantityPop { get; private set; }
         public ICommand OnQuantityPopOpen { get; private set; }
         public ICommand OnApplyQuantityPop { get; private set; }
-
+        public ICommand OnSelectQuantityOption { get; private set; }
+        public ICommand OnSelectQuantityOptionLongPress { get; private set; }
 
 
         //Discount Pop Commands
@@ -215,8 +222,10 @@ namespace CompleetKassa.ViewModels
         public ICommand OnDeleteOpen { get; private set; }
         public ICommand OnDeleteWholeOrder { get; private set; }
         public ICommand OnPurchaseSelectAll { get; private set; }
-    
 
+
+
+        public ICommand OnSetDollarDiscount { get; private set; }
 
         #endregion
 
@@ -275,6 +284,9 @@ namespace CompleetKassa.ViewModels
             OnDecrementQuantityPop = new BaseCommand(DecrementQuantityPop);
             OnApplyQuantityPop = new BaseCommand(ApplyQuantityPop);
             OnQuantityPopOpen = new BaseCommand(QuantityPopOpen);
+            OnSelectQuantityOption = new BaseCommand(SelectQuantityOption);
+            OnSelectQuantityOptionLongPress = new BaseCommand(SelectQuantityOptionLongPress);
+     
             QuantityPopVisibility = Visibility.Collapsed;
             QuantityPop = 1;
             QuantityPopRow = 0;
@@ -306,7 +318,25 @@ namespace CompleetKassa.ViewModels
             OnPurchaseSelectAll = new BaseCommand(SelectAllPurchased);
 
 
+            OnSetDollarDiscount = new BaseCommand(SetDollarDiscount);
+
         }
+
+        private void SetDollarDiscount(object obj)
+        {
+            var selectedItems = _purchasedProducts.Where(x => x.IsSelected).ToList(); ;
+            foreach (var item in selectedItems)
+            {
+                item.DiscountOption = ProductDiscountOptions.Dollar;
+            }
+
+            foreach (var item in selectedItems)
+            {
+                Console.WriteLine(item.DiscountOption);
+            }
+
+        }
+
 
         #region Delete Methods
         private void DeleteOpen(object item)
@@ -596,6 +626,62 @@ namespace CompleetKassa.ViewModels
         #endregion
 
         #region Quantity Pop Methods
+
+
+        private void SelectQuantityOptionLongPress(object obj)
+        {
+            if (QuantitySelectionVisibility == Visibility.Collapsed)
+                QuantitySelectionVisibility = Visibility.Visible;
+            else
+                QuantitySelectionVisibility = Visibility.Collapsed;
+
+
+
+        }
+
+
+        //Quantity hold selections eg. 6,10,12
+        private void SelectQuantityOption(object obj)
+        {
+
+            int numberPressed = Convert.ToInt32(obj);
+            QuantitySelectOption = numberPressed;
+            QuantityPop = numberPressed;
+            QuantitySelectionVisibility = Visibility.Collapsed;
+
+        }
+
+        private void SelectQuantityOption2(object obj)
+        {
+            
+            QuantityPop = QuantitySelectOption;
+            QuantitySelectionVisibility = Visibility.Collapsed;
+
+        }
+
+        private Visibility _QuantitySelectionVisibility=Visibility.Collapsed;
+        public Visibility QuantitySelectionVisibility
+        {
+            get { return _QuantitySelectionVisibility; }
+            set
+            {
+                SetProperty(ref _QuantitySelectionVisibility, value);
+            }
+        }
+
+        public int _quantitySelectOption=6;
+        public int QuantitySelectOption
+        {
+            get { return _quantitySelectOption; }
+            set
+            {
+                _quantitySelectOption = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
         private void ApplyQuantityPop(object obj)
         {
             var selectedItems = _purchasedProducts.Where(x => x.IsSelected).ToList(); ;
@@ -647,6 +733,8 @@ namespace CompleetKassa.ViewModels
             }
             else
                 QuantityPopVisibility = Visibility.Collapsed;
+
+            QuantitySelectionVisibility = Visibility.Collapsed;
 
         }
 
@@ -1303,6 +1391,7 @@ namespace CompleetKassa.ViewModels
 				product.Discount = product.Price * (discount/100);
 			}
 
+            
 			CurrentPurchase.ComputeTotal ();
 		}
 
