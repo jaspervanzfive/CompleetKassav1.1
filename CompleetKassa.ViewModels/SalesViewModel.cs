@@ -214,7 +214,8 @@ namespace CompleetKassa.ViewModels
         //Delete Commands
         public ICommand OnDeleteOpen { get; private set; }
         public ICommand OnDeleteWholeOrder { get; private set; }
-
+        public ICommand OnPurchaseSelectAll { get; private set; }
+    
 
 
         #endregion
@@ -300,6 +301,9 @@ namespace CompleetKassa.ViewModels
             //DeleteOrder
             OnDeleteOpen = new BaseCommand(DeleteOpen);
             OnDeleteWholeOrder = new BaseCommand(DeleteWholeOrder);
+
+
+            OnPurchaseSelectAll = new BaseCommand(SelectAllPurchased);
 
 
         }

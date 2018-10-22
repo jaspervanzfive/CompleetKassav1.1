@@ -55,13 +55,22 @@ namespace CompleetKassa.Views
 
                 dt.Stop();
 
-                ButtonOpenDelete.Command.Execute(ButtonOpenDelete.CommandParameter);
+                if(button_name.Equals("DeleteButton"))
+                    ButtonOpenDelete.Command.Execute(ButtonOpenDelete.CommandParameter);
+                else
+                    ButtonSelectAll.Command.Execute(ButtonSelectAll.CommandParameter);
             }
 
         }
+
+        string button_name;
    
         private void Button_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            var button = (Button)sender;
+            button_name = button.Name.ToString();
+
+
             time = 0;
             dt.Start();
 
@@ -75,8 +84,12 @@ namespace CompleetKassa.Views
             dt.Stop();
             if (time<1)
             {
-               
-                ButtonDelete.Command.Execute(ButtonDelete.CommandParameter);
+                if (button_name.Equals("DeleteButton"))
+                    ButtonDelete.Command.Execute(ButtonDelete.CommandParameter);
+                else
+                    ButtonSelectMultiple.Command.Execute(ButtonSelectMultiple.CommandParameter);
+
+        
             }
 
 
@@ -95,8 +108,10 @@ namespace CompleetKassa.Views
             dt.Stop();
             if (time < 1)
             {
-
-                ButtonDelete.Command.Execute(ButtonDelete.CommandParameter);
+                if (button_name.Equals("DeleteButton"))
+                    ButtonDelete.Command.Execute(ButtonDelete.CommandParameter);
+                else
+                    ButtonSelectMultiple.Command.Execute(ButtonSelectMultiple.CommandParameter);
             }
         }
     }
