@@ -15,36 +15,37 @@
         Width="1366"
         Icon="Icons/compleet.ico"
         
-        MinHeight="768"
-        MinWidth="1366"
-        >
         
-        <!--Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
-        Width="{x:Static SystemParameters.PrimaryScreenWidth}"--> 
-       
-         <!--MinHeight="768"
+        MinHeight="768"
+        MinWidth="1366" SizeChanged="Window_SizeChanged"
+        >
+
+    <!--Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}"-->
+
+    <!--MinHeight="768"
         MinWidth="1366"
 	        Height="768"
         Width="1366"
         >-->
     <!--xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"-->
     <Window.Resources>
-        
+
         <DataTemplate DataType="{x:Type viewModels:SalesViewModel}">
             <views:SalesView />
-		</DataTemplate>
+        </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewModels:ProductsViewModel}">
             <views:ProductsView />
         </DataTemplate>
-       
+
 
 
 
         <DataTemplate DataType="{x:Type viewModels:TransactionsViewModel}">
             <views:UsersView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
             <views:SettingsView />
         </DataTemplate>
@@ -88,7 +89,7 @@
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                         </Border>
                         <ControlTemplate.Triggers>
-                            
+
                             <Trigger Property="IsMouseOver" Value="true">
                                 <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
                             </Trigger>
@@ -143,9 +144,9 @@
                                 <Setter Property="Background"  Value="Red"/>
                             </Trigger>
                         </ControlTemplate.Triggers>-->
-                        
+
                     </ControlTemplate>
-                    
+
                 </Setter.Value>
             </Setter>
         </Style>
@@ -155,9 +156,30 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
-                            <Border Background="{TemplateBinding Background}" x:Name="elipse"/>
+                            <Border Background="{TemplateBinding Background}" x:Name="ButtonBorder" BorderBrush="White" >
+                            </Border>
+
                             <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         </Grid>
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                            <ThicknessAnimation
+                                                Storyboard.TargetName="ButtonBorder"
+        Storyboard.TargetProperty="BorderThickness"
+        Duration="0:0:0.1" FillBehavior="HoldEnd" From="0,0,0,0" To="3,3,3,3" />
+                                            --><!--<ColorAnimation    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="CadetBlue"/>--><!--
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                                --><!--<Setter TargetName="ButtonBorder" Property="BorderBrush" Value="White"/>
+                                <Setter TargetName="ButtonBorder" Property="BorderThickness" Value="3"/>--><!--
+                            </Trigger>-->
+                          
+                            
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -166,16 +188,16 @@
 
 
     </Window.Resources>
-	<Window.DataContext>
+    <Window.DataContext>
         <viewModels:MainViewModel />
     </Window.DataContext>
 
     <Grid SnapsToDevicePixels="True" UseLayoutRounding="True">
-      
 
-       
-        
-       <!-- Contains the Main App after login-->
+
+
+
+        <!-- Contains the Main App after login-->
         <Grid x:Name="MainGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.07*"/>
@@ -187,13 +209,188 @@
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
                 <Grid Background="#0193C6">
-                    
+
 
                 </Grid>
 
                 <!-- Navigation Buttons -->
                 <Grid Row="1" >
-                    <Border >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Product" Style="{StaticResource BorderButtonStyle}" Background="#FDAC94">
+                        <Grid>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Viewbox Margin="30,0,30,0" MaxHeight="40">
+                                    <Image Source="Icons/product.png" Stretch="Uniform" />
+                                </Viewbox>
+                                <Viewbox Margin="15,5" MaxHeight="25" MaxWidth="60">
+                                    <TextBlock Text="Products" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"  Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+
+                            </StackPanel>
+                            <Border BorderBrush="White" BorderThickness="2" Visibility="{Binding ProductVisibility}">
+                                <Grid>
+                                    <Image HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/selector.png" Width="18" Height="18" Margin="0,0,-2,0"/>
+
+                                </Grid>
+                                
+                            </Border>
+                        </Grid>
+                       
+                    </Button>
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Customer"  Grid.Row="1" Style="{StaticResource BorderButtonStyle}" Background="#F67280">
+                        <Grid>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Viewbox Margin="30,0,30,0" MaxHeight="40">
+                                    <Image Source="Icons/customer.png" Stretch="Uniform" />
+                                </Viewbox>
+                                <Viewbox Margin="10,5" MaxHeight="35" MaxWidth="70">
+                                    <TextBlock Text="Customers" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"  Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+
+                            </StackPanel>
+
+                            <Border BorderBrush="White" BorderThickness="2" Visibility="{Binding CustomerVisibility}">
+                                <Grid>
+                                    <Image HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/selector.png" Width="18" Height="18" Margin="0,0,-2,0"/>
+
+                                </Grid>
+
+                            </Border>
+                        </Grid>
+                    </Button>
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Transaction"  Grid.Row="2" Style="{StaticResource BorderButtonStyle}" Background="#C06C84">
+
+                        <Grid>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Viewbox Margin="30,0,30,0" MaxHeight="40">
+                                    <Image Source="Icons/transactions.png" Stretch="Uniform" />
+                                </Viewbox>
+                                <Viewbox Margin="10,5" MaxHeight="35" MaxWidth="70">
+                                    <TextBlock Text="Transactions" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"  Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+
+                            </StackPanel>
+                            <Border BorderBrush="White" BorderThickness="2" Visibility="{Binding TransactionVisibility}">
+                                <Grid>
+                                    <Image HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/selector.png" Width="18" Height="18" Margin="0,0,-2,0"/>
+
+                                </Grid>
+
+                            </Border>
+                        </Grid>
+                       
+                    </Button>
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Total"  Grid.Row="3" Style="{StaticResource BorderButtonStyle}" Background="#6C5B7B">
+                        <Grid>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Viewbox Margin="30,0,30,0" MaxHeight="40">
+                                    <Image Source="Icons/total.png" Stretch="Uniform" />
+                                </Viewbox>
+                                <Viewbox Margin="22,5" MaxHeight="23" MaxWidth="50">
+                                    <TextBlock Text="Totals" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"  Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+
+                            </StackPanel>
+                            <Border BorderBrush="White" BorderThickness="2" Visibility="{Binding TotalVisibility}">
+                                <Grid>
+                                    <Image HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/selector.png" Width="18" Height="18" Margin="0,0,-2,0"/>
+
+                                </Grid>
+
+                            </Border>
+                        </Grid>
+                        
+                    </Button>
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="User"  Grid.Row="4" Style="{StaticResource BorderButtonStyle}" Background="#355C7D">
+
+                        <Grid>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Viewbox Margin="30,0,30,0" MaxHeight="40">
+                                    <Image Source="Icons/users.png" Stretch="Uniform" />
+                                </Viewbox>
+                                <Viewbox Margin="25,5" MaxHeight="23" MaxWidth="50">
+                                    <TextBlock Text="Users" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"  Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+
+                            </StackPanel>
+                            <Border BorderBrush="White" BorderThickness="2" Visibility="{Binding UserVisibility}">
+                                <Grid>
+                                    <Image HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/selector.png" Width="18" Height="18" Margin="0,0,-2,0"/>
+
+                                </Grid>
+
+                            </Border>
+                        </Grid>
+                      
+                    </Button>
+
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Setting"  Grid.Row="5" Style="{StaticResource BorderButtonStyle}" Background="#254662">
+                        <Grid>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Viewbox Margin="30,0,30,0" MaxHeight="40">
+                                    <Image Source="Icons/settings.png" Stretch="Uniform" />
+                                </Viewbox>
+                                <Viewbox Margin="20,5" MaxHeight="23" MaxWidth="50">
+                                    <TextBlock Text="Settings" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"  Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+
+                            </StackPanel>
+                            <Border BorderBrush="White" BorderThickness="2" Visibility="{Binding SettingVisibility}">
+                                <Grid>
+                                    <Image HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/selector.png" Width="18" Height="18" Margin="0,0,-2,0"/>
+
+                                </Grid>
+
+                            </Border>
+                        </Grid>
+                      
+                    </Button>
+
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Support"  Grid.Row="6" Style="{StaticResource BorderButtonStyle}" Background="#1E3B54">
+                        <Grid>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Viewbox Margin="30,0,30,0" MaxHeight="40">
+                                    <Image Source="Icons/support.png" Stretch="Uniform" />
+                                </Viewbox>
+                                <Viewbox Margin="20,5" MaxHeight="23" MaxWidth="50">
+                                    <TextBlock Text="Support" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"  Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+
+                            </StackPanel>
+                            <Border BorderBrush="White" BorderThickness="2" Visibility="{Binding SupportVisibility}">
+                                <Grid>
+                                    <Image HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/selector.png" Width="18" Height="18" Margin="0,0,-2,0"/>
+
+                                </Grid>
+
+                            </Border>
+                        </Grid>
+                       
+                    </Button>
+
+                    <Button Grid.Row="7" Style="{StaticResource BorderButtonStyle}" Background="#1F2E3C">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Viewbox Margin="30,0,30,0" MaxHeight="40">
+                                <Image Source="Icons/lock.png" Stretch="Uniform" />
+                            </Viewbox>
+                            <Viewbox Margin="25,5" MaxHeight="23" MaxWidth="50">
+                                <TextBlock Text="Lock" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"  Style="{StaticResource FontBold}"/>
+                            </Viewbox>
+
+                        </StackPanel>
+                    </Button>
+                    <!--<Border >
+
                         <ItemsControl ItemsSource="{Binding PageViewModels}" SnapsToDevicePixels="True" UseLayoutRounding="True">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -209,7 +406,7 @@
                              RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                           CommandParameter="{Binding }"  Background="{Binding Color}" Style="{StaticResource BorderButton}">
 
-                                        <Border x:Name="xSide" >
+                                        <Border x:Name="xSide">
                                             <StackPanel Orientation="Vertical">
                                                 <Image Source="{Binding ImageLoc}" Stretch="Uniform"  Margin="30,25,30,0" MaxHeight="35" />
                                                 <Viewbox >
@@ -229,6 +426,8 @@
                                             <Setter TargetName="xSide" Property="BorderBrush" Value="White"/>
                                             <Setter TargetName="xSide" Property="BorderThickness" Value="2"/>
                                         </DataTrigger>
+                                        
+                                        
 
                                     </DataTemplate.Triggers>
 
@@ -237,7 +436,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                    </Border>
+                    </Border>-->
                 </Grid>
 
 
@@ -263,8 +462,8 @@
             </StackPanel>
 
         </Grid>
-        
-        
+
+
         <!-- Lock Page -->
         <Grid x:Name="LockPage" Visibility="Hidden" >
             <Grid.RowDefinitions>
@@ -281,8 +480,8 @@
                     <ColumnDefinition Width="0.365*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="1" Background="#000" Opacity="0.5"> 
-                    
+                <Grid Grid.Column="1" Background="#000" Opacity="0.5">
+
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -349,9 +548,9 @@
                                     </Grid>
                                 </Button>
 
-                                
+
                             </Grid>
-                            
+
                             <Grid Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -454,10 +653,10 @@
                             </Grid>
 
                         </Grid>
-                        
-                       
 
-                      
+
+
+
                     </Grid>
 
                 </Grid>
@@ -474,7 +673,7 @@
                         <TextBlock Text="Donaldo Trumpo" Foreground="#808080" Margin="0,20" Style="{StaticResource MainFont}"/>
                     </Viewbox>
                 </StackPanel>
-               
+
 
                 <Viewbox HorizontalAlignment="Right" Grid.Column="1" >
                     <TextBlock x:Name="TimeTxt" Foreground="#808080" Margin="10,10,50,10" Style="{StaticResource MainFont}"/>
@@ -498,7 +697,7 @@
 
             </Grid>
         </Grid>
-        
+
 
         <!--Login Page-->
         <Grid x:Name="LoginPage" Visibility="Hidden">
@@ -522,9 +721,9 @@
                             <RowDefinition Height="0.35*" MaxHeight="110"/>
                             <RowDefinition Height="0.65*" MaxHeight="195"/>
                         </Grid.RowDefinitions>
-                        
-                        
-                        
+
+
+
                         <Border Grid.Row="0" CornerRadius="5,5,0,0" Background="#363838" Margin="35,0" MaxHeight="110" MaxWidth="290">
                             <Image Source="Icons/compleetlogo.png" Stretch="Uniform" Margin="20"/>
 
@@ -539,7 +738,7 @@
                                         <Image Source="Icons/man-user.png" Stretch="Uniform" Margin="5"></Image>
                                         <TextBox Width="170" Margin="2,5" Background="Transparent" BorderBrush="Transparent"/>
                                     </StackPanel>
-                                    
+
                                 </Border>
 
                                 <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,-5" Height="30" MaxHeight="30"  >
@@ -557,9 +756,9 @@
                                 <TextBlock FontSize="12" HorizontalAlignment="Center" Opacity="0.7" VerticalAlignment="Center" Text="Password vergeten?" Foreground="#fff" Style="{StaticResource MainFont}" Margin="0,5" MouseDown="PasswordForgotten_Event"/>
 
                             </StackPanel>
-                           
+
                         </Border>
-                        
+
                         <Border x:Name="EmailBorder" Visibility="Hidden" Grid.Row="1" CornerRadius="0,0,5,5" Background="#51849E" Margin="35,0"  MaxWidth="290" MaxHeight="195" >
                             <StackPanel Margin="0" Orientation="Vertical">
                                 <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,25" Height="30" MaxHeight="30"  >
@@ -622,11 +821,11 @@
                         </Border>
                     </Grid>
 
-                    
+
                 </Grid>
             </Grid>
         </Grid>
 
-        <!--<Frame x:Name="FirstPage" NavigationUIVisibility="Hidden" Visibility="Visible"/>--> 
+        <!--<Frame x:Name="FirstPage" NavigationUIVisibility="Hidden" Visibility="Visible"/>-->
     </Grid>
 </Window>

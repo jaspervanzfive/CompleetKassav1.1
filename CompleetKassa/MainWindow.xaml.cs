@@ -116,6 +116,9 @@ namespace CompleetKassa
 
         }
 
-
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+           // Console.WriteLine(viwbox.ActualHeight +" wd"+viwbox.ActualWidth);
+        }
     }
 }

@@ -78,13 +78,50 @@ namespace CompleetKassa.ViewModels
 		{
             DefaultViewModel = new SalesViewModel();
 
-			this.CreateContentViewModels ();
+            ViewModelProduct = new ProductsViewModel()
+            {
+                OnClosePageCommand = new BaseCommand(ClosePage)
+            };
+            ViewModelCustomer = new CustomersViewModel()
+            {
+                OnClosePageCommand = new BaseCommand(ClosePage)
+            }; 
+            ViewModelTransaction = new TransactionsViewModel()
+            {
+                OnClosePageCommand = new BaseCommand(ClosePage)
+            };
+            ViewModelTotal = new TotalsViewModel()
+            {
+                OnClosePageCommand = new BaseCommand(ClosePage)
+            };
+            ViewModelUser = new UsersViewModel()
+            {
+                OnClosePageCommand = new BaseCommand(ClosePage)
+            };
+            ViewModelSetting = new SettingsViewModel()
+            {
+                OnClosePageCommand = new BaseCommand(ClosePage)
+            };
+            ViewModelSupport = new SupportViewModel()
+            {
+                OnClosePageCommand = new BaseCommand(ClosePage)
+            };
+
+
+           // this.CreateContentViewModels ();
 
             _currentPageViewModel = DefaultViewModel;
 
-            OnChangePageCommand = new BaseCommand (ChangePageCommand);
 
-           
+       
+            OnChangePageCommand = new BaseCommand (ChangePage);
+
+
+
+        
+
+
+
 
         }
      
@@ -98,7 +135,148 @@ namespace CompleetKassa.ViewModels
             }
 		}
 
-		public void CreateContentViewModels ()
+        public BaseViewModel ViewModelProduct { get; set; }
+        public BaseViewModel ViewModelCustomer { get; set; }
+        public BaseViewModel ViewModelTransaction { get; set; }
+        public BaseViewModel ViewModelTotal { get; set; }
+        public BaseViewModel ViewModelUser { get; set; }
+        public BaseViewModel ViewModelSetting { get; set; }
+        public BaseViewModel ViewModelSupport { get; set; }
+
+        private void ChangePage(object obj)
+        {
+            string page_name = obj as string;
+
+            ClearHighlights();
+
+            if (page_name.Equals("Product"))
+            {
+
+                ProductVisibility = Visibility.Visible;
+                CurrentPageViewModel = ViewModelProduct;
+            }
+            else if (page_name.Equals("Customer"))
+            {
+                CustomerVisibility = Visibility.Visible;
+                CurrentPageViewModel = ViewModelCustomer;
+            }
+            else if (page_name.Equals("Transaction"))
+            {
+                TransactionVisibility = Visibility.Visible;
+                CurrentPageViewModel = ViewModelTransaction;
+            }
+            else if (page_name.Equals("Total"))
+            {
+                TotalVisibility = Visibility.Visible;
+                CurrentPageViewModel = ViewModelTotal;
+            }
+            else if (page_name.Equals("User"))
+            {
+                UserVisibility = Visibility.Visible;
+                CurrentPageViewModel = ViewModelUser ;
+            }
+            else if (page_name.Equals("Setting"))
+            {
+               SettingVisibility = Visibility.Visible;
+                CurrentPageViewModel = ViewModelSetting;
+            }
+            else if (page_name.Equals("Support"))
+            {
+                SupportVisibility = Visibility.Visible;
+                CurrentPageViewModel = ViewModelSupport;
+            }
+
+
+
+        }
+
+        private void ClearHighlights()
+        {
+            ProductVisibility = Visibility.Hidden;
+            CustomerVisibility = Visibility.Hidden;
+            TransactionVisibility = Visibility.Hidden;
+            TotalVisibility = Visibility.Hidden;
+            UserVisibility = Visibility.Hidden;
+            SettingVisibility = Visibility.Hidden;
+            SupportVisibility = Visibility.Hidden;
+        }
+
+        #region Visibility of Side buttons
+        private Visibility _productVisibility=Visibility.Hidden;
+        public Visibility ProductVisibility
+        {
+            get { return _productVisibility; }
+            set
+            {
+                SetProperty(ref _productVisibility, value);
+            }
+        }
+
+        private Visibility _customerVisibility = Visibility.Hidden;
+        public Visibility CustomerVisibility
+        {
+            get { return _customerVisibility; }
+            set
+            {
+                SetProperty(ref _customerVisibility, value);
+            }
+        }
+
+        private Visibility _transactionVisibility = Visibility.Hidden;
+        public Visibility TransactionVisibility
+        {
+            get { return _transactionVisibility; }
+            set
+            {
+                SetProperty(ref _transactionVisibility, value);
+            }
+        }
+        private Visibility _totalVisibility = Visibility.Hidden;
+        public Visibility TotalVisibility
+        {
+            get { return _totalVisibility; }
+            set
+            {
+                SetProperty(ref _totalVisibility, value);
+            }
+        }
+        private Visibility _userVisibility = Visibility.Hidden;
+        public Visibility UserVisibility
+        {
+            get { return _userVisibility; }
+            set
+            {
+                SetProperty(ref _userVisibility, value);
+            }
+        }
+        private Visibility _settingVisibility = Visibility.Hidden;
+        public Visibility SettingVisibility
+        {
+            get { return _settingVisibility; }
+            set
+            {
+                SetProperty(ref _settingVisibility, value);
+            }
+        }
+        private Visibility _supportVisibility = Visibility.Hidden;
+        public Visibility SupportVisibility
+        {
+            get { return _supportVisibility; }
+            set
+            {
+                SetProperty(ref _supportVisibility, value);
+            }
+        }
+     
+
+        #endregion
+
+
+        /// <summary>
+        /// Add OnclosePageCommand on every Pages
+        /// </summary>
+
+        public void CreateContentViewModels ()
 		{
 			PageViewModels = new ObservableCollection<BaseViewModel>
 			{
@@ -130,8 +308,16 @@ namespace CompleetKassa.ViewModels
             };
 		}
 
-		private void ClosePage (object obj)
+
+        public void SampleRun()
+        {
+            MessageBox.Show("dsds");
+        }
+
+		public void ClosePage (object obj)
 		{
+        
+            ClearHighlights();
             CurrentPageViewModel = DefaultViewModel;
 		}
 	}

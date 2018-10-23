@@ -271,5 +271,10 @@
     <Resource Include="Icons\LockBackground\lockcancel.png" />
     <Resource Include="Icons\LockBackground\lockok.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\selector.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

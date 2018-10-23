@@ -68,7 +68,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid >
-                        <Border Background="{TemplateBinding Background}" x:Name="elipse" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"/>
+                        <Border Background="{TemplateBinding Background}" x:Name="elipse" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0"/>
 
                         <Grid RenderTransformOrigin="0.5,0.5" x:Name="RootGrid">
                             <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>

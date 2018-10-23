@@ -107,6 +107,7 @@ namespace CompleetKassa.ViewModels
 
         public ProductsViewModel() : base ("Products", "#FDAC94", "Icons/product.png")
         {
+          
             _categories = new ObservableCollection<ProductCategoryModel>();
 
             _categoryFilter = string.Empty;
@@ -125,13 +126,15 @@ namespace CompleetKassa.ViewModels
 
             OnNumpadOpen = new BaseCommand(NumpadOpen);
 
+     
+
         }
 
-        SalesViewModel ds = new SalesViewModel();
+        
 
         private void NumpadOpen(object item)
         {
-            ds.NumpadOpen(item);
+         
             
         }
         private bool ProductCategoryFilter(object item)

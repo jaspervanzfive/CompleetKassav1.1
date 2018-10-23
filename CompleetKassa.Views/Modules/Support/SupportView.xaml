@@ -6,10 +6,69 @@
              xmlns:local="clr-namespace:CompleetKassa.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+      
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="Support View"
-                   FontSize="32"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center" />
+        <Grid.Resources>
+            <!-- The Data Source -->
+            <XmlDataProvider x:Key="FolderListData">
+                <x:XData>
+                    <People xmlns="">
+                        <Person Name="Chris"
+                  Picture="http://www.sellsbrothers.com/services/me.jpg" />
+                        <Person Name="Shawn"
+                  Picture="//wilderminds.blob.core.windows.net/img/headshot.jpg" />
+                        <Person Name="Ian"
+                  Picture="http://tinyurl.com/2szrbm" />
+                    </People >
+                </x:XData>
+            </XmlDataProvider>
+
+            <!-- ItemContainerStyle with the Trigger for Selected -->
+            <Style x:Key="RedGlowItemContainer" TargetType="{x:Type ListBoxItem}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Border Background="LightGray"
+                    CornerRadius="8"
+                    BorderThickness="3"
+                    x:Name="IconBorder"
+                    Margin="8,4,8,4" >
+                                <ContentPresenter />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter TargetName="IconBorder" Property="BitmapEffect">
+                                        <Setter.Value>
+                                            <OuterGlowBitmapEffect GlowColor="Red" GlowSize="5" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+        
+        <ListBox ItemsSource="{Binding Source={StaticResource FolderListData}, XPath=//Person}"
+           HorizontalAlignment="Center"
+           ItemContainerStyle="{StaticResource RedGlowItemContainer}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10,10,10,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" >
+                        <Image Width="90"
+                 Source="{Binding XPath=@Picture}" />
+                        <TextBlock HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Height="20"
+                     Text="{Binding XPath=@Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>
