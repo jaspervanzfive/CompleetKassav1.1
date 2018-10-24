@@ -70,6 +70,7 @@ namespace CompleetKassa.ViewModels
         }
 
         public ICommand OnChangePageCommand { get; private set; }
+        public ICommand OnLockCommand { get; private set; }
 
     
 
@@ -77,6 +78,15 @@ namespace CompleetKassa.ViewModels
         public MainViewModel () : base ("Main","#fff", "Icons/product.png")
 		{
             DefaultViewModel = new SalesViewModel();
+
+            _currentPageViewModel = DefaultViewModel;
+
+            _mainPageViewModel = null;
+
+
+
+
+
 
             ViewModelProduct = new ProductsViewModel()
             {
@@ -108,14 +118,27 @@ namespace CompleetKassa.ViewModels
             };
 
 
-           // this.CreateContentViewModels ();
+            //Login and Lock
+            ViewModelLogin= new LoginViewModel()
+            {
+               OnClose = new BaseCommand(Close)
+            };
+            ViewModelLock= new LockViewModel()
+            {
+              OnClose  = new BaseCommand(Close)
+            };
 
-            _currentPageViewModel = DefaultViewModel;
 
 
-       
+
+            // this.CreateContentViewModels ();
+
+
+
+
+
             OnChangePageCommand = new BaseCommand (ChangePage);
-
+            OnLockCommand = new BaseCommand(LockCommand);
 
 
         
@@ -307,18 +330,42 @@ namespace CompleetKassa.ViewModels
 				},
             };
 		}
-
-
-        public void SampleRun()
-        {
-            MessageBox.Show("dsds");
-        }
-
 		public void ClosePage (object obj)
 		{
         
             ClearHighlights();
             CurrentPageViewModel = DefaultViewModel;
 		}
-	}
+
+
+        ///<summary>
+        /// For Lock and Login Page
+        ///</summary>
+        ///
+
+        BaseViewModel _mainPageViewModel;
+        public BaseViewModel ViewModelLock { get; set; }
+        public BaseViewModel ViewModelLogin { get; set; }
+        public BaseViewModel MainPageViewModel
+        {
+            get { return _mainPageViewModel; }
+            private set
+            {
+                if (Equals(value, _mainPageViewModel)) return;
+                _mainPageViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void LockCommand(object obj)
+        {
+            MainPageViewModel = ViewModelLock;
+        }
+
+        public void Close(object obj)
+        {
+            MainPageViewModel = null;
+        }
+
+    }
 }

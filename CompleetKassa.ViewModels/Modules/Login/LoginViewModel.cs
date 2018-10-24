@@ -8,11 +8,12 @@ using CompleetKassa.ViewModels.Commands;
 
 namespace CompleetKassa.ViewModels
 {
-    public class LockViewModel : BaseViewModel
+    public class LoginViewModel : BaseViewModel
     {
-        public LockViewModel() : base("Lock", "#1F2E3C", "Icons/lock.png")
+        public LoginViewModel() : base("Lock", "#1F2E3C", "Icons/lock.png")
         {
 
         }
     }
 }
+

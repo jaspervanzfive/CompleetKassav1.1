@@ -180,7 +180,7 @@
     </ProjectReference>
     <ProjectReference Include="..\CompleetKassa.Database.ObjectMapper\CompleetKassa.Database.ObjectMapper.csproj">
       <Project>{048FB41D-0043-4EA3-814B-682951586D2A}</Project>
-      <Name>CompleetKassa.ObjectMap</Name>
+      <Name>CompleetKassa.Database.ObjectMapper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompleetKassa.ViewModels", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompleetShop.Common", "CompleetShop.Common\CompleetShop.Common.csproj", "{934D8065-9B3A-4B4E-8366-FC6F696EB95A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{23F58029-32A6-437C-8985-89504AF4C490}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main Core", "Main Core", "{23F58029-32A6-437C-8985-89504AF4C490}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{75C87F44-A5A6-4187-95C7-25441B641DCF}"
 EndProject

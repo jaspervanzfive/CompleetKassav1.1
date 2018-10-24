@@ -60,6 +60,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Modules\Lock\LockViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="Modules\Login\LoginViewModel.cs" />
     <Compile Include="ProductsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseViewModel.cs" />

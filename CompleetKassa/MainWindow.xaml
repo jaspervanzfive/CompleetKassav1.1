@@ -31,7 +31,7 @@
     <!--xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"-->
     <Window.Resources>
 
-        <DataTemplate DataType="{x:Type viewModels:SalesViewModel}">
+        <DataTemplate  DataType="{x:Type viewModels:SalesViewModel}">
             <views:SalesView />
         </DataTemplate>
 
@@ -58,6 +58,11 @@
             <views:UsersView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModels:LockViewModel}">
+            <views:LockView/>
+        </DataTemplate>
+
+        
 
 
 
@@ -226,7 +231,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Product" Style="{StaticResource BorderButtonStyle}" Background="#FDAC94">
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Product" Style="{StaticResource BorderButtonStyle}" Background="#FDAC94" BorderThickness="0">
                         <Grid>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Viewbox Margin="30,0,30,0" MaxHeight="40">
@@ -247,7 +252,7 @@
                         </Grid>
                        
                     </Button>
-                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Customer"  Grid.Row="1" Style="{StaticResource BorderButtonStyle}" Background="#F67280">
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Customer"  Grid.Row="1" Style="{StaticResource BorderButtonStyle}" Background="#F67280" BorderThickness="0">
                         <Grid>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Viewbox Margin="30,0,30,0" MaxHeight="40">
@@ -268,7 +273,7 @@
                             </Border>
                         </Grid>
                     </Button>
-                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Transaction"  Grid.Row="2" Style="{StaticResource BorderButtonStyle}" Background="#C06C84">
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Transaction"  Grid.Row="2" Style="{StaticResource BorderButtonStyle}" Background="#C06C84" BorderThickness="0">
 
                         <Grid>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -290,7 +295,7 @@
                         </Grid>
                        
                     </Button>
-                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Total"  Grid.Row="3" Style="{StaticResource BorderButtonStyle}" Background="#6C5B7B">
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Total"  Grid.Row="3" Style="{StaticResource BorderButtonStyle}" Background="#6C5B7B" BorderThickness="0">
                         <Grid>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Viewbox Margin="30,0,30,0" MaxHeight="40">
@@ -311,7 +316,7 @@
                         </Grid>
                         
                     </Button>
-                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="User"  Grid.Row="4" Style="{StaticResource BorderButtonStyle}" Background="#355C7D">
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="User"  Grid.Row="4" Style="{StaticResource BorderButtonStyle}" Background="#355C7D" BorderThickness="0">
 
                         <Grid>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -334,7 +339,7 @@
                       
                     </Button>
 
-                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Setting"  Grid.Row="5" Style="{StaticResource BorderButtonStyle}" Background="#254662">
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Setting"  Grid.Row="5" Style="{StaticResource BorderButtonStyle}" Background="#254662" BorderThickness="0">
                         <Grid>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Viewbox Margin="30,0,30,0" MaxHeight="40">
@@ -356,7 +361,7 @@
                       
                     </Button>
 
-                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Support"  Grid.Row="6" Style="{StaticResource BorderButtonStyle}" Background="#1E3B54">
+                    <Button Command="{Binding OnChangePageCommand}" CommandParameter="Support"  Grid.Row="6" Style="{StaticResource BorderButtonStyle}" Background="#1E3B54" BorderThickness="0">
                         <Grid>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Viewbox Margin="30,0,30,0" MaxHeight="40">
@@ -378,7 +383,7 @@
                        
                     </Button>
 
-                    <Button Grid.Row="7" Style="{StaticResource BorderButtonStyle}" Background="#1F2E3C">
+                    <Button Command="{Binding OnLockCommand}" Grid.Row="7" Style="{StaticResource BorderButtonStyle}" Background="#1F2E3C" BorderThickness="0">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Viewbox Margin="30,0,30,0" MaxHeight="40">
                                 <Image Source="Icons/lock.png" Stretch="Uniform" />
@@ -462,370 +467,15 @@
             </StackPanel>
 
         </Grid>
-
-
-        <!-- Lock Page -->
-        <Grid x:Name="LockPage" Visibility="Hidden" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.1*"/>
-                <RowDefinition Height="0.8*"/>
-                <RowDefinition Height="0.1*"/>
-            </Grid.RowDefinitions>
-
-            <Image Grid.Row="1" Source="Icons/LockBackground/BG1.png" Stretch="UniformToFill" ></Image>
-            <Grid Grid.Row="1" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.365*" />
-                    <ColumnDefinition Width="0.27*" />
-                    <ColumnDefinition Width="0.365*" />
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="1" Background="#000" Opacity="0.5">
-
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.3*"/>
-                        <RowDefinition Height="0.7*"/>
-                        <RowDefinition Height="0.3*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Image Grid.Row="1" Source="Icons/compleetlogo.png" HorizontalAlignment="Center" Stretch="Uniform" Margin="10"></Image>
-                    </Grid>
-
-                    <Grid Grid.Row="1" Margin="10,30">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.15*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="0.15*"/>
-
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <Button Style="{StaticResource CircleButton}" Margin="30,5,5,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin1">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content1" Text="1" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black1" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-                                <Button Grid.Column="1" Style="{StaticResource CircleButton}" Margin="18,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin2">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content2" Text="2" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black2" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-                                <Button Grid.Column="2" Style="{StaticResource CircleButton}" Margin="5,5,30,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin3">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content3" Text="3" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black3" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-
-                            </Grid>
-
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <Button Style="{StaticResource CircleButton}" Margin="30,5,5,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin4">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content4" Text="4" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black4" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-                                <Button Grid.Column="1" Style="{StaticResource CircleButton}" Margin="18,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin5">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content5" Text="5" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black5" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-                                <Button Grid.Column="2" Style="{StaticResource CircleButton}" Margin="5,5,30,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin6">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content6" Text="6" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black6" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-
-                            </Grid>
-
-                            <Grid Grid.Row="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <Button Style="{StaticResource CircleButton}" Margin="30,5,5,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin7">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content7" Text="7" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black7" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-                                <Button Grid.Column="1" Style="{StaticResource CircleButton}" Margin="18,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin8">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content8" Text="8" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black8" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-                                <Button Grid.Column="2" Style="{StaticResource CircleButton}" Margin="5,5,30,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin9">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content9" Text="9" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black9" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-
-                            </Grid>
-
-                            <Grid Grid.Row="3">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <Button Style="{StaticResource CircleButton}" Margin="30,5,5,5"  Background="#363838" >
-                                    <Image  Source="Icons/LockBackground/lockcancel.png" Margin="17" MaxHeight="35" MaxWidth="35"/>
-                                </Button>
-
-                                <Button Grid.Column="1" Style="{StaticResource CircleButton}" Margin="18,5" PreviewMouseDown="pinButton_MouseDown" Background="#363838" Name="pin0">
-                                    <Grid>
-                                        <Viewbox>
-                                            <TextBlock Name="content0" Text="0" Foreground="#fff" Margin="0,10" Style="{StaticResource MainFont}" Visibility="Visible"/>
-                                        </Viewbox>
-                                        <Image Name="black0" Source="Icons/LockBackground/EllipseBlack.png" Margin="20" Visibility="Hidden" MaxHeight="25" MaxWidth="25"/>
-                                    </Grid>
-                                </Button>
-
-                                <Button Grid.Column="2" Style="{StaticResource CircleButton}" Margin="5,5,30,5"  PreviewMouseDown="LockOk_MouseDown" Background="#363838">
-                                    <Image  Source="Icons/LockBackground/lockok.png" Margin="17" MaxHeight="35" MaxWidth="35"/>
-                                </Button>
-
-
-                            </Grid>
-
-                        </Grid>
-
-
-
-
-                    </Grid>
-
-                </Grid>
-
-            </Grid>
-            <Grid Grid.Row="0" Background="#000000" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition  />
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,30,0">
-                    <Image Source="Icons/LockBackground/lockperson.png" Stretch="UniformToFill" Margin="20"/>
-                    <Viewbox>
-                        <TextBlock Text="Donaldo Trumpo" Foreground="#808080" Margin="0,20" Style="{StaticResource MainFont}"/>
-                    </Viewbox>
-                </StackPanel>
-
-
-                <Viewbox HorizontalAlignment="Right" Grid.Column="1" >
-                    <TextBlock x:Name="TimeTxt" Foreground="#808080" Margin="10,10,50,10" Style="{StaticResource MainFont}"/>
-                </Viewbox>
-
-            </Grid>
-
-
-            <Grid Grid.Row="2" Background="#000000" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition  />
-                </Grid.ColumnDefinitions>
-                <Viewbox HorizontalAlignment="Left" >
-                    <TextBlock Text="The icestore Greenstreet 18 London" Foreground="#808080" Margin="10" Style="{StaticResource MainFont}"/>
-                </Viewbox>
-
-                <Viewbox HorizontalAlignment="Right" Grid.Column="1" >
-                    <TextBlock Text="Forgot Passcode?" Foreground="#808080" Margin="10,10,50,10" Style="{StaticResource MainFont}"/>
-                </Viewbox>
-
-            </Grid>
+        
+        
+        
+        <!-- Container for Login and Lock-->
+        <Grid>
+            <ContentControl Margin="0" Content="{Binding MainPageViewModel}" BorderThickness="0" />
         </Grid>
 
 
-        <!--Login Page-->
-        <Grid x:Name="LoginPage" Visibility="Hidden">
-            <Image Source="Icons/LoginBG.png" Stretch="Fill"></Image>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.37*"/>
-                    <ColumnDefinition Width="0.25*"/>
-                    <ColumnDefinition Width="0.37*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.4*"/>
-                        <RowDefinition  Height="0.5*"/>
-                        <RowDefinition  Height="0.4*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.35*" MaxHeight="110"/>
-                            <RowDefinition Height="0.65*" MaxHeight="195"/>
-                        </Grid.RowDefinitions>
-
-
-
-                        <Border Grid.Row="0" CornerRadius="5,5,0,0" Background="#363838" Margin="35,0" MaxHeight="110" MaxWidth="290">
-                            <Image Source="Icons/compleetlogo.png" Stretch="Uniform" Margin="20"/>
-
-
-
-                        </Border>
-
-                        <Border x:Name="LoginBorder" Grid.Row="1" CornerRadius="0,0,5,5" Background="#51849E" Margin="35,0"  MaxWidth="290" MaxHeight="195">
-                            <StackPanel Margin="5" Orientation="Vertical">
-                                <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,15" Height="30" MaxHeight="30"  >
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="Icons/man-user.png" Stretch="Uniform" Margin="5"></Image>
-                                        <TextBox Width="170" Margin="2,5" Background="Transparent" BorderBrush="Transparent"/>
-                                    </StackPanel>
-
-                                </Border>
-
-                                <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,-5" Height="30" MaxHeight="30"  >
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="Icons/locked-padlock.png" Stretch="Uniform" Margin="5"></Image>
-                                        <PasswordBox Width="170" Margin="2,5" Background="Transparent"  />
-                                    </StackPanel>
-                                </Border>
-
-                                <Border CornerRadius="4" Background="#6CAFBD" Margin="30,15" Height="30" MaxHeight="30" MouseDown="Login_MouseDown">
-
-                                    <TextBlock FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Text="LOGIN" Foreground="#fff" Style="{StaticResource MainFont}" ></TextBlock>
-                                </Border>
-
-                                <TextBlock FontSize="12" HorizontalAlignment="Center" Opacity="0.7" VerticalAlignment="Center" Text="Password vergeten?" Foreground="#fff" Style="{StaticResource MainFont}" Margin="0,5" MouseDown="PasswordForgotten_Event"/>
-
-                            </StackPanel>
-
-                        </Border>
-
-                        <Border x:Name="EmailBorder" Visibility="Hidden" Grid.Row="1" CornerRadius="0,0,5,5" Background="#51849E" Margin="35,0"  MaxWidth="290" MaxHeight="195" >
-                            <StackPanel Margin="0" Orientation="Vertical">
-                                <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,25" Height="30" MaxHeight="30"  >
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="Icons/envelope.png" Stretch="Uniform" Margin="5"></Image>
-                                        <TextBox Width="170" Margin="2,5" Background="Transparent" BorderBrush="Transparent" ToolTip="Email"/>
-                                    </StackPanel>
-
-                                </Border>
-                                <Border CornerRadius="4" Background="#6CAFBD" Margin="30,5" Height="30" MaxHeight="30" MouseDown="RevealPassPage">
-
-                                    <TextBlock FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Text="RESET PASSWORD" Foreground="#fff" Style="{StaticResource MainFont}" ></TextBlock>
-                                </Border>
-
-                                <TextBlock FontSize="12" HorizontalAlignment="Center" Opacity="0.7" VerticalAlignment="Center" Text=" &lt; Terug naar LOGIN" Foreground="#fff" Style="{StaticResource MainFont}" Margin="0,25" MouseDown="BacktoLogin_MouseDown"/>
-
-                            </StackPanel>
-
-                        </Border>
-
-
-
-                    </Grid>
-
-                    <!--Special Question-->
-                    <Grid x:Name="SecretQuestionPage"  Visibility="Hidden" Grid.Row="2" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.7*"/>
-                            <RowDefinition  Height="0.4*"/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0" CornerRadius="5,5,5,5" Background="#497D91" Margin="35,5" MaxHeight="120" MaxWidth="290">
-                            <StackPanel Margin="5" Orientation="Vertical">
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="What was your first pet name?" FontSize="12" Foreground="White" Style="{StaticResource MainFont}" Margin="0,10"/>
-
-                                <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,0" Height="30" MaxHeight="30"  >
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox Width="170" Margin="2,5" Background="Transparent" BorderBrush="Transparent"/>
-                                    </StackPanel>
-                                </Border>
-                                <Border CornerRadius="4" Background="#363838" Margin="30,5" Height="30" MaxHeight="30" MouseDown="RevealPassEvent" >
-
-                                    <TextBlock FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Text="RESET PASSWORD" Foreground="#fff" Style="{StaticResource MainFont}" ></TextBlock>
-                                </Border>
-
-                            </StackPanel>
-                        </Border>
-
-                        <Border x:Name="RevealPasswordPage" Visibility="Hidden" Grid.Row="0" CornerRadius="5,5,5,5" Background="#497D91" Margin="35,5" MaxHeight="120" MaxWidth="290">
-                            <StackPanel Margin="5" Orientation="Vertical">
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Your password is:" FontSize="12" Foreground="White" Style="{StaticResource MainFont}" Margin="0,10"/>
-
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="19971105" FontSize="18" Foreground="White" Style="{StaticResource MainFont}" Margin="0,5"/>
-                                <Border CornerRadius="4" Background="#363838" Margin="30,5" Height="30" MaxHeight="30" MouseDown="BacktoLogin_MouseDown" >
-
-                                    <TextBlock FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Text="BACK TO LOGIN" Foreground="#fff" Style="{StaticResource MainFont}" ></TextBlock>
-                                </Border>
-
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-
-
-                </Grid>
-            </Grid>
-        </Grid>
-
-        <!--<Frame x:Name="FirstPage" NavigationUIVisibility="Hidden" Visibility="Visible"/>-->
+       
     </Grid>
 </Window>

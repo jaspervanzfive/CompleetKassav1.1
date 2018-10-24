@@ -6,11 +6,132 @@
              xmlns:local="clr-namespace:CompleetKassa.Views"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1366">
-    <Grid>
-        <Image Source="Images/LoginBG.png" Stretch="Fill"></Image>
-        <Button Content="Button" HorizontalAlignment="Left" Height="90" Margin="584,452,0,0" VerticalAlignment="Top" Width="240" Click="Button_Click"/>
+    
+    
+    
+    <Grid x:Name="LoginPage">
+        <Image Source="pack://application:,,,/CompleetKassa;component/Icons/LoginBG.png" Stretch="Fill"></Image>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.37*"/>
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="0.37*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition  Height="0.5*"/>
+                    <RowDefinition  Height="0.4*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.35*" MaxHeight="110"/>
+                        <RowDefinition Height="0.65*" MaxHeight="195"/>
+                    </Grid.RowDefinitions>
 
 
 
+                    <Border Grid.Row="0" CornerRadius="5,5,0,0" Background="#363838" Margin="35,0" MaxHeight="110" MaxWidth="290">
+                        <Image Source="pack://application:,,,/CompleetKassa;component/Icons/compleetlogo.png" Stretch="Uniform" Margin="20"/>
+
+
+
+                    </Border>
+
+                    <Border x:Name="LoginBorder" Grid.Row="1" CornerRadius="0,0,5,5" Background="#51849E" Margin="35,0"  MaxWidth="290" MaxHeight="195">
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,15" Height="30" MaxHeight="30"  >
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="pack://application:,,,/CompleetKassa;component/Icons/man-user.png" Stretch="Uniform" Margin="5"></Image>
+                                    <TextBox Width="170" Margin="2,5" Background="Transparent" BorderBrush="Transparent"/>
+                                </StackPanel>
+
+                            </Border>
+
+                            <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,-5" Height="30" MaxHeight="30"  >
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="pack://application:,,,/CompleetKassa;component/Icons/locked-padlock.png" Stretch="Uniform" Margin="5"></Image>
+                                    <PasswordBox Width="170" Margin="2,5" Background="Transparent"  />
+                                </StackPanel>
+                            </Border>
+
+                            <Border CornerRadius="4" Background="#6CAFBD" Margin="30,15" Height="30" MaxHeight="30" MouseDown="Login_MouseDown">
+
+                                <TextBlock FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Text="LOGIN" Foreground="#fff" Style="{StaticResource FontBold}" ></TextBlock>
+                            </Border>
+
+                            <TextBlock FontSize="12" HorizontalAlignment="Center" Opacity="0.7" VerticalAlignment="Center" Text="Password vergeten?" Foreground="#fff" Style="{StaticResource FontBold}" Margin="0,5" MouseDown="PasswordForgotten_Event"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+                    <Border x:Name="EmailBorder" Visibility="Hidden" Grid.Row="1" CornerRadius="0,0,5,5" Background="#51849E" Margin="35,0"  MaxWidth="290" MaxHeight="195" >
+                        <StackPanel Margin="0" Orientation="Vertical">
+                            <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,25" Height="30" MaxHeight="30"  >
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="pack://application:,,,/CompleetKassa;component/Icons/envelope.png" Stretch="Uniform" Margin="5"></Image>
+                                    <TextBox Width="170" Margin="2,5" Background="Transparent" BorderBrush="Transparent" ToolTip="Email"/>
+                                </StackPanel>
+
+                            </Border>
+                            <Border CornerRadius="4" Background="#6CAFBD" Margin="30,5" Height="30" MaxHeight="30" MouseDown="RevealPassPage">
+
+                                <TextBlock FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Text="RESET PASSWORD" Foreground="#fff" Style="{StaticResource FontBold}" ></TextBlock>
+                            </Border>
+
+                            <TextBlock FontSize="12" HorizontalAlignment="Center" Opacity="0.7" VerticalAlignment="Center" Text=" &lt; Terug naar LOGIN" Foreground="#fff" Style="{StaticResource FontBold}" Margin="0,25" MouseDown="BacktoLogin_MouseDown"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+
+
+                </Grid>
+
+                <!--Special Question-->
+                <Grid x:Name="SecretQuestionPage"  Visibility="Hidden" Grid.Row="2" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.7*"/>
+                        <RowDefinition  Height="0.4*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" CornerRadius="5,5,5,5" Background="#497D91" Margin="35,5" MaxHeight="120" MaxWidth="290">
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="What was your first pet name?" FontSize="12" Foreground="White" Style="{StaticResource FontBold}" Margin="0,10"/>
+
+                            <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,0" Height="30" MaxHeight="30"  >
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Width="170" Margin="2,5" Background="Transparent" BorderBrush="Transparent"/>
+                                </StackPanel>
+                            </Border>
+                            <Border CornerRadius="4" Background="#363838" Margin="30,5" Height="30" MaxHeight="30" MouseDown="RevealPassEvent" >
+
+                                <TextBlock FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Text="RESET PASSWORD" Foreground="#fff" Style="{StaticResource FontBold}" ></TextBlock>
+                            </Border>
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="RevealPasswordPage" Visibility="Hidden" Grid.Row="0" CornerRadius="5,5,5,5" Background="#497D91" Margin="35,5" MaxHeight="120" MaxWidth="290">
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Your password is:" FontSize="12" Foreground="White" Style="{StaticResource FontBold}" Margin="0,10"/>
+
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="19971105" FontSize="18" Foreground="White" Style="{StaticResource FontBold}" Margin="0,5"/>
+                            <Border CornerRadius="4" Background="#363838" Margin="30,5" Height="30" MaxHeight="30" MouseDown="BacktoLogin_MouseDown" >
+
+                                <TextBlock FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Text="BACK TO LOGIN" Foreground="#fff" Style="{StaticResource FontBold}" ></TextBlock>
+                            </Border>
+
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

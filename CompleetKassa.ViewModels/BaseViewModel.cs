@@ -31,8 +31,9 @@ namespace CompleetKassa.ViewModels
 		}
 
 		public ICommand OnClosePageCommand { get; set; }
+        public ICommand OnClose { get; set; }
 
-		public string Name { get; set; }
+        public string Name { get; set; }
         public string Color { get; set; }
 
         public string ImageLoc{ get; set; }

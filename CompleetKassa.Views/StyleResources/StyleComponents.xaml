@@ -68,7 +68,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid >
-                        <Border Background="{TemplateBinding Background}" x:Name="elipse" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0"/>
+                        <Border Background="{TemplateBinding Background}" x:Name="elipse" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
 
                         <Grid RenderTransformOrigin="0.5,0.5" x:Name="RootGrid">
                             <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
@@ -172,5 +172,31 @@
             </EventTrigger>
         </Style.Triggers>
     </Style>
+
+
+    <Style TargetType="{x:Type Button}" x:Key="CircleButtonLock">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="#363838" />
+        <Setter Property="Opacity"  Value="0.6"/>
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}" x:Name="elipse"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <!--<ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background"  Value="Red"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>-->
+
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
 </ResourceDictionary>

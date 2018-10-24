@@ -1206,12 +1206,12 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="1">
+                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="1">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="1" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
                                 </Button>
-                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="2">
+                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="2">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="2" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
@@ -1222,12 +1222,12 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="4">
+                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="4">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="4" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
                                 </Button>
-                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="6">
+                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="6">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="5" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
@@ -1240,12 +1240,12 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="7">
+                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="7">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="7" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
                                 </Button>
-                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="8">
+                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="8">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="8" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
@@ -1257,12 +1257,12 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="00">
+                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="00">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="00" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
                                 </Button>
-                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="0">
+                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="0">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="0" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
@@ -1302,12 +1302,12 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="3">
+                                <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="3">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="3" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
                                 </Button>
-                                <Button Command="{Binding OnNumpadBackspace}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="#EFEFEF" BorderBrush="#B0BDC9" BorderThickness="2">
+                                <Button Command="{Binding OnNumpadBackspace}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="#EFEFEF" BorderBrush="#B0BDC9" BorderThickness="1">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <Image Source="ViewIcons/backspace.png" Margin="25"/>
                                     </Viewbox>
@@ -1327,12 +1327,12 @@
                                         <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <Button Command="{Binding OnNumpadNumPressed}" Grid.Row="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="6">
+                                    <Button Command="{Binding OnNumpadNumPressed}" Grid.Row="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="6">
                                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                             <TextBlock  Text="6" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                         </Viewbox>
                                     </Button>
-                                    <Button Command="{Binding OnNumpadNumPressed}" Grid.Row="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="9">
+                                    <Button Command="{Binding OnNumpadNumPressed}" Grid.Row="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="9">
                                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                             <TextBlock  Text="9" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                         </Viewbox>
@@ -1340,7 +1340,7 @@
 
                                 </Grid>
 
-                                <Button Command="{Binding OnNumpadCleared}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="#EFEFEF" BorderBrush="#B0BDC9" BorderThickness="2" CommandParameter="6">
+                                <Button Command="{Binding OnNumpadCleared}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="#EFEFEF" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="6">
                                     <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                         <TextBlock  Text="C" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                     </Viewbox>
@@ -1351,7 +1351,7 @@
                             </Grid>
 
 
-                            <Button Command="{Binding OnNumpadPurchased}" Grid.Row="4" Style="{StaticResource BorderButtonStyle}" BorderBrush="#B0BDC9" BorderThickness="2" Background="#EFEFEF">
+                            <Button Command="{Binding OnNumpadPurchased}" Grid.Row="4" Style="{StaticResource BorderButtonStyle}" BorderBrush="#B0BDC9" BorderThickness="1" Background="#EFEFEF">
                                 <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
                                     <TextBlock  Text="Add this" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
                                 </Viewbox>
@@ -1368,7 +1368,7 @@
                     </Grid>
 
                     <Grid Grid.Row="1">
-                        <ListBox HorizontalContentAlignment="Stretch"  ItemsSource="{Binding Categories}" Background="{StaticResource Background}" Margin="0,5" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ScrollViewer.VerticalScrollBarVisibility="Disabled" >
+                        <!--<ListBox HorizontalContentAlignment="Stretch"  ItemsSource="{Binding Categories}" Background="{StaticResource Background}" Margin="0,5" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ScrollViewer.VerticalScrollBarVisibility="Disabled" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
@@ -1382,7 +1382,7 @@
                                         <DataTrigger Value="True" Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}">
 
                                             <Setter TargetName="border" Property="Background" Value="#19232D"/>
-                                            <!--<Setter TargetName="selectedTriangle" Property="Visibility" Value="Visible"/>-->
+                                            --><!--<Setter TargetName="selectedTriangle" Property="Visibility" Value="Visible"/>--><!--
                                         </DataTrigger>
 
                                     </DataTemplate.Triggers>
@@ -1395,7 +1395,7 @@
                             </ListBox.ItemsPanel>
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
-                                    <!--<Setter Property="HorizontalContentAlignment" Value="Stretch"/>-->
+                                    --><!--<Setter Property="HorizontalContentAlignment" Value="Stretch"/>--><!--
 
                                     <Setter Property="Padding" Value="3,0"/>
                                     <Setter Property="Template" Value="{StaticResource SelectedItem}"/>
@@ -1403,7 +1403,7 @@
 
                                 </Style>
                             </ListBox.ItemContainerStyle>
-                        </ListBox>
+                        </ListBox>-->
 
                     </Grid>
 
