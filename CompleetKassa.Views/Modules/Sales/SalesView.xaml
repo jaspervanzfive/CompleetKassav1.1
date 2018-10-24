@@ -429,11 +429,11 @@
 
                                     </Border>
 
-                                    <Button  x:Name="selectMulti2"  Background="{Binding SelectionColor}" Style="{StaticResource CircleButton}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp" >
+                                    <Button  x:Name="selectMulti2"  Background="{Binding SelectionColor}" Style="{StaticResource CircleButton}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" StylusUp="DeleteButton_StylusUp" StylusDown="DeleteButton_StylusDown"   >
                                         <Image Source="ViewIcons/select.png" Stretch="Uniform" Margin="6"/>
                                     </Button>
 
-                                    <Button  x:Name="ButtonQuantitySelection" Grid.Column="2" Style="{StaticResource CircleButton}"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" Background="#999999" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp">
+                                    <Button  x:Name="ButtonQuantitySelection" Grid.Column="2" Style="{StaticResource CircleButton}"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize2, Path=ActualHeight}" Width="{Binding ElementName=circleSize2, Path=ActualWidth}" Background="#999999" StylusUp="DeleteButton_StylusUp" StylusDown="DeleteButton_StylusDown"  >
                                         <Viewbox Margin="5">
                                             <TextBlock Text="{Binding QuantitySelectOption}" Foreground="White"/>
                                         </Viewbox>
@@ -497,7 +497,7 @@
                                     </Border>
 
 
-                                    <Button  x:Name="selectMulti1"  Background="{Binding SelectionColor}" Style="{StaticResource CircleButton}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize, Path=ActualHeight}" Width="{Binding ElementName=circleSize, Path=ActualWidth}" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp" >
+                                    <Button  x:Name="selectMulti1"  Background="{Binding SelectionColor}" Style="{StaticResource CircleButton}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding ElementName=circleSize, Path=ActualHeight}" Width="{Binding ElementName=circleSize, Path=ActualWidth}" StylusUp="DeleteButton_StylusUp" StylusDown="DeleteButton_StylusDown" >
                                         <Image Source="ViewIcons/select.png" Stretch="Uniform" Margin="6"/>
                                     </Button>
 
@@ -982,7 +982,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="DeleteButton" Grid.Row="1" Style="{StaticResource ReceiptSideButtons2}" Background="#F67280"  Margin="0,5,5,5" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp" >
+                        <Button x:Name="DeleteButton" Grid.Row="1" Style="{StaticResource ReceiptSideButtons2}" Background="#F67280"  Margin="0,5,5,5" StylusUp="DeleteButton_StylusUp" StylusDown="DeleteButton_StylusDown" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp">
                             <Image Source="ViewIcons/delete2.png" Stretch="Uniform" Margin="10,10,15,10"/>
 
                         </Button>
