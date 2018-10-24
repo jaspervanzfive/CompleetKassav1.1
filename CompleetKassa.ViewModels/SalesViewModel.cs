@@ -358,20 +358,25 @@ namespace CompleetKassa.ViewModels
         #region Delete Methods
         private void DeleteOpen(object item)
         {
-            int purchaseItem = _purchasedProducts.Count();
-            if (DeleteVisibility == Visibility.Hidden && purchaseItem >= 1)
+            string objectvalue = item as string;
+
+
+            if (objectvalue.Equals("Open"))
             {
-                DeleteVisibility = Visibility.Visible;
-                sounds.Press();
+                int purchaseItem = _purchasedProducts.Count();
+                if (DeleteVisibility == Visibility.Hidden && purchaseItem >= 1)
+                {
+                    DeleteVisibility = Visibility.Visible;
+                    sounds.Press();
+                }
+                else if (DeleteVisibility == Visibility.Hidden && purchaseItem < 1)
+                {
+                    sounds.Error();
+                }
             }
-            else if (DeleteVisibility == Visibility.Hidden && purchaseItem < 1)
-            {
-                sounds.Error();
-            }
-            else
+
+            else if(objectvalue.Equals("Close"))
                 DeleteVisibility = Visibility.Hidden;
-
-
 
         }
         private void DeleteWholeOrder(object item)
@@ -661,8 +666,13 @@ namespace CompleetKassa.ViewModels
 
         private void SelectQuantityOptionLongPress(object obj)
         {
-            if (QuantitySelectionVisibility == Visibility.Collapsed)
-                QuantitySelectionVisibility = Visibility.Visible;
+            string object_value = obj as string;
+
+            if (object_value.Equals("Open"))
+            {
+                if (QuantitySelectionVisibility == Visibility.Collapsed)
+                    QuantitySelectionVisibility = Visibility.Visible;
+            }
             else
                 QuantitySelectionVisibility = Visibility.Collapsed;
 

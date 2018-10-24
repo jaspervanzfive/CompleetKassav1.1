@@ -329,7 +329,7 @@
                 <TextBlock Foreground="#fff" Text="compleetshop" x:Name="Compleet" FontFamily="Open Sans Semibold" Margin="0,5"></TextBlock>
             </Viewbox>
             <Button x:Name="ButtonDelete" Command="{Binding OnDeleteProducts}"  HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
-            <Button x:Name="ButtonOpenDelete" Command="{Binding OnDeleteOpen}"  HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
+            <Button x:Name="ButtonOpenDelete" Command="{Binding OnDeleteOpen}" CommandParameter="Open" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
 
             <Button x:Name="ButtonSelectMultiple" Command="{Binding OnPurchaseSelectMultiple}" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
 
@@ -337,7 +337,7 @@
 
             <Button  Content="Check" Command="{Binding OnSetDollarDiscount}" HorizontalAlignment="Left" Height="17" Margin="254,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
             <Button x:Name="ButtonQuantityClick" Command="{Binding  OnSelectQuantityOption}" CommandParameter="{Binding QuantitySelectOption}" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
-            <Button x:Name="ButtonQuantityLongPress" Command="{Binding OnSelectQuantityOptionLongPress}" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
+            <Button x:Name="ButtonQuantityLongPress" Command="{Binding OnSelectQuantityOptionLongPress}" CommandParameter="Open" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
         </Grid>
 
         <!--Page-->
@@ -821,7 +821,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Viewbox>
-                                    <Button Command="{Binding OnDeleteWholeOrder}" Margin="10"  Grid.Column="0" Style="{StaticResource ButtonSubmit}"/>
+                                    <Button Command="{Binding OnDeleteWholeOrder}" CommandParameter="Close" Margin="10"  Grid.Column="0" Style="{StaticResource ButtonSubmit}"/>
                                 </Viewbox>
 
 
@@ -831,7 +831,7 @@
                                 </Viewbox>
 
                                 <Viewbox Grid.Column="2">
-                                    <Button Command="{Binding OnDeleteOpen}"  Margin="10"   Style="{StaticResource ButtonCancel}"/>
+                                    <Button Command="{Binding OnDeleteOpen}" CommandParameter="Close"  Margin="10"   Style="{StaticResource ButtonCancel}"/>
                                 </Viewbox>
 
 
@@ -982,7 +982,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="DeleteButton" Grid.Row="1" Style="{StaticResource ReceiptSideButtons2}" Background="#F67280"  Margin="0,5,5,5" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp">
+                        <Button x:Name="DeleteButton" Grid.Row="1" Style="{StaticResource ReceiptSideButtons2}" Background="#F67280"  Margin="0,5,5,5" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" TouchDown="Button_TouchDown" TouchUp="Button_TouchUp" >
                             <Image Source="ViewIcons/delete2.png" Stretch="Uniform" Margin="10,10,15,10"/>
 
                         </Button>
