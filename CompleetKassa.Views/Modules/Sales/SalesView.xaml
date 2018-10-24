@@ -732,7 +732,7 @@
                                             </TextBlock>
 
                                             <!-- Discount -->
-                                            <TextBlock Text="Discount 10%" Style="{StaticResource ReceiptFont}" Padding="10,3,3,0"  Foreground="#F56C7B" Visibility="{Binding DiscountVisibility}"/>
+                                            <TextBlock Text="{Binding DiscountText}" Style="{StaticResource ReceiptFont}" Padding="10,3,3,0"  Foreground="#F56C7B" Visibility="{Binding DiscountVisibility}"/>
 
 
                                         </StackPanel>

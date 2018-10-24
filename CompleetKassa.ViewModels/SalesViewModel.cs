@@ -153,20 +153,37 @@ namespace CompleetKassa.ViewModels
                     _selectedPurchasedProduct = value;
 
                     QuantityPop = _selectedPurchasedProduct.Quantity;
-                    DiscountDollar = _selectedPurchasedProduct.Discount;
 
-                    if (_selectedPurchasedProduct.DiscountOption == ProductDiscountOptions.Percent)
-                        DiscountImagePath = DiscountImagePath;
-                    else if (_selectedPurchasedProduct.DiscountOption == ProductDiscountOptions.Dollar)
+
+                  
+
+
+                    if (_selectedPurchasedProduct.DiscountOption == "Percent")
+                    {
                         DiscountImagePath = DollarSignPath;
-
-
-                    decimal Calculation = (_selectedPurchasedProduct.Discount / _selectedPurchasedProduct.Price) * 100;
-
-                    DiscountPercentage = (int)Calculation;
-
-             
+                        DiscountPercentText = Visibility.Visible;
+                        DiscountDollarText = Visibility.Hidden;
+                    }
                    
+                    else if (_selectedPurchasedProduct.DiscountOption == "Dollar")
+                    {
+                        DiscountImagePath = DiscountImagePath;
+                        DiscountPercentText = Visibility.Hidden;
+                        DiscountDollarText = Visibility.Visible; 
+                    }
+                       
+
+
+                    DiscountDollar = _selectedPurchasedProduct.Discount;
+                    DiscountPercentage = _selectedPurchasedProduct.DiscountPercentage;
+
+
+                    //decimal Calculation = (_selectedPurchasedProduct.Discount / _selectedPurchasedProduct.Price) * 100;
+
+                    // DiscountPercentage = (int)Calculation;
+
+
+
                 }
                 
              
@@ -318,24 +335,24 @@ namespace CompleetKassa.ViewModels
             OnPurchaseSelectAll = new BaseCommand(SelectAllPurchased);
 
 
-            OnSetDollarDiscount = new BaseCommand(SetDollarDiscount);
+           // OnSetDollarDiscount = new BaseCommand(SetDollarDiscount);
 
         }
 
-        private void SetDollarDiscount(object obj)
-        {
-            var selectedItems = _purchasedProducts.Where(x => x.IsSelected).ToList(); ;
-            foreach (var item in selectedItems)
-            {
-                item.DiscountOption = ProductDiscountOptions.Dollar;
-            }
+        //private void SetDollarDiscount(object obj)
+        //{
+        //    var selectedItems = _purchasedProducts.Where(x => x.IsSelected).ToList(); ;
+        //    foreach (var item in selectedItems)
+        //    {
+        //        item.DiscountOption = ProductDiscountOptions.Dollar;
+        //    }
 
-            foreach (var item in selectedItems)
-            {
-                Console.WriteLine(item.DiscountOption);
-            }
+        //    foreach (var item in selectedItems)
+        //    {
+        //        Console.WriteLine(item.DiscountOption);
+        //    }
 
-        }
+        //}
 
 
         #region Delete Methods
@@ -451,15 +468,29 @@ namespace CompleetKassa.ViewModels
         }
         private void ApplyDiscountedProduct(SelectedProductViewModel product, string option)
         {
+           
 
             if (option == "Dollar")
             {
+                Console.WriteLine("Sales "+option);
+
+               
+                product.DiscountOption = "Dollar";
                 product.Discount = DiscountDollar;
             }
             else if (option == "Percent")
             {
-                product.Discount = product.Price * (Convert.ToDecimal(DiscountPercentage) / 100.0m);
+                Console.WriteLine("Sales " + option);
+
+   
+                product.DiscountOption = "Percent";
+                product.DiscountPercentage = DiscountPercentage;
+
+             
+
+
             }
+            product.ComputeSubTotal();
 
             CurrentPurchase.ComputeTotal();
         }
@@ -1124,15 +1155,22 @@ namespace CompleetKassa.ViewModels
       
         private void DeleteProducts(object obj)
         {
-      
-            var selectedItems = _purchasedProducts.Where(x => x.IsSelected).ToList();
-            foreach (var item in selectedItems)
-            {
-                PurchasedProducts.Remove(item);
-            }
+            int selectedCount = _purchasedProducts.Where(x => x.IsSelected).Count();
 
-            CurrentPurchase.ComputeTotal();
-            sounds.Delete();
+
+            if (selectedCount>0)
+            {
+                var selectedItems = _purchasedProducts.Where(x => x.IsSelected).ToList();
+                foreach (var item in selectedItems)
+                {
+                    PurchasedProducts.Remove(item);
+                }
+
+                CurrentPurchase.ComputeTotal();
+                sounds.Delete();
+            }
+            else
+                sounds.Error();
 
         }
 

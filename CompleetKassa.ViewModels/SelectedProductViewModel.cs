@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using CompleetKassa.DataTypes.Enumerations;
 
@@ -13,8 +14,8 @@ namespace CompleetKassa.ViewModels
       
 
 
-		private ProductDiscountOptions _discountOption;
-		public ProductDiscountOptions DiscountOption
+		private string _discountOption;
+		public string DiscountOption
 		{
 			get
 			{
@@ -65,9 +66,34 @@ namespace CompleetKassa.ViewModels
             set
             {
                 SetProperty(ref _discount, value);
-                ComputeSubTotal();
+               // ComputeSubTotal();
             }
         }
+
+        private int _discountPercentage;
+        public int DiscountPercentage
+        {
+            get { return _discountPercentage; }
+
+            set
+            {
+
+                SetProperty(ref _discountPercentage, value);
+             //   ComputeSubTotal();
+            }
+        }
+
+
+        private string _discountText = "";
+        public string DiscountText
+        {
+            get { return _discountText; }
+            set
+            {
+                SetProperty(ref _discountText, value);
+            }
+        }
+
 
         private bool _isSelected;
 
@@ -79,23 +105,30 @@ namespace CompleetKassa.ViewModels
  
         public SelectedProductViewModel() : base(string.Empty, string.Empty, string.Empty)
         {
+            DiscountOption = string.Empty;
             ID = 0;
             Name = string.Empty;
             Price = 0.0m;
             Quantity = 0;
             Discount = 0.0m;
+            DiscountPercentage = 0;
 
             IsSelected = false;
             DiscountVisibility = Visibility.Collapsed;
+        
+         
+
         }
 
-		public void ComputeSubTotal()
+        public void ComputeSubTotal()
         {
+            ComputeDiscount();
 
-            ShowDiscount();
+
 
             OrigTotal = Price * Quantity;
 
+            
             SubTotal = OrigTotal - Discount;
 
 
@@ -112,15 +145,33 @@ namespace CompleetKassa.ViewModels
             }
         }
 
-        public void ComputeeDiscount()
+        public void ComputeDiscount()
         {
-            if (DiscountOption == ProductDiscountOptions.Dollar) return;
-            //    Discount=
+             
+           
+
+            if (DiscountOption == "Dollar")
+            {
+                Discount = Discount;
+
+                DiscountText = "Discount Dollar";
+            }
+            else if (DiscountOption == "Percent")
+            {
+
+                Discount = (Price * Quantity) * (Convert.ToDecimal(DiscountPercentage) / 100.0m);
+                DiscountText = "Discount " + DiscountPercentage.ToString()+"%";
+            }
+         
+
+            ShowDiscount();
+
+
         }
 
         public void ShowDiscount()
         {
-            if (Discount > 0)
+            if (Discount > 0 || DiscountPercentage>0)
                 DiscountVisibility = Visibility.Visible;
             else
                 DiscountVisibility = Visibility.Collapsed;
