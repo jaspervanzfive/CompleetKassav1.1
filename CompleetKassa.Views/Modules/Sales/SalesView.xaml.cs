@@ -23,12 +23,10 @@ namespace CompleetKassa.Views
             dt = new DispatcherTimer();
             dt.Interval = TimeSpan.FromSeconds(1);
             dt.Tick += dtTicker;
+
+ 
         }
 
-        private void UserControl_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
-        {
-          
-        }
 
         private void Quantity_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -41,7 +39,8 @@ namespace CompleetKassa.Views
 
         private void UserControl_SizeChanged_1(object sender, SizeChangedEventArgs e)
         {
-      
+            Console.WriteLine(col1.ActualWidth + " " + col2.ActualWidth);
+
         }
 
 
@@ -135,6 +134,11 @@ namespace CompleetKassa.Views
 
 
             }
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

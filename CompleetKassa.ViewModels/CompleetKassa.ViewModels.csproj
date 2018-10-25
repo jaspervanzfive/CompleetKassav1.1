@@ -61,6 +61,7 @@
     <Compile Include="Modules\Lock\LockViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Modules\Login\LoginViewModel.cs" />
+    <Compile Include="Modules\Sales\SalesPayPageViewModel.cs" />
     <Compile Include="ProductsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseViewModel.cs" />
@@ -100,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modules\Products\" />
-    <Folder Include="Modules\Sales\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\sumi_black.jpg">

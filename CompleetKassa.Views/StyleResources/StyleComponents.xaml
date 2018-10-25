@@ -109,9 +109,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border  CornerRadius="50" Background="#0193C6">
+                    <Border  CornerRadius="50"  Background="{TemplateBinding Background}">
                         <Grid>
-                            <Image RenderTransformOrigin="0.5,0.5" x:Name="RootGrid"  Source="pack://application:,,,/CompleetKassa.Views;component/Modules/Sales/ViewIcons/check.png" Stretch="Uniform" Margin="6"/>
+                            <Image RenderTransformOrigin="0.5,0.5" x:Name="RootGrid"  Source="pack://application:,,,/CompleetKassa.Views;component/Modules/Sales/ViewIcons/check.png" Stretch="Uniform" Margin="{TemplateBinding Padding}"/>
                             <ContentPresenter  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
                         </Grid>
@@ -144,9 +144,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border  CornerRadius="50" Background="#C06C84">
+                    <Border  CornerRadius="50" Background="{TemplateBinding Background}">
                         <Grid>
-                            <Image RenderTransformOrigin="0.5,0.5" x:Name="RootGrid"  Source="pack://application:,,,/CompleetKassa.Views;component/Modules/Sales/ViewIcons/cancel.png" Stretch="Uniform" Margin="10"/>
+                            <Image RenderTransformOrigin="0.5,0.5" Margin="{TemplateBinding Padding}" x:Name="RootGrid"  Source="pack://application:,,,/CompleetKassa.Views;component/Modules/Sales/ViewIcons/cancel.png" Stretch="Uniform" />
                             <ContentPresenter  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
                         </Grid>

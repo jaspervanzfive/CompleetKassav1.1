@@ -14,8 +14,7 @@
         Height="768"
         Width="1366"
         Icon="Icons/compleet.ico"
-        
-        
+       
         MinHeight="768"
         MinWidth="1366" SizeChanged="Window_SizeChanged"
         >
@@ -63,6 +62,10 @@
         </DataTemplate>
 
         
+        <!--Sales Pages-->
+        <DataTemplate  DataType="{x:Type viewModels:SalesPayPageViewModel}">
+            <views:SalesPayPage />
+        </DataTemplate>
 
 
 

@@ -80,6 +80,7 @@ namespace CompleetKassa.ViewModels
                 _selectedCategory = value;
                 CategoryFilter = value.Name;
                 SetSubCategories(value.Name);
+               
             }
         }
 
@@ -239,19 +240,27 @@ namespace CompleetKassa.ViewModels
         public ICommand OnDeleteOpen { get; private set; }
         public ICommand OnDeleteWholeOrder { get; private set; }
         public ICommand OnPurchaseSelectAll { get; private set; }
-
-
-
         public ICommand OnSetDollarDiscount { get; private set; }
 
+        //PayScreen Commands
+        public ICommand OnInitialPay { get; private set; }
+        public ICommand OnClosePayScreen { get; private set; }
         #endregion
+
+
+
 
         public SalesViewModel() : base ("Sales", "#FDAC94","Icons/product.png")
 		{
+           
+
+
+
             //PurchasedItems = new ObservableCollection<PurchasedProductViewModel>();
             _categories = new ObservableCollection<ProductCategoryModel>();
             _purchasedProducts = new ObservableCollection<SelectedProductViewModel>();
             _receiptList = new ObservableCollection<PurchasedProductViewModel>();
+
 
             _categoryFilter = string.Empty;
             _subCategoryFilter = string.Empty;
@@ -335,24 +344,41 @@ namespace CompleetKassa.ViewModels
             OnPurchaseSelectAll = new BaseCommand(SelectAllPurchased);
 
 
-           // OnSetDollarDiscount = new BaseCommand(SetDollarDiscount);
+
+            //PayScreen Commands
+            OnInitialPay = new BaseCommand(InitialPay);
+            OnClosePayScreen = new BaseCommand(ClosePayScreen);
+                
+
+            // OnSetDollarDiscount = new BaseCommand(SetDollarDiscount);
 
         }
 
-        //private void SetDollarDiscount(object obj)
-        //{
-        //    var selectedItems = _purchasedProducts.Where(x => x.IsSelected).ToList(); ;
-        //    foreach (var item in selectedItems)
-        //    {
-        //        item.DiscountOption = ProductDiscountOptions.Dollar;
-        //    }
+       
 
-        //    foreach (var item in selectedItems)
-        //    {
-        //        Console.WriteLine(item.DiscountOption);
-        //    }
+        #region Payment
+        private void InitialPay(object item)
+        {
+            PayScreenVisibility = Visibility.Visible;
 
-        //}
+        }
+        public void ClosePayScreen(object item)
+        {
+            PayScreenVisibility = Visibility.Hidden;
+        }
+
+        private Visibility _payScreenVisibility= Visibility.Hidden;
+        public Visibility PayScreenVisibility
+        {
+            get { return _payScreenVisibility; }
+            set
+            {
+                SetProperty(ref _payScreenVisibility, value);
+            }
+        }
+
+
+        #endregion
 
 
         #region Delete Methods
@@ -547,7 +573,8 @@ namespace CompleetKassa.ViewModels
         {
             if (DiscountDollarText == Visibility.Visible)
             {
-                DiscountDollar--;
+                if (DiscountDollar != 0)
+                    DiscountDollar--;
             }
             else
             {
@@ -870,6 +897,8 @@ namespace CompleetKassa.ViewModels
         }
         private void NumpadPurchased(object obj)
         {
+
+
             if (NumpadPrice != 0 && !string.IsNullOrWhiteSpace(NumpadText))
             {
                 AddNumpadProduct();
@@ -1214,19 +1243,28 @@ namespace CompleetKassa.ViewModels
         private void Puchase(object obj)
         {
             // TODO: Fix bug when press the same product on receipt
-            var item = (SelectedProductViewModel)obj;
 
-            var existItem = _purchasedProducts.FirstOrDefault(x => x.ID == item.ID);
-            if (existItem == null)
+            // Cannot add products on receipt when the PayScreen is active
+            if (PayScreenVisibility == Visibility.Hidden)
             {
-                AddPurchasedProduct(item);
+                var item = (SelectedProductViewModel)obj;
+
+                var existItem = _purchasedProducts.FirstOrDefault(x => x.ID == item.ID);
+                if (existItem == null)
+                {
+                    AddPurchasedProduct(item);
+                }
+                else
+                {
+                    IncrementPurchasedProduct(existItem);
+                }
+
+                sounds.Products();
+                DeselectSelectAllPurchased();
             }
             else
-            {
-                IncrementPurchasedProduct(existItem);
-            }
-
-            DeselectSelectAllPurchased();
+                sounds.Error();
+        
         }
 
         public void PrintReceipt(object obj)

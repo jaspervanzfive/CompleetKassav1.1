@@ -43,5 +43,10 @@ namespace CompleetKassa.ViewModels
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Resources.delete);
             player.Play();
         }
+        public void Products()
+        {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Resources.add_product__5_);
+            player.Play();
+        }
     }
 }
