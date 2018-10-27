@@ -63,10 +63,7 @@
         </DataTemplate>
 
 
-        <!--Sales Pages-->
-        <DataTemplate  DataType="{x:Type viewModels:SalesPayPageViewModel}">
-            <views:SalesPayPage />
-        </DataTemplate>
+        
 
 
 
