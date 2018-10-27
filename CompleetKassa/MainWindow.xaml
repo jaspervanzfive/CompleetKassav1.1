@@ -17,6 +17,7 @@
        
         MinHeight="768"
         MinWidth="1366" SizeChanged="Window_SizeChanged"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         >
 
     <!--Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
@@ -61,7 +62,7 @@
             <views:LockView/>
         </DataTemplate>
 
-        
+
         <!--Sales Pages-->
         <DataTemplate  DataType="{x:Type viewModels:SalesPayPageViewModel}">
             <views:SalesPayPage />
@@ -178,15 +179,19 @@
                                                 Storyboard.TargetName="ButtonBorder"
         Storyboard.TargetProperty="BorderThickness"
         Duration="0:0:0.1" FillBehavior="HoldEnd" From="0,0,0,0" To="3,3,3,3" />
-                                            --><!--<ColorAnimation    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="CadetBlue"/>--><!--
+                                            -->
+                            <!--<ColorAnimation    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="CadetBlue"/>-->
+                            <!--
                                 </Storyboard>
                             </BeginStoryboard>
                         </Trigger.EnterActions>
-                                --><!--<Setter TargetName="ButtonBorder" Property="BorderBrush" Value="White"/>
-                                <Setter TargetName="ButtonBorder" Property="BorderThickness" Value="3"/>--><!--
+                                -->
+                            <!--<Setter TargetName="ButtonBorder" Property="BorderBrush" Value="White"/>
+                                <Setter TargetName="ButtonBorder" Property="BorderThickness" Value="3"/>-->
+                            <!--
                             </Trigger>-->
-                          
-                            
+
+
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -250,10 +255,10 @@
                                     <Image HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/selector.png" Width="18" Height="18" Margin="0,0,-2,0"/>
 
                                 </Grid>
-                                
+
                             </Border>
                         </Grid>
-                       
+
                     </Button>
                     <Button Command="{Binding OnChangePageCommand}" CommandParameter="Customer"  Grid.Row="1" Style="{StaticResource BorderButtonStyle}" Background="#F67280" BorderThickness="0">
                         <Grid>
@@ -296,7 +301,7 @@
 
                             </Border>
                         </Grid>
-                       
+
                     </Button>
                     <Button Command="{Binding OnChangePageCommand}" CommandParameter="Total"  Grid.Row="3" Style="{StaticResource BorderButtonStyle}" Background="#6C5B7B" BorderThickness="0">
                         <Grid>
@@ -317,7 +322,7 @@
 
                             </Border>
                         </Grid>
-                        
+
                     </Button>
                     <Button Command="{Binding OnChangePageCommand}" CommandParameter="User"  Grid.Row="4" Style="{StaticResource BorderButtonStyle}" Background="#355C7D" BorderThickness="0">
 
@@ -339,7 +344,7 @@
 
                             </Border>
                         </Grid>
-                      
+
                     </Button>
 
                     <Button Command="{Binding OnChangePageCommand}" CommandParameter="Setting"  Grid.Row="5" Style="{StaticResource BorderButtonStyle}" Background="#254662" BorderThickness="0">
@@ -361,7 +366,7 @@
 
                             </Border>
                         </Grid>
-                      
+
                     </Button>
 
                     <Button Command="{Binding OnChangePageCommand}" CommandParameter="Support"  Grid.Row="6" Style="{StaticResource BorderButtonStyle}" Background="#1E3B54" BorderThickness="0">
@@ -383,7 +388,7 @@
 
                             </Border>
                         </Grid>
-                       
+
                     </Button>
 
                     <Button Command="{Binding OnLockCommand}" Grid.Row="7" Style="{StaticResource BorderButtonStyle}" Background="#1F2E3C" BorderThickness="0">
@@ -470,15 +475,15 @@
             </StackPanel>
 
         </Grid>
-        
-        
-        
+
+
+
         <!-- Container for Login and Lock-->
         <Grid>
             <ContentControl Margin="0" Content="{Binding MainPageViewModel}" BorderThickness="0" />
         </Grid>
 
+        
 
-       
     </Grid>
 </Window>

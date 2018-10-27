@@ -33,9 +33,41 @@ namespace CompleetKassa.Views
             timer.Tick += timer_Tick;
             timer.Start();
         }
+        string BG_image1 = "pack://application:,,,/CompleetKassa;component/Icons/LockBackground/BG1.png";
+        string BG_image2= "pack://application:,,,/CompleetKassa;component/Icons/LockBackground/BG2.png";
+        string BG_image3 = "pack://application:,,,/CompleetKassa;component/Icons/LockBackground/BG3.png";
+
+        int timing = 0;
+        int bg_order = 1;
         void timer_Tick(object sender, EventArgs e)
         {
+            timing++;
+
             TimeTxt.Text = DateTime.Now.ToString("HH:mm dddd dd MMMM yyyy");
+
+            //Change background every 30 secs
+            if (timing == 1000)
+            {
+                if (bg_order == 1)
+                {
+                    BGImage.Source= new BitmapImage(new Uri(BG_image2));
+                    bg_order = 2;
+
+                }
+                else if (bg_order == 2)
+                {
+                    BGImage.Source = new BitmapImage(new Uri(BG_image3));
+                    bg_order = 3;
+                }
+                else if (bg_order == 3)
+                {
+                    BGImage.Source = new BitmapImage(new Uri(BG_image1));
+                    bg_order = 1;
+
+                }
+                timing = 0;
+
+            }
 
         }
         private void pinButton_MouseDown(object sender, MouseButtonEventArgs e)

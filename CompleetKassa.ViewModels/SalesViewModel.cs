@@ -19,6 +19,8 @@ namespace CompleetKassa.ViewModels
     public class SalesViewModel : BaseViewModel
     {
         private IList<ProductModel> _dbProductList;
+
+
         
         private ObservableCollection<ProductCategoryModel> _categories;
         private ObservableCollection<ProductSubCategoryModel> _subCategories;
@@ -58,6 +60,12 @@ namespace CompleetKassa.ViewModels
             }
         }
 
+       
+
+
+
+
+
         private ProductSubCategoryModel _selectedSubCategory;
         public ProductSubCategoryModel SelectedSubCategory
         {
@@ -67,6 +75,7 @@ namespace CompleetKassa.ViewModels
                 {
                     _selectedSubCategory = value;
                     SubCategoryFilter = value.Name;
+                  
                 }
             }
         }
@@ -83,6 +92,8 @@ namespace CompleetKassa.ViewModels
                
             }
         }
+     
+        
 
         private ICollectionView _productList;
         public ICollectionView ProductList
@@ -245,6 +256,9 @@ namespace CompleetKassa.ViewModels
         //PayScreen Commands
         public ICommand OnInitialPay { get; private set; }
         public ICommand OnClosePayScreen { get; private set; }
+
+        public ICommand OnPayScreenSideButtons { get; private set; }
+        public ICommand OnEmailSubmit { get; private set; }
         #endregion
 
 
@@ -260,6 +274,9 @@ namespace CompleetKassa.ViewModels
             _categories = new ObservableCollection<ProductCategoryModel>();
             _purchasedProducts = new ObservableCollection<SelectedProductViewModel>();
             _receiptList = new ObservableCollection<PurchasedProductViewModel>();
+           
+
+            _customer = new ObservableCollection<CustomerModel>();
 
 
             _categoryFilter = string.Empty;
@@ -270,6 +287,16 @@ namespace CompleetKassa.ViewModels
             ProductList = CollectionViewSource.GetDefaultView(_dbProductList);
             ProductList.Filter += ProductCategoryFilter;
             ProductList.Filter += ProductSubCategoryFilter;
+
+           
+            
+            
+            
+            //Customers List
+            GetCustomers();
+            CustomerBinding = CollectionViewSource.GetDefaultView(_customer);
+            CustomerBinding.Filter = CustomerFilter;
+           
 
             // Set the first product as active category
             _categoryFilter = _categories.FirstOrDefault() == null ? string.Empty : _categories.FirstOrDefault().Name;
@@ -348,21 +375,396 @@ namespace CompleetKassa.ViewModels
             //PayScreen Commands
             OnInitialPay = new BaseCommand(InitialPay);
             OnClosePayScreen = new BaseCommand(ClosePayScreen);
-                
+            OnPayScreenSideButtons = new BaseCommand(PayScreenSideButtons);
+
+            OnEmailSubmit = new BaseCommand(EmailSubmit);
+
 
             // OnSetDollarDiscount = new BaseCommand(SetDollarDiscount);
 
         }
 
-       
 
-        #region Payment
-        private void InitialPay(object item)
+        #region Customer List and methods
+
+
+        //Bind client search text in the payscreen
+        private string _customerSearchText = string.Empty;
+        public string CustomerSearchText
         {
-            PayScreenVisibility = Visibility.Visible;
+            get { return _customerSearchText; }
+            set
+            {
+
+                string _value = value as string;
+
+
+
+                SetProperty(ref _customerSearchText, value);
+             
+
+
+
+                if (string.IsNullOrWhiteSpace(_value))
+                {
+                    PayScreenClientBoxVisibility = Visibility.Collapsed;
+
+                }
+                else
+                { 
+                    PayScreenClientBoxVisibility = Visibility.Visible;
+                    CustomerBinding.Refresh();
+                }
+                    
+
+
+
+            }
+        }
+
+        public ICollectionView CustomerBinding { get; private set; }
+
+        private ObservableCollection<CustomerModel> _customer;
+
+        public ObservableCollection<CustomerModel> Customer
+        {
+            get { return _customer; }
+            set
+            {
+                SetProperty(ref _customer, value);
+
+            }
+        }
+
+
+        private void GetCustomers()
+        {
+            _customer.Add(new CustomerModel
+            {
+                Name = "Roger Vanz",
+                Email = "R.Vanz@gmail.com"
+            }
+            );
+            _customer.Add(new CustomerModel
+            {
+                Name = "Roger Rakker",
+                Email = "RororoKer@gmail.com"
+            }
+           );
+            _customer.Add(new CustomerModel
+            {
+                Name = "Roger van Hamels",
+                Email="Roger.Van@hotmail.com"
+            }
+           );
+            _customer.Add(new CustomerModel
+            {
+                Name = "Roger Van Zanz",
+                Email="iamrogervanz@gmail.com"
+            }
+           );
+            _customer.Add(new CustomerModel
+            {
+                Name = "Stephen Curry",
+                Email = "curry.stephen@gmail.com"
+            }
+           );
+            _customer.Add(new CustomerModel
+            {
+                Name = "Kyle Kuzma",
+                Email = "kuzma.kyle@gmail.com"
+            }
+           );
+            _customer.Add(new CustomerModel
+            {
+                Name = "Lonzo Ball",
+                Email = "ballerslonzo@gmail.com"
+            }
+           );
 
         }
-        public void ClosePayScreen(object item)
+
+        private bool CustomerFilter(object item)
+        {
+            var cust = item as CustomerModel;
+            return (cust.Name.ToLower().Contains(_customerSearchText.ToLower()));
+
+        }
+
+        private CustomerModel _selectedCustomer;
+        public CustomerModel SelectedCustomer
+        {
+            get { return _selectedCustomer; }
+            set
+            {
+                if (value != null)
+                {
+                    _selectedCustomer = value;
+
+
+                    CurrentPurchase.ClientName= _selectedCustomer.Name;
+                    CustomerSearchText = string.Empty;
+                    SelectedCustomer = null;
+
+                    HidePayScreenComponents();
+                    ClearSideButtonsSelection();
+                    PayClientTextVisibility = Visibility.Visible;
+                }
+
+                   
+
+            }
+        }
+        
+
+        #endregion
+
+
+        #region Payment
+
+        private void PayScreenSideButtons(object item)
+        {
+            string _value = item as string;
+
+            HidePayScreenComponents();
+
+            if (_value.Equals("Print"))
+            {
+                PayScreenPrintVisibility = Visibility.Visible;
+            }
+            else if (_value.Equals("Email"))
+            {
+                PayScreenSelectionVisibility = Visibility.Visible;
+                PayScreenEmailVisibility = Visibility.Visible;
+                BoolSelectionEmail = true;
+
+            }
+            else if (_value.Equals("Client"))
+            {
+                PayScreenSelectionVisibility = Visibility.Visible;
+                PayScreenClientVisibility = Visibility.Visible;
+                BoolSelectionClient = true;
+            }
+        }
+
+
+        private void HidePayScreenComponents()
+        {
+
+
+            PayScreenPrintVisibility = Visibility.Collapsed;
+            PayScreenSelectionVisibility = Visibility.Collapsed;
+            PayScreenClientVisibility = Visibility.Collapsed;
+            PayScreenEmailVisibility = Visibility.Collapsed;
+        }
+        private void ClearSideButtonsSelection()
+        {
+            BoolOptionEmail = false;
+            BoolOptionPrint = false;
+            BoolOptionClient = false;
+        }
+
+
+        //Checkbox Bools SELECTION BOX clients/mail
+        private bool _boolSelectionClient = true;
+        public bool BoolSelectionClient
+        {
+            get { return _boolSelectionClient; }
+            set
+            {
+                SetProperty(ref _boolSelectionClient, value);
+            }
+        }
+
+        private bool _boolSelectionEmail = false;
+        public bool BoolSelectionEmail
+        {
+            get { return _boolSelectionEmail; }
+            set
+            {
+                SetProperty(ref _boolSelectionEmail, value);
+            }
+        }
+
+        //isChecked bool for side Buttons on payscreen
+        private bool _boolOptionPrint = false;
+        public bool BoolOptionPrint
+        {
+            get { return _boolOptionPrint; }
+            set
+            {
+                SetProperty(ref _boolOptionPrint, value);
+            }
+        }
+
+        private bool _boolOptionEmail = false;
+        public bool BoolOptionEmail
+        {
+            get { return _boolOptionEmail; }
+            set
+            {
+                SetProperty(ref _boolOptionEmail, value);
+            }
+        }
+
+        private bool _boolOptionClient = false;
+        public bool BoolOptionClient
+        {
+            get { return _boolOptionClient; }
+            set
+            {
+                SetProperty(ref _boolOptionClient, value);
+            }
+        }
+
+
+        //Print bool ischecked 
+
+        private bool _boolPrintBon = true;
+        public bool BoolPrintBon
+        {
+            get { return _boolPrintBon; }
+            set
+            {
+                SetProperty(ref _boolPrintBon, value);
+            }
+        }
+
+        private bool _boolPrintA4 = false;
+        public bool BoolPrintA4
+        {
+            get { return _boolPrintA4; }
+            set
+            {
+                SetProperty(ref _boolPrintA4, value);
+            }
+        }
+
+
+        //strings customer's email searchbox
+
+        private string _emailSearchBox;
+        public string EmailSearchBox
+        {
+            get { return _emailSearchBox; }
+            set
+            {
+                SetProperty(ref _emailSearchBox, value);
+ 
+            }
+        }
+
+        private void EmailSubmit(object ite)
+        {
+            if (!string.IsNullOrWhiteSpace(EmailSearchBox))
+            {
+                CurrentPurchase.ClientName = EmailSearchBox;
+                HidePayScreenComponents();
+                ClearSideButtonsSelection();
+                PayClientTextVisibility = Visibility.Visible;
+            }
+            else
+                sounds.Error();
+          
+            
+        }
+
+
+
+
+
+        //Visibility for the three main side buttons on Pay Sreen
+
+        private Visibility _payScreenPrintVisibility = Visibility.Collapsed;
+        public Visibility PayScreenPrintVisibility
+        {
+            get { return _payScreenPrintVisibility; }
+            set
+            {
+                SetProperty(ref _payScreenPrintVisibility, value);
+            }
+        }
+
+
+
+        private Visibility _payScreenSelectionVisibility = Visibility.Collapsed;
+        public Visibility PayScreenSelectionVisibility
+        {
+            get { return _payScreenSelectionVisibility; }
+            set
+            {
+                SetProperty(ref _payScreenSelectionVisibility, value);
+            }
+        }
+
+        private Visibility _payScreenClientVisibility = Visibility.Collapsed;
+        public Visibility PayScreenClientVisibility
+        {
+            get { return _payScreenClientVisibility; }
+            set
+            {
+                SetProperty(ref _payScreenClientVisibility, value);
+            }
+        }
+
+        private Visibility _payScreenEmailVisibility = Visibility.Collapsed;
+        public Visibility PayScreenEmailVisibility
+        {
+            get { return _payScreenEmailVisibility; }
+            set
+            {
+                SetProperty(ref _payScreenEmailVisibility, value);
+            }
+        }
+
+
+        //SearchBox lists
+        private Visibility _payScreenClientBoxVisibility = Visibility.Collapsed;
+        public Visibility PayScreenClientBoxVisibility
+        {
+            get { return _payScreenClientBoxVisibility; }
+            set
+            {
+                SetProperty(ref _payScreenClientBoxVisibility, value);
+            }
+        }
+
+
+
+        private Visibility _PayClientText = Visibility.Collapsed;
+        public Visibility PayClientTextVisibility
+        {
+            get { return _PayClientText; }
+            set
+            {
+                SetProperty(ref _PayClientText, value);
+            }
+        }
+
+
+   
+
+        private void InitialPay(object item)
+        {
+            HidePayScreenComponents();
+            ClearSideButtonsSelection();
+
+
+            //Need to refractor , hide payClientText if null
+            if (!string.IsNullOrEmpty(CurrentPurchase.ClientName))
+                PayClientTextVisibility = Visibility.Visible;
+            else
+                PayClientTextVisibility = Visibility.Collapsed;
+
+
+
+           PayScreenVisibility = Visibility.Visible;
+        
+
+        }
+       
+
+        public void ClosePayScreen(object obj)
         {
             PayScreenVisibility = Visibility.Hidden;
         }
@@ -966,12 +1368,14 @@ namespace CompleetKassa.ViewModels
 
         #endregion
 
+        
 
         private bool ProductCategoryFilter(object item)
         {
             var product = item as ProductModel;
             return item == null ? true : product.Category.Contains(_categoryFilter);
         }
+
 
         private bool ProductSubCategoryFilter(object item)
         {
@@ -985,6 +1389,17 @@ namespace CompleetKassa.ViewModels
             SubCategories = new ObservableCollection<ProductSubCategoryModel>(_categories.Where(x => x.Name == category).First().SubCategories);
             SubCategoryFilter = string.Empty;
         }
+
+        private bool CustomerFiltering(object item)
+        {
+            return true;
+            //var cus = item as CustomerModel;
+            //return (product.Category.Contains(_categoryFilter) &&
+            //    product.SubCategory.Contains(_subCategoryFilter));
+        }
+
+
+
 
         // TODO: DATABASE - Get Categories  from DB
         private void GetCategories(IList<ProductModel> products)
@@ -1157,6 +1572,8 @@ namespace CompleetKassa.ViewModels
             GetCategories(_dbProductList);
         }
 
+      
+
         private void SelectFirstCategory ()
         {
             if (_categories != null && 0 < _categories.Count)
@@ -1275,6 +1692,10 @@ namespace CompleetKassa.ViewModels
                 MessageBox.Show(item.Name.ToString());
             }
         }
+        
+
+    
+
 
         public string imgAddReceiptPath = "ViewIcons/order_add.png";
         public string imgNextReceiptPath = "ViewIcons/order_next.png";
@@ -1349,10 +1770,12 @@ namespace CompleetKassa.ViewModels
 
         private void CreateNewReceipt(object obj)
         {
+
             CurrentPurchase = new PurchasedProductViewModel();
             CurrentPurchase.Name = (ReceiptList.Count()).ToString();
             CurrentPurchase.Label = $"{OrderName++}";
             ReceiptName = CurrentPurchase.Label;
+          
 
             ReceiptList.Add(CurrentPurchase);
             ReceiptIndex = ReceiptList.Count() - 1;

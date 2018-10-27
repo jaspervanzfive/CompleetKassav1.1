@@ -9,6 +9,7 @@ namespace CompleetKassa.ViewModels
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+ 
 
         protected virtual void SetProperty<T>(ref T member, T val, [CallerMemberName] string propertyName = null)
         {
@@ -16,6 +17,8 @@ namespace CompleetKassa.ViewModels
 
             member = val;
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+       
+
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -23,7 +26,10 @@ namespace CompleetKassa.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-		public BaseViewModel (string name, string color,string imageloc)
+    
+
+
+        public BaseViewModel (string name, string color,string imageloc)
 		{
 			Name = name;
             Color = color;

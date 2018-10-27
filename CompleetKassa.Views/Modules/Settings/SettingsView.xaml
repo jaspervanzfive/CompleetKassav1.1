@@ -7,36 +7,50 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView x:Name="uiList">
-            <ListView.Resources>
-                <ControlTemplate x:Key="SelectedTemplate" TargetType="ListViewItem">
-                    <Border SnapsToDevicePixels="true" 
-                    BorderBrush="{TemplateBinding BorderBrush}" 
-                    BorderThickness="{TemplateBinding BorderThickness}" 
-                    Background="{TemplateBinding Background}"
-                    CornerRadius="5" x:Name="border">
-                        <ContentControl 
-                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                    Margin="2,2,2,2" 
-                    VerticalAlignment="Stretch"
-                    Content="{TemplateBinding Content}" />
-                    </Border>
-                </ControlTemplate>
-                <Style TargetType="ListViewItem">
-                    <Style.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="true" />
-                                <Condition Property="Selector.IsSelectionActive" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" Value="Pink" />
-                            <Setter Property="Template" Value="{StaticResource SelectedTemplate}" />
-                        </MultiTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.Resources>
-            <ListViewItem Content="10" />
-            <ListViewItem Content="11" />
-        </ListView>
+        <Grid>
+            <TabControl>
+                <TabItem>
+                    <TabItem.Header>
+                        <Border x:Name="AddButton" Background="#00749D" BorderBrush="White"  BorderThickness="0" Height="50" Width="50">
+                            <StackPanel >
+                                <Image Source="/CompleetKassa.Views;component/Icons/plus.png" Stretch="Uniform"  Margin="30,25,30,0" MaxHeight="35" />
+                                <Viewbox Stretch="Uniform">
+                                    <TextBlock Text="Add" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="30,5,30,0" Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+                            </StackPanel>
+
+                        </Border>
+                    </TabItem.Header>
+                    <Label Content="Content goes here..." />
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <Border Background="#00749D" BorderBrush="White"  BorderThickness="0" Height="50" Width="50">
+                            <StackPanel >
+                                <Image Source="/CompleetKassa.Views;component/Icons/plus.png" Stretch="Uniform"  Margin="30,25,30,0" MaxHeight="35" />
+                                <Viewbox Stretch="Uniform">
+                                    <TextBlock Text="Add" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="30,5,30,0" Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+                            </StackPanel>
+
+                        </Border>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <Border Background="#00749D" BorderBrush="White"  BorderThickness="0" Height="50" Width="50">
+                            <StackPanel >
+                                <Image Source="/CompleetKassa.Views;component/Icons/plus.png" Stretch="Uniform"  Margin="30,25,30,0" MaxHeight="35" />
+                                <Viewbox Stretch="Uniform">
+                                    <TextBlock Text="Add" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="30,5,30,0" Style="{StaticResource FontBold}"/>
+                                </Viewbox>
+                            </StackPanel>
+
+                        </Border>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
+       
 </UserControl>

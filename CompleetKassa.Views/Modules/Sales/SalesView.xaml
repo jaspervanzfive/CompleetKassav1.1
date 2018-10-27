@@ -17,12 +17,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1366"
              SizeChanged="UserControl_SizeChanged_1"
-             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              >
     <UserControl.Resources>
 
-
-
+        <!--Foreground="#7A7A7A" Background="Transparent" BorderThickness="0"  Margin="10,2" TextAlignment="Center"-->
+        <Style TargetType="TextBox" 
+               BasedOn="{StaticResource {x:Type TextBox}}" x:Key="searchBox">
+            <Setter Property="FontSize"  Value="12" />
+            <Setter Property="Foreground" Value="#7A7A7A"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="10,2"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="Open Sans SemiBold"/>
+        </Style>
 
 
         <DataTemplate x:Key="PurchasedTemplate">
@@ -234,12 +243,6 @@
                             <Ellipse Fill="#0AC450" Width="20" Height="20"/>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
-                        <!--<ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background"  Value="Red"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>-->
-
                     </ControlTemplate>
 
                 </Setter.Value>
@@ -338,8 +341,84 @@
             </Setter>
         </Style>
 
+        <!--For Side Receipt on Payment Toggle Button-->
+        <Style TargetType="{x:Type ToggleButton}" x:Key="ReceiptSideToggleButton">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="#1F2E3C" x:Name="elps1" CornerRadius="0,29,29,0"  HorizontalAlignment="Left" MaxHeight="65" MaxWidth="78">
+
+                            <ContentPresenter RenderTransformOrigin="0.5,0.5" x:Name="RootGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property ="IsChecked" Value ="True">
+                                <Setter TargetName="elps1" Property="Background" Value="#0193C6" />
+                            </Trigger>
+                            <Trigger Property ="IsChecked" Value ="False">
+                                <Setter TargetName="elps1" Property="Background" Value="#1F2E3C" />
+                            </Trigger>
+
+                            <Trigger Property ="IsPressed" Value ="True">
+                                <Setter TargetName="RootGrid" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
+
+
+
+        <!--Print Style Buttons-->
+        <Style TargetType="{x:Type ToggleButton}" x:Key="PrintButtonsStyle">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="elps1" CornerRadius="50"  Background="#2E4051" BorderThickness="2" BorderBrush="White">
+                            <Grid>
+                                <ContentPresenter  RenderTransformOrigin="0.5,0.5" x:Name="RootGrid" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                            </Grid>
+
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property ="IsChecked" Value ="True">
+                                <Setter TargetName="elps1" Property="Background" Value="#6FBC69" />
+                            </Trigger>
+                            <Trigger Property ="IsChecked" Value ="False">
+                                <Setter TargetName="elps1" Property="Background" Value="#2E4051" />
+                            </Trigger>
+
+
+                            <Trigger Property ="IsPressed" Value ="True">
+                                <Setter TargetName="RootGrid" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+
+            </Style.Triggers>
+        </Style>
+
+        
 
     </UserControl.Resources>
 
@@ -1124,7 +1203,7 @@
                     <RowDefinition Height="0.63*" />
                 </Grid.RowDefinitions>
 
-                <Grid Margin="5,0,0,5" MaxHeight="260">
+                <Grid Margin="5,0,0,5" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.18*" />
                         <RowDefinition Height="0.82*" />
@@ -1133,7 +1212,7 @@
                         <TextBlock VerticalAlignment="Center" Text="Subcat &amp; Products" FontFamily="Arial" Foreground="#0193C6" FontSize="20" HorizontalAlignment="Left" Margin="20,5,5,5"/>
                     </Grid>
 
-                    <Grid Grid.Row="1" >
+                    <Grid Grid.Row="1" MaxHeight="260" >
 
                         <ListBox ItemsSource="{Binding SubCategories}" SelectedItem="{Binding SelectedSubCategory, Mode=TwoWay}"  Background="{StaticResource Background}" Margin="0,5,0,15">
                             <ListBox.ItemsPanel>
@@ -1424,46 +1503,7 @@
                     </Grid>
 
                     <Grid Grid.Row="1">
-                        <!--<ListBox HorizontalContentAlignment="Stretch"  ItemsSource="{Binding Categories}" Background="{StaticResource Background}" Margin="0,5" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ScrollViewer.VerticalScrollBarVisibility="Disabled" >
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="{Binding Color}" Panel.ZIndex="-1" Background="#1F2E3C" Height="50" Width="120" Margin="0,5,0,0">
-                                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" >
-                                                <TextBlock  Text="{Binding Name}" Foreground="#D2D2D2" Style="{StaticResource SemiFont}"/>
-                                            </Viewbox>
-                                        </Border>
-                                    </StackPanel>
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Value="True" Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}">
 
-                                            <Setter TargetName="border" Property="Background" Value="#19232D"/>
-                                            -->
-                        <!--<Setter TargetName="selectedTriangle" Property="Visibility" Value="Visible"/>-->
-                        <!--
-                                        </DataTrigger>
-
-                                    </DataTemplate.Triggers>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="4" Rows="4" />
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    -->
-                        <!--<Setter Property="HorizontalContentAlignment" Value="Stretch"/>-->
-                        <!--
-
-                                    <Setter Property="Padding" Value="3,0"/>
-                                    <Setter Property="Template" Value="{StaticResource SelectedItem}"/>
-                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>-->
 
                     </Grid>
 
@@ -1498,10 +1538,10 @@
                         </Viewbox>
 
 
-                        <StackPanel Orientation="Horizontal" Margin="80,0,0,0" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" Margin="80,0,0,0" Visibility="{Binding PayClientTextVisibility}">
                             <Image Source="ViewIcons/user2.png" Margin="3"/>
                             <Viewbox  VerticalAlignment="Center" Margin="0,0,0,0">
-                                <TextBlock Text="Sanders Willekens" Style="{StaticResource FontBold}" Foreground="#555555" Margin="3"/>
+                                <TextBlock Text="{Binding CurrentPurchase.ClientName}" Style="{StaticResource FontBold}" Foreground="#555555" Margin="3"/>
                             </Viewbox>
                         </StackPanel>
 
@@ -1522,7 +1562,7 @@
 
 
                             <!-- payment cash/pin ,set visible hidden until payment has done-->
-                            <StackPanel Orientation="Vertical"  >
+                            <StackPanel Orientation="Vertical" Visibility="Collapsed" >
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                                     <TextBlock Text="$100,21" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35" Style="{StaticResource FontLight}" Foreground="White" Margin="0"/>
                                     <TextBlock Text="cash"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource FontLight}" Foreground="White" Margin="10,0,0,0"/>
@@ -1538,59 +1578,159 @@
 
 
                             <!-- Client Box-->
-                            <StackPanel Orientation="Vertical" Margin="0,10" >
+                            <StackPanel Orientation="Vertical" Margin="0,10" Visibility="{Binding PayScreenSelectionVisibility}">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                                    <RadioButton GroupName="ClientOption" IsChecked="True" Width="20" Height="20" Margin="0,0,8,0" Style="{StaticResource RadButton}" />
-                                    <TextBlock Text="Client Points" Foreground="White" VerticalAlignment="Center" Style="{StaticResource FontBold}"/>
+                                    <RadioButton Command="{Binding  OnPayScreenSideButtons}" CommandParameter="Client" GroupName="ClientOption" IsChecked="{Binding BoolSelectionClient,Mode=TwoWay}" Width="20" Height="20" Margin="0,0,8,0" Style="{StaticResource RadButton}" />
+                                    <TextBlock Text="Client Points" Foreground="White" VerticalAlignment="Center" FontSize="15" Style="{StaticResource FontBold}"/>
 
-                                    <RadioButton GroupName="ClientOption" Width="20" Height="20" Margin="45,0,8,0" Style="{StaticResource RadButton}" />
-                                    <TextBlock Text="Email Receipt" Foreground="White" VerticalAlignment="Center" Style="{StaticResource FontBold}"/>
+                                    <RadioButton Command="{Binding  OnPayScreenSideButtons}" CommandParameter="Email" GroupName="ClientOption" IsChecked="{Binding BoolSelectionEmail,Mode=TwoWay}" Width="20" Height="20" Margin="45,0,8,0" Style="{StaticResource RadButton}" />
+                                    <TextBlock Text="Email Receipt" Foreground="White" VerticalAlignment="Center" FontSize="15" Style="{StaticResource FontBold}"/>
 
                                 </StackPanel>
 
-                                <Border HorizontalAlignment="Stretch" Height="30" Background="#E5E5E5" Margin="10" CornerRadius="15">
-                                    <Viewbox Margin="10,5">
-                                        <!--<TextBox Controls:TextBoxHelper.Watermark="This is a textbox" />-->
-                                    </Viewbox>
-                                </Border>
+
+                                <Grid>
+                                    <!--Client points fold-->
+                                    <StackPanel Visibility="{Binding PayScreenClientVisibility}">
+                                        <Border Canvas.ZIndex="2" HorizontalAlignment="Stretch" Height="30" Background="#D4D4D4" Margin="10,20,10,0" CornerRadius="15" >
+                                            <TextBox Text="{Binding CustomerSearchText,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{StaticResource searchBox}" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Search on Name,email,phone or Scan Card" Controls:TextBoxHelper.WatermarkAlignment="Center" />
+                                        </Border>
+                                        <!--Customer Search box-->
+
+                                        <Border Visibility="{Binding PayScreenClientBoxVisibility}" Canvas.ZIndex="1" HorizontalAlignment="Stretch" Height="140" Background="#E5E5E5" Margin="10,-13,10,10" CornerRadius="0,0,15,15">
+                                            <ListBox Grid.Row="1"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" Background="#E5E5E5"  ItemsSource="{Binding CustomerBinding}"  SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" Margin="0,15,0,10">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid x:Name="burder" HorizontalAlignment="Stretch" Margin="0,0" Height="27">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition />
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Text="{Binding Name}"  VerticalAlignment="Center" Foreground="#0895C7"  FontFamily="Open Sans Bold" FontSize="14" Margin="10,5" />
+                                                            <TextBlock Text="{Binding Email}" VerticalAlignment="Center" Grid.Column="1"  Foreground="#0895C7"  FontFamily="Open Sans Bold"  FontSize="14" />
+                                                        </Grid>
+
+                                                        <DataTemplate.Triggers>
+                                                            <DataTrigger Value="True" Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}">
+                                                                <Setter TargetName="burder" Property="Background" Value="#D5D5D5"/>
+
+                                                            </DataTrigger>
+
+
+                                                        </DataTemplate.Triggers>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                                <ListBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ListBoxItem}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                        <Setter Property="Padding" Value="3,0"/>
+
+                                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="ListBoxItem">
+                                                                    <ContentPresenter/>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+
+                                                        <!--<Style.Triggers>
+                                                    <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
+                                                        <SoundPlayerAction Source="pack://application:,,,/CompleetKassa.Views;component/Sounds/cat.wav" />
+                                                    </EventTrigger>
+                                                </Style.Triggers>-->
+
+                                                    </Style>
+                                                </ListBox.ItemContainerStyle>
+                                            </ListBox>
+                                        </Border>
+
+
+                                    </StackPanel>
+
+                                    <!--Email Receipt Fold-->
+                                    <StackPanel Visibility="{Binding PayScreenEmailVisibility}">
+                                        <Border Canvas.ZIndex="2" HorizontalAlignment="Stretch" Height="30" Background="#D4D4D4" Margin="25,25,25,0" CornerRadius="15" >
+                                            <TextBox Text="{Binding EmailSearchBox,Mode=TwoWay}" Style="{StaticResource searchBox}" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Client Email or Scan Card" Controls:TextBoxHelper.WatermarkAlignment="Center" />
+                                        </Border>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0" >
+                                            <ToggleButton IsChecked="True" Background="White" Width="20" Height="20" Margin="0,0,8,0" Style="{StaticResource RadButton}" />
+                                            <TextBlock FontSize="15" Text="Subscribe to newsletter" Foreground="White" VerticalAlignment="Center" Style="{StaticResource FontBold}"/>
+                                        </StackPanel>
+
+                                        <Button Command="{Binding OnEmailSubmit}" Style="{StaticResource ButtonImage}" Background="#355C7D" Height="50" Width="50" Margin="0,10">
+                                            <Image Source="ViewIcons/sent.png" Margin="12"/>
+                                        </Button>
+
+
+                                    </StackPanel>
+                                </Grid>
+
+
+
+
                             </StackPanel>
 
 
                             <!--Payment Button Options-->
-                            <StackPanel Orientation="Vertical" Margin="0,10" >
+                            <StackPanel Orientation="Vertical" Margin="0,0" >
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                                    <RadioButton GroupName="payGroup" Background="#2E4051" Style="{StaticResource PayButtons}" Height="40" Width="140" >
+                                    <RadioButton GroupName="payGroup" Background="#2E4051" Style="{StaticResource PayButtons}"  Height="35" Width="150" >
                                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
                                             <TextBlock Text="PIN" Foreground="White" Style="{StaticResource FontBold}"/>
                                         </Viewbox>
                                     </RadioButton>
-                                    <RadioButton GroupName="payGroup" IsEnabled="False" Background="#2E4051" Style="{StaticResource PayButtons}" Height="40" Width="140" Margin="10,0,0,0" >
+                                    <RadioButton GroupName="payGroup" IsEnabled="False" Background="#2E4051" Style="{StaticResource PayButtons}"    Height="35" Width="150"  Margin="10,0,0,0" >
                                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
                                             <TextBlock Text="CREDIT CARD" Foreground="White" Style="{StaticResource FontBold}"/>
                                         </Viewbox>
                                     </RadioButton>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10" >
-                                    <RadioButton GroupName="payGroup" Background="#2E4051" Style="{StaticResource PayButtons}" Height="40" Width="140" >
+                                    <RadioButton GroupName="payGroup" Background="#2E4051" Style="{StaticResource PayButtons}"   Height="35" Width="150"  >
                                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
                                             <TextBlock Text="CASH" Foreground="White" Style="{StaticResource FontBold}"/>
                                         </Viewbox>
                                     </RadioButton>
-                                    <RadioButton  GroupName="payGroup" IsEnabled="False" Background="#2E4051" Style="{StaticResource PayButtons}" Height="40" Width="140" Margin="10,0,0,0" >
+                                    <RadioButton  GroupName="payGroup" IsEnabled="False" Background="#2E4051" Style="{StaticResource PayButtons}" Height="35" Width="150"  Margin="10,0,0,0" >
                                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
                                             <TextBlock Text="GIFT CARD" Foreground="White" Style="{StaticResource FontBold}"/>
                                         </Viewbox>
                                     </RadioButton>
                                 </StackPanel>
-                                
+
                             </StackPanel>
 
-                            
+
                             <!-- cancel and submit-->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10" >
                                 <Button Style="{StaticResource ButtonCancel}" Command="{Binding OnClosePayScreen}" Background="#F67280" Padding="20" Width="90" Margin="0,0,30,0"/>
                                 <Button Style="{StaticResource ButtonSubmit}" Command="{Binding OnClosePayScreen}" Background="#2E4051" Padding="20" Width="90" Margin="30,0,0,0"/>
                             </StackPanel>
+
+
+                            <!--Print Options-->
+
+                            <Border Visibility="{Binding PayScreenPrintVisibility}" CornerRadius="10" Background="#2E4051" Height="131" Width="284" Margin="0,30" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10" >
+                                    <StackPanel Orientation="Vertical"  Margin="0,0,30,0">
+                                        <RadioButton IsChecked="{Binding BoolPrintBon,Mode=TwoWay}" GroupName="PrintOpt"  Margin="0,15,0,0" Style="{StaticResource PrintButtonsStyle}" Height="65" Width="67">
+                                            <Image Source="ViewIcons/icon-bon.png" Stretch="Uniform" Margin="7"/>
+                                        </RadioButton>
+                                        <TextBlock Margin="0,5,0,0" Text="BON" Style="{StaticResource FontBold}" Foreground="White" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Vertical" Margin="40,0,0,0">
+                                        <RadioButton IsChecked="{Binding BoolPrintA4,Mode=TwoWay}" GroupName="PrintOpt" Margin="0,15,0,0" Style="{StaticResource PrintButtonsStyle}" Height="65" Width="67">
+                                            <Image Source="ViewIcons/print.png" Stretch="Uniform" Margin="5"/>
+                                        </RadioButton>
+                                        <TextBlock Margin="0,5,0,0" Text="A4" Style="{StaticResource FontBold}" Foreground="White" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
 
                         </StackPanel>
 
@@ -1622,22 +1762,23 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Button  Command="{Binding OnQuantityPopOpen}" Grid.Row="0" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
+                            <Button  Grid.Row="0" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
                                 <Image Source="ViewIcons/piechart.png" Stretch="Uniform" Margin="16,16,18,16" />
                             </Button>
 
 
 
-                            <Button Command="" Grid.Row="1" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
+                            <RadioButton  Command="{Binding  OnPayScreenSideButtons}" CommandParameter="Print" GroupName="SideButs" Grid.Row="1" Style="{StaticResource ReceiptSideToggleButton}" IsChecked="{Binding BoolOptionPrint,Mode=TwoWay}" Margin="0,3,0,3" >
                                 <Image Source="ViewIcons/print.png" Stretch="Uniform" Margin="13,13,18,13" />
-                            </Button>
-                            <Button Command="" Grid.Row="2" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
-                                <Image Source="ViewIcons/send.png" Stretch="Uniform" Margin="13,13,18,13" />
-                            </Button>
+                            </RadioButton>
 
-                            <Button  Grid.Row="3" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
+                            <RadioButton  Command="{Binding  OnPayScreenSideButtons}" CommandParameter="Email" GroupName="SideButs" Grid.Row="2" Style="{StaticResource ReceiptSideToggleButton}" IsChecked="{Binding BoolOptionEmail,Mode=TwoWay}" Background="#1F2E3C" Margin="0,3,0,3" >
+                                <Image Source="ViewIcons/send.png" Stretch="Uniform" Margin="13,13,18,13" />
+                            </RadioButton>
+
+                            <RadioButton  Command="{Binding  OnPayScreenSideButtons}" CommandParameter="Client" GroupName="SideButs" Grid.Row="3" Style="{StaticResource ReceiptSideToggleButton}" IsChecked="{Binding BoolOptionClient,Mode=TwoWay}" Background="#1F2E3C" Margin="0,3,0,3" >
                                 <Image Source="ViewIcons/client.png" Stretch="Uniform" Margin="13,13,18,13" />
-                            </Button>
+                            </RadioButton>
 
 
                         </Grid>
@@ -1647,7 +1788,7 @@
 
                 </Grid>
 
-              
+
             </Grid>
         </Grid>
     </Grid>

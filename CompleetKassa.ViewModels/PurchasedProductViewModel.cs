@@ -11,6 +11,9 @@ namespace CompleetKassa.ViewModels
         private decimal _due;
         private ObservableCollection<SelectedProductViewModel> _products;
 
+        //PayScreen Current model
+        private string _clientName;
+
         public PurchasedProductViewModel() : base ("PurchasedProduct", "#FDAC94","dsdsds")
 		{
             ID = 0;
@@ -57,6 +60,14 @@ namespace CompleetKassa.ViewModels
             get { return _tax; }
 
             set { SetProperty(ref _tax, value); }
+        }
+
+
+        public string ClientName
+        {
+            get { return _clientName; }
+
+            set { SetProperty(ref _clientName, value); }
         }
 
         public void ComputeTotal()
