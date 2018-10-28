@@ -72,6 +72,8 @@ namespace CompleetKassa.ViewModels
 
         public void ComputeTotal()
         {
+            Tax = Products.Sum(x => x.TaxTotal);
+
             SubTotal = Products.Sum(x => x.OrigTotal);
 
             Discount = Products.Sum(x => x.Discount);

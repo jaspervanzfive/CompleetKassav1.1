@@ -10,11 +10,13 @@ namespace CompleetKassa.ViewModels
         public int ID { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public decimal Tax { get; set; }
 
-      
 
 
-		private string _discountOption;
+
+
+        private string _discountOption;
 		public string DiscountOption
 		{
 			get
@@ -58,6 +60,8 @@ namespace CompleetKassa.ViewModels
             }
         }
 
+      
+
         private decimal _discount;
         public decimal Discount
         {
@@ -67,6 +71,18 @@ namespace CompleetKassa.ViewModels
             {
                 SetProperty(ref _discount, value);
                // ComputeSubTotal();
+            }
+        }
+
+        private decimal _taxTotal;
+        public decimal TaxTotal
+        {
+            get { return _taxTotal; }
+
+            set
+            {
+                SetProperty(ref _taxTotal, value);
+                // ComputeSubTotal();
             }
         }
 
@@ -109,9 +125,11 @@ namespace CompleetKassa.ViewModels
             ID = 0;
             Name = string.Empty;
             Price = 0.0m;
+            Tax = 0.0m;
             Quantity = 0;
             Discount = 0.0m;
             DiscountPercentage = 0;
+            
 
             IsSelected = false;
             DiscountVisibility = Visibility.Collapsed;
@@ -122,6 +140,9 @@ namespace CompleetKassa.ViewModels
 
         public void ComputeSubTotal()
         {
+            TaxTotal = Tax * Quantity;
+           
+
             ComputeDiscount();
 
 

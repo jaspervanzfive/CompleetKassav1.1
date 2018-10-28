@@ -1,0 +1,225 @@
+﻿<UserControl x:Class="CompleetKassa.Views.Modules.Sales.SalesPaymentNumpad"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="696" d:DesignWidth="585">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.22*" />
+            <RowDefinition Height="0.50*"/>
+            <RowDefinition Height="0.22*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#1F2E3C" >
+            <TextBlock VerticalAlignment="Center" Text="Numpad" FontFamily="Arial" Foreground="#0193C6" FontSize="20" HorizontalAlignment="Left" Margin="20,5,5,5"/>
+        </Grid>
+        
+        <!--Payment Options-->
+        <Grid Grid.Row="1" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0">
+                <Viewbox VerticalAlignment="Center" HorizontalAlignment="Left" >
+                    <TextBlock  Text="$ 52,00" Foreground="#33485E" Style="{StaticResource SemiFont}" Margin="2"/>
+                </Viewbox>
+                <Viewbox VerticalAlignment="Center" HorizontalAlignment="Left" >
+                    <TextBlock  Text="Change" Foreground="#33485E" Style="{StaticResource SemiFont}" Margin="2"/>
+                </Viewbox>
+            </StackPanel>
+        </Grid>
+        
+        <!--Numpad-->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.8*"/>
+            </Grid.RowDefinitions>
+            <Grid Background="White">
+                <Border CornerRadius="2" BorderBrush="#CBCBCB" BorderThickness="1" Margin="20,6"  >
+                    <Viewbox Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBox IsReadOnly="True" Background="Transparent" BorderBrush="Transparent" Foreground="#32485D" TextAlignment="Center"
+                                             HorizontalAlignment="Stretch" 
+                                         Style="{StaticResource ResourceKey=StyleTextBox}" VerticalAlignment="Center" FontSize="20"
+                                          Text="{Binding NumpadPrice, ConverterCulture=nl-NL, Mode=TwoWay, StringFormat=\{0:C\}}" Width="346" 
+                                       />
+
+                    </Viewbox>
+
+
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+            
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="1">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock  Text="1" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+                        <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="2">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock  Text="2" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="4">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock  Text="4" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+                        <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="6">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock  Text="5" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="7">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock  Text="7" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+                        <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="8">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock  Text="8" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="00">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock  Text="00" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+                        <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="0">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock  Text="0" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Command="{Binding OnNumpadNumPressed}" Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="3">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock x:Name="gagi" Text="3" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+                        <Button Command="{Binding OnNumpadBackspace}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="#EFEFEF" BorderBrush="#B0BDC9" BorderThickness="1">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <Image Source="ViewIcons/backspace.png" Margin="25"/>
+                            </Viewbox>
+                        </Button>
+
+
+                    </Grid>
+
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Button Command="{Binding OnNumpadNumPressed}" Grid.Row="0" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="6">
+                                <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                    <TextBlock  Text="6" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                                </Viewbox>
+                            </Button>
+                            <Button Command="{Binding OnNumpadNumPressed}" Grid.Row="1" Style="{StaticResource BorderButtonStyle}" Background="White" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="9">
+                                <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                    <TextBlock  Text="9" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                                </Viewbox>
+                            </Button>
+
+                        </Grid>
+
+                        <Button Command="{Binding OnNumpadCleared}" Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Background="#EFEFEF" BorderBrush="#B0BDC9" BorderThickness="1" CommandParameter="6">
+                            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock  Text="C" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                            </Viewbox>
+                        </Button>
+
+
+
+                    </Grid>
+
+
+                    <Button Command="{Binding OnPaymentNumpad}" Grid.Row="2" Style="{StaticResource BorderButtonStyle}" BorderBrush="#B0BDC9" BorderThickness="1" Background="#EFEFEF">
+                        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" >
+                            <TextBlock  Text="Add this" Foreground="#33485E" Style="{StaticResource SemiFont}"/>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+
+
+            </Grid>
+
+        </Grid>
+        
+        <!--Clients-->
+        <Border BorderBrush="#B0BDC9" BorderThickness="1" Grid.Row="3" Background="#EFEFEF">
+            
+        </Border>
+
+    </Grid>
+</UserControl>

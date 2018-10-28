@@ -33,6 +33,7 @@
                         <Binding Path="ID"/>
                         <Binding Path="Name"/>
                         <Binding Path="Price"/>
+                        <Binding Path="Tax"/>
                     </MultiBinding>
                 </Button.CommandParameter>
                 <Button.ToolTip>

@@ -14,6 +14,9 @@
         public int MinimumStock { get; set; }
         public int Status { get; set; }
 
+        public decimal Tax { get; set; }
+
+
         public int CategoryID { get; set; }
 		public int SubCategoryID { get; set; }
 

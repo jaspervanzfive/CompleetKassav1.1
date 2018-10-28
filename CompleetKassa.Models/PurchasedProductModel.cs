@@ -63,7 +63,7 @@ namespace CompleetKassa.Models
         public void ComputeTotal()
         {
             SubTotal = Products.Sum(x => x.SubTotal);
-            Due = (SubTotal + Tax) - Discount;
+            Due = (SubTotal) - Discount;
         }
     }
 }

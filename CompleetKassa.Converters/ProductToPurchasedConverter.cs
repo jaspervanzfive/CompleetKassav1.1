@@ -14,9 +14,10 @@ namespace CompleetKassa.Converters
             {
                 ID = (int)values[0],
                 Name = (string)values[1],
-                Price = (decimal)values[2]
-               
-             
+                Price = (decimal)values[2],
+                Tax = (decimal)values[3]
+
+
             };
         }
 

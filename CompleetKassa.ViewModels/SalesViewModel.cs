@@ -254,11 +254,16 @@ namespace CompleetKassa.ViewModels
         public ICommand OnSetDollarDiscount { get; private set; }
 
         //PayScreen Commands
-        public ICommand OnInitialPay { get; private set; }
+        public ICommand OnOpenPayScreen { get; private set; }
         public ICommand OnClosePayScreen { get; private set; }
+
+        public ICommand OnPaymentOption { get; private set; }
+     
 
         public ICommand OnPayScreenSideButtons { get; private set; }
         public ICommand OnEmailSubmit { get; private set; }
+        public ICommand OnPaymentNumpad { get; private set; }
+
         #endregion
 
 
@@ -266,7 +271,6 @@ namespace CompleetKassa.ViewModels
 
         public SalesViewModel() : base ("Sales", "#FDAC94","Icons/product.png")
 		{
-           
 
 
 
@@ -373,11 +377,14 @@ namespace CompleetKassa.ViewModels
 
 
             //PayScreen Commands
-            OnInitialPay = new BaseCommand(InitialPay);
+            OnOpenPayScreen = new BaseCommand(OpenPayScreen);
             OnClosePayScreen = new BaseCommand(ClosePayScreen);
             OnPayScreenSideButtons = new BaseCommand(PayScreenSideButtons);
-
+            OnPaymentOption = new BaseCommand(PaymentOption);
             OnEmailSubmit = new BaseCommand(EmailSubmit);
+
+            OnPaymentNumpad = new BaseCommand(PaymentNumpad);
+
 
 
             // OnSetDollarDiscount = new BaseCommand(SetDollarDiscount);
@@ -515,12 +522,221 @@ namespace CompleetKassa.ViewModels
 
             }
         }
-        
+
 
         #endregion
 
 
         #region Payment
+
+        #region PaymentScreen Numpad logics
+
+        private void PaymentNumpad(object obj)
+        {
+            //This will trigger first payment
+            if (PayScreenPaymentsVisibility == Visibility.Collapsed)
+                PaymentNumpadFirst();
+            //This will trigger second payment
+            else if (PayScreenPaymentsVisibility == Visibility.Visible && PaymentSecondValue!=0)
+                PaymentNumpadSecond();
+
+
+            //Hide components
+            if (_paymentsGood)
+            {
+                PayScreenPaymentsVisibility = Visibility.Visible;
+                NumpadCleared(null);
+                PaymentNumpadVisibility = Visibility.Hidden;
+                ClearPaymentOptions();
+            }
+        
+        }
+
+        //If in the second payment , the amount pressed is not less than the DUE!
+        bool _paymentsGood = false;
+
+        //Method for first payment
+        private void PaymentNumpadFirst()
+        {
+            if (NumpadPrice < CurrentPurchase.Due)
+            {
+                //Set the value as absolute(always positive)
+                decimal _ChangeAfterFirstPay = Math.Abs(CurrentPurchase.Due - NumpadPrice);
+
+                PaymentFirstValue = NumpadPrice;
+
+                //Get the result of the _changeAfterFirstPay to see if it has due.
+                PaymentSecondValue = _ChangeAfterFirstPay;
+                PaymentSecondText = "Due";
+
+            }
+            //If the Payment price is higher or equals to the current due
+            else
+            {
+                decimal _Change = NumpadPrice-CurrentPurchase.Due;
+
+                PaymentFirstValue = CurrentPurchase.Due;
+                PaymentSecondValue = _Change ;
+                PaymentSecondText = "Change";
+            }
+
+            //Set which payment option is selected at first point
+            if (BoolIsCash)
+                PaymentFirstText = "Cash";
+            else if (BoolIsPin)
+                PaymentFirstText = "Pin";
+
+
+
+            _paymentsGood = true;
+
+        }
+
+        private void PaymentNumpadSecond()
+        {
+            //In the second payment, lesser than the second value is not allowed
+            if (NumpadPrice >= PaymentSecondValue)
+            {
+                //Set the value as absolute(always positive)
+                decimal _ChangeAfterSecondPay = Math.Abs(PaymentSecondValue - NumpadPrice);
+
+                PaymentSecondValue = PaymentSecondValue;
+
+                //Set which payment option is selected at second point
+                if (BoolIsCash)
+                    PaymentSecondText = "Cash";
+                else if (BoolIsPin)
+                    PaymentSecondText = "Pin";
+
+                _paymentsGood = true;
+            }
+            else
+            {
+                _paymentsGood = false;
+                sounds.Error();
+            }
+
+           
+
+        }
+
+
+
+        //_paymentValue is the value of the payment and _paymentText is the Type whether its cash or pin
+
+        private decimal _paymentFirstValue;
+        public decimal PaymentFirstValue
+        {
+            get { return _paymentFirstValue; }
+            set
+            {
+                _paymentFirstValue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private decimal _paymentSecondValue;
+        public decimal PaymentSecondValue
+        {
+            get { return _paymentSecondValue; }
+            set
+            {
+                _paymentSecondValue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _paymentFirstText="";
+        public string PaymentFirstText
+        {
+            get { return _paymentFirstText; }
+            set
+            {
+                _paymentFirstText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _paymentSecondText="";
+        public string PaymentSecondText
+        {
+            get { return _paymentSecondText; }
+            set
+            {
+                _paymentSecondText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _payScreenPaymentsVisibility = Visibility.Collapsed;
+        public Visibility PayScreenPaymentsVisibility
+        {
+            get { return _payScreenPaymentsVisibility; }
+            set
+            {
+                SetProperty(ref _payScreenPaymentsVisibility, value);
+            }
+        }
+
+
+        #endregion
+
+        //On Opening of PayScreen
+        private void OpenPayScreen(object item)
+        {
+            //Due must not 0 to Open the payscreen
+            if (CurrentPurchase.Due > 0)
+            {
+                NumpadVisibility = Visibility.Hidden;
+
+
+                ClearPaymentOptions();
+                HidePayScreenComponents();
+                ClearSideButtonsSelection();
+
+
+                //Need to refractor , hide payClientText if null
+                if (!string.IsNullOrEmpty(CurrentPurchase.ClientName))
+                    PayClientTextVisibility = Visibility.Visible;
+                else
+                    PayClientTextVisibility = Visibility.Collapsed;
+
+
+
+                PayScreenVisibility = Visibility.Visible;
+            }
+            else
+                sounds.Error();
+
+           
+
+
+        }
+        public void ClosePayScreen(object obj)
+        {
+            PayScreenVisibility = Visibility.Hidden;
+            PaymentNumpadVisibility = Visibility.Hidden;
+        }
+
+        public void PaymentOption(object item)
+        {
+            //Error means the payment is already done!
+            if ((PaymentSecondText.Equals("Change") ||(PaymentSecondValue.Equals(0) && PaymentSecondText.Equals("Due"))) && (PayScreenPaymentsVisibility.Equals(Visibility.Visible)))
+            {
+                BoolIsCash = false;
+                BoolIsPin = false;
+                sounds.Error();
+            }
+            else
+            {
+                PaymentNumpadVisibility = Visibility.Visible;
+            }
+
+            
+            
+          
+        }
+        
 
         private void PayScreenSideButtons(object item)
         {
@@ -550,7 +766,7 @@ namespace CompleetKassa.ViewModels
 
         private void HidePayScreenComponents()
         {
-
+            PayScreenPaymentsVisibility = Visibility.Collapsed;
 
             PayScreenPrintVisibility = Visibility.Collapsed;
             PayScreenSelectionVisibility = Visibility.Collapsed;
@@ -562,6 +778,13 @@ namespace CompleetKassa.ViewModels
             BoolOptionEmail = false;
             BoolOptionPrint = false;
             BoolOptionClient = false;
+
+        }
+
+        private void ClearPaymentOptions()
+        {
+            BoolIsCash = false;
+            BoolIsPin = false;
         }
 
 
@@ -668,8 +891,7 @@ namespace CompleetKassa.ViewModels
           
             
         }
-
-
+       
 
 
 
@@ -742,33 +964,9 @@ namespace CompleetKassa.ViewModels
         }
 
 
-   
+    
 
-        private void InitialPay(object item)
-        {
-            HidePayScreenComponents();
-            ClearSideButtonsSelection();
-
-
-            //Need to refractor , hide payClientText if null
-            if (!string.IsNullOrEmpty(CurrentPurchase.ClientName))
-                PayClientTextVisibility = Visibility.Visible;
-            else
-                PayClientTextVisibility = Visibility.Collapsed;
-
-
-
-           PayScreenVisibility = Visibility.Visible;
-        
-
-        }
-       
-
-        public void ClosePayScreen(object obj)
-        {
-            PayScreenVisibility = Visibility.Hidden;
-        }
-
+    
         private Visibility _payScreenVisibility= Visibility.Hidden;
         public Visibility PayScreenVisibility
         {
@@ -778,6 +976,40 @@ namespace CompleetKassa.ViewModels
                 SetProperty(ref _payScreenVisibility, value);
             }
         }
+
+       
+
+        private Visibility _PaymentNumpadVisibility = Visibility.Hidden;
+        public Visibility PaymentNumpadVisibility
+        {
+            get { return _PaymentNumpadVisibility; }
+            set
+            {
+                SetProperty(ref _PaymentNumpadVisibility, value);
+            }
+        }
+
+        //Payment Option Buttons
+        private bool _boolisPin = false;
+        public bool BoolIsPin
+        {
+            get { return _boolisPin; }
+            set
+            {
+                SetProperty(ref _boolisPin, value);
+            }
+        }
+
+        private bool _boolIsCash= false;
+        public bool BoolIsCash
+        {
+            get { return _boolIsCash; }
+            set
+            {
+                SetProperty(ref _boolIsCash, value);
+            }
+        }
+
 
 
         #endregion
@@ -1286,15 +1518,20 @@ namespace CompleetKassa.ViewModels
 
         private void NumpadBackspace(object obj)
         {
-
-            if (stringNum!="00")
+            try
             {
-                string num_price = NumpadPrice.ToString().Replace(".", "");
-                string num_price_remove = num_price.Remove(num_price.Length - 1);
-                stringNum = num_price_remove;
+                if (stringNum != "00")
+                {
+                    string num_price = NumpadPrice.ToString().Replace(".", "");
+                    string num_price_remove = num_price.Remove(num_price.Length - 1);
+                    stringNum = num_price_remove;
 
-                NumpadPrice = Convert.ToDecimal(stringNum) / 100;
+                    NumpadPrice = Convert.ToDecimal(stringNum) / 100;
+                }
             }
+            catch (Exception ee) {
+            }
+          
 
         }
         private void NumpadPurchased(object obj)
@@ -1460,7 +1697,8 @@ namespace CompleetKassa.ViewModels
                     Price = 100.0m,
                     // Description = "This is sample 1",
                     Category = "Shoes",
-                    SubCategory = "Running"
+                    SubCategory = "Running",
+                    Tax=12.0m
                 },
                 new ProductModel
                 {
@@ -1468,9 +1706,10 @@ namespace CompleetKassa.ViewModels
                     Name = "Shoes 2",
                     Image ="/CompleetKassa.ViewModels;component/Images/sample.png",
                     Price = 20.0m,
-                    // Description = "This is sample 2",
+                    //Description = "This is sample 2",
                     Category = "Shoes",
-                    SubCategory = "Walking"
+                    SubCategory = "Walking",
+                    Tax=12.0m
                 },
                 new ProductModel
                 {
@@ -1480,7 +1719,8 @@ namespace CompleetKassa.ViewModels
                     Price = 20.0m,
                     // Description = "This is sample 2",
                     Category = "Bag",
-                    SubCategory = "Shoulder Bag"
+                    SubCategory = "Shoulder Bag",
+                    Tax=12.0m
                 },
                 new ProductModel
                 {
@@ -1490,7 +1730,8 @@ namespace CompleetKassa.ViewModels
                     Price = 20.0m,
                     // Description = "This is sample 2",
                     Category = "Bag",
-                    SubCategory = "Shoulder Bag"
+                    SubCategory = "Shoulder Bag",
+                    Tax=12.0m
                 },
                 new ProductModel
                 {
@@ -1500,7 +1741,8 @@ namespace CompleetKassa.ViewModels
                     Price = 10.0m,
                     // Description = "This is Belt 1",
                     Category = "Belt",
-                    SubCategory = "Men's Belt"
+                    SubCategory = "Men's Belt",
+                    Tax=12.0m
                 },
                 new ProductModel
                 {
@@ -1510,7 +1752,8 @@ namespace CompleetKassa.ViewModels
                     Price = 10.0m,
                     // Description = "This is Belt 1",
                     Category = "Sterfilters",
-                    SubCategory = "Men's BeltXX"
+                    SubCategory = "Men's BeltXX",
+                    Tax=12.0m
                 },
                 new ProductModel
                 {
@@ -1520,7 +1763,8 @@ namespace CompleetKassa.ViewModels
                     Price = 10.0m,
                     // Description = "This is Belt 1",
                     Category = "Shoes",
-                    SubCategory = "Basketball"
+                    SubCategory = "Basketball",
+                    Tax=12.0m
                 }
                 ,
                 new ProductModel
@@ -1531,7 +1775,8 @@ namespace CompleetKassa.ViewModels
                     Price = 10.0m,
                     // Description = "This is Belt 1",
                     Category = "Shoes",
-                    SubCategory = "Basketball"
+                    SubCategory = "Basketball",
+                    Tax=12.0m
                 }
                 ,
                 new ProductModel
@@ -1542,7 +1787,8 @@ namespace CompleetKassa.ViewModels
                     Price = 10.0m,
                     // Description = "This is Belt 1",
                     Category = "SkylightFilters",
-                    SubCategory = "Default"
+                    SubCategory = "Default",
+                    Tax=12.0m
                 }
                 ,
                 new ProductModel
@@ -1553,7 +1799,8 @@ namespace CompleetKassa.ViewModels
                     Price = 10.0m,
                     // Description = "This is Belt 1",
                     Category = "Filtersets",
-                        SubCategory = "Default"
+                        SubCategory = "Default",
+                    Tax=12.0m
                 }
                 ,
                 new ProductModel
@@ -1564,7 +1811,8 @@ namespace CompleetKassa.ViewModels
                     Price = 10.0m,
                     // Description = "This is Belt 1",
                     Category = "UV Filters",
-                   SubCategory = "Default"
+                   SubCategory = "Default",
+                    Tax=12.0m
                 }
 
             };
@@ -1912,13 +2160,17 @@ namespace CompleetKassa.ViewModels
 
         private void AddPurchasedProduct(SelectedProductViewModel product)
         {
+          
+
 			var item = new SelectedProductViewModel {
 				Quantity = 1,
 				ID = product.ID,
 				Name = product.Name,
 				Price = product.Price,
+                Tax=product.Tax,
 				Discount = product.Discount
 			};
+            Console.WriteLine(product.Tax);
 
             item.ComputeSubTotal ();
 

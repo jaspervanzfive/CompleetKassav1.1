@@ -14,7 +14,7 @@ namespace CompleetKassa.Views
     /// </summary>
     public partial class SalesView : UserControl
     {
-        SalesViewModel ds = new SalesViewModel();
+
 
         public SalesView()
         {
@@ -138,6 +138,24 @@ namespace CompleetKassa.Views
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
+
+        }
+
+   
+        private void Button_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            var dlg = new PrintDialog();
+
+
+            dlg.PrintVisual(Receiptx, "s");
+
+
+
+
+            ((SalesViewModel)DataContext).ClosePayScreen(null);
+
+
+
 
         }
     }

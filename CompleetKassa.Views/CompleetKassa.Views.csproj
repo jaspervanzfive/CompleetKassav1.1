@@ -91,6 +91,15 @@
     <Compile Include="Modules\Products\ProductsViewCategoryPage.xaml.cs">
       <DependentUpon>ProductsViewCategoryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Sales\SalesNumpad.xaml.cs">
+      <DependentUpon>SalesNumpad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\SalesPaymentNumpad.xaml.cs">
+      <DependentUpon>SalesPaymentNumpad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\SalesPayScreen.xaml.cs">
+      <DependentUpon>SalesPayScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Transactions\TransactionsView.xaml.cs">
       <DependentUpon>TransactionsView.xaml</DependentUpon>
     </Compile>
@@ -167,6 +176,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Modules\Sales\SalesNumpad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Sales\SalesPaymentNumpad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Sales\SalesPayScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Modules\Settings\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,6 +205,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\Users\UsersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StyleResources\SalesStyleDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
