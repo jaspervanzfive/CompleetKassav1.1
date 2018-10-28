@@ -721,7 +721,7 @@ namespace CompleetKassa.ViewModels
         public void PaymentOption(object item)
         {
             //Error means the payment is already done!
-            if ((PaymentSecondText.Equals("Change") ||(PaymentSecondValue.Equals(0) && PaymentSecondText.Equals("Due"))) && (PayScreenPaymentsVisibility.Equals(Visibility.Visible)))
+            if ((PaymentSecondText.Equals("Change") ||(PaymentSecondValue.Equals(0) && PaymentSecondText.Equals("Due")) ||(PaymentSecondText.Equals("Cash") || PaymentSecondText.Equals("Pin")))  && (PayScreenPaymentsVisibility.Equals(Visibility.Visible)))
             {
                 BoolIsCash = false;
                 BoolIsPin = false;
