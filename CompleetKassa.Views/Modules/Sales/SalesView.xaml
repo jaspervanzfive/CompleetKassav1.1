@@ -657,14 +657,17 @@
                             <Image Source="ViewIcons/discount.png" Stretch="Uniform" Margin="13,13,18,13" />
                         </Button>
 
-                        <Button Command="{Binding OnQuantityPopOpen}" Grid.Row="2" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
+                       
+         
+
+                        <Button  Command="{Binding  OnReceiptSideButtons}" CommandParameter="Print" Grid.Row="2" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
                             <Image Source="ViewIcons/print.png" Stretch="Uniform" Margin="13,13,18,13" />
                         </Button>
-                        <Button Command="{Binding OnPurchaseSelectMultiple}" Grid.Row="3" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
+                        <Button  Command="{Binding  OnReceiptSideButtons}" CommandParameter="Email" Grid.Row="3" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
                             <Image Source="ViewIcons/send.png" Stretch="Uniform" Margin="13,13,18,13" />
                         </Button>
 
-                        <Button  Grid.Row="4" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" >
+                        <Button   Command="{Binding  OnReceiptSideButtons}" CommandParameter="Client" Grid.Row="4" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp" >
                             <Image Source="ViewIcons/client.png" Stretch="Uniform" Margin="13,13,18,13" />
                         </Button>
 
@@ -913,9 +916,9 @@
                 <ColumnDefinition Width="0.1737*" />
                 <ColumnDefinition Width="0.481*" />
             </Grid.ColumnDefinitions>
-
+           
             <!-- PayScreen -->
-            <Grid Visibility="{Binding PayScreenVisibility}">
+            <Grid  Visibility="{Binding PayScreenVisibility}">
                 <viewSales:SalesPayScreen />
             </Grid>
          

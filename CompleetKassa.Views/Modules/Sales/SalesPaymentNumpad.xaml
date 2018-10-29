@@ -5,7 +5,49 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="696" d:DesignWidth="585">
-    <Grid>
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ToggleButton}" x:Key="PredictorButtons">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="#2E4051"/>
+            <Setter Property="FontFamily" Value="Open Sans SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="elps1" Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="White" BorderThickness="0">
+                            <Viewbox Margin="5">
+                                <ContentPresenter  x:Name="Root" RenderTransformOrigin="0.5,0.5"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Viewbox>
+                          
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property ="IsChecked" Value ="True">
+                                <Setter TargetName="elps1" Property="Background" Value="#2E4051" />
+                                <Setter  Property="Foreground" Value="#FFF" />
+                            </Trigger>
+                            <Trigger Property ="IsChecked" Value ="False">
+                                <Setter TargetName="elps1" Property="Background" Value="#D6D6D6" />
+                                <Setter  Property="Foreground" Value="#2E4051" />
+                            </Trigger>
+
+                            <Trigger Property ="IsPressed" Value ="True">
+                                <Setter TargetName="Root" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.05*"/>
             <RowDefinition Height="0.22*" />
@@ -17,15 +59,50 @@
         </Grid>
         
         <!--Payment Options-->
-        <Grid Grid.Row="1" Background="White">
+        <Grid Grid.Row="1" Background="White" Visibility="{Binding PredictionVisibility}">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            
+            <!--Due Predictor-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="0.2*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0">
+                    <RadioButton  IsChecked="{Binding BoolPrediction1,Mode=TwoWay}" Command="{Binding OnPredictionPressed}" CommandParameter="1"   GroupName="Predictor" Background="#D6D6D6" Style="{StaticResource PredictorButtons}" Margin="10">
+                        <TextBlock Text="{Binding Prediction1, ConverterCulture=nl-NL, Mode=TwoWay, StringFormat=\{0:C\}}"/>
+                    </RadioButton>
+                    <RadioButton  IsChecked="{Binding BoolPrediction2,Mode=TwoWay}"  Command="{Binding OnPredictionPressed}" CommandParameter="2" GroupName="Predictor" Grid.Column="1" Background="#D6D6D6" Style="{StaticResource PredictorButtons}" Margin="10">
+                        <TextBlock Text="{Binding Prediction2, ConverterCulture=nl-NL, Mode=TwoWay, StringFormat=\{0:C\}}"/>
+                    </RadioButton>
+                    <RadioButton IsChecked="{Binding BoolPrediction3,Mode=TwoWay}"  Command="{Binding OnPredictionPressed}" CommandParameter="3" GroupName="Predictor" Grid.Column="2" Background="#D6D6D6" Style="{StaticResource PredictorButtons}" Margin="10">
+                        <TextBlock Text="{Binding Prediction3, ConverterCulture=nl-NL, Mode=TwoWay, StringFormat=\{0:C\}}"/>
+                    </RadioButton>
+                    <RadioButton IsChecked="{Binding BoolPrediction4,Mode=TwoWay}" Command="{Binding OnPredictionPressed}" CommandParameter="4" GroupName="Predictor" Grid.Column="3" Background="#D6D6D6" Style="{StaticResource PredictorButtons}" Margin="10">
+                        <TextBlock Text="{Binding Prediction4, ConverterCulture=nl-NL, Mode=TwoWay, StringFormat=\{0:C\}}"/>
+                    </RadioButton>
+                    <RadioButton IsChecked="{Binding BoolPrediction5,Mode=TwoWay}" Command="{Binding OnPredictionPressed}" CommandParameter="5" GroupName="Predictor" Grid.Column="4" Background="#D6D6D6" Style="{StaticResource PredictorButtons}" Margin="10">
+                        <TextBlock Text="{Binding Prediction5, ConverterCulture=nl-NL, Mode=TwoWay, StringFormat=\{0:C\}}"/>
+                    </RadioButton>
+                </Grid>
+            </Grid>
+
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0" Visibility="{Binding NumpadChangeVisibility }">
                 <Viewbox VerticalAlignment="Center" HorizontalAlignment="Left" >
-                    <TextBlock  Text="$ 52,00" Foreground="#33485E" Style="{StaticResource SemiFont}" Margin="2"/>
+                    <TextBlock  Text="{Binding NumpadChange, ConverterCulture=nl-NL, Mode=TwoWay, StringFormat=\{0:C\}}" Foreground="#33485E" Style="{StaticResource SemiFont}" Margin="2"/>
                 </Viewbox>
                 <Viewbox VerticalAlignment="Center" HorizontalAlignment="Left" >
                     <TextBlock  Text="Change" Foreground="#33485E" Style="{StaticResource SemiFont}" Margin="2"/>

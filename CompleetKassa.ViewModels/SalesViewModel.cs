@@ -263,7 +263,10 @@ namespace CompleetKassa.ViewModels
         public ICommand OnPayScreenSideButtons { get; private set; }
         public ICommand OnEmailSubmit { get; private set; }
         public ICommand OnPaymentNumpad { get; private set; }
+        public ICommand OnReceiptSideButtons { get; private set; }
 
+        public ICommand OnPredictionPressed { get; private set; }
+    
         #endregion
 
 
@@ -385,7 +388,8 @@ namespace CompleetKassa.ViewModels
 
             OnPaymentNumpad = new BaseCommand(PaymentNumpad);
 
-
+            OnReceiptSideButtons = new BaseCommand(ReceiptSideButtons);
+            OnPredictionPressed = new BaseCommand(PredictionPressed);
 
             // OnSetDollarDiscount = new BaseCommand(SetDollarDiscount);
 
@@ -529,10 +533,149 @@ namespace CompleetKassa.ViewModels
 
         #region Payment
 
+
+        #region Payments Prediction in cash
+
+        private void SetPrediction()
+        {
+           
+            if (BoolIsCash)
+            {
+                PredictionVisibility = Visibility.Visible;
+                if (PayScreenPaymentsVisibility == Visibility.Collapsed)
+                {
+                
+                    Prediction1 = Math.Round(CurrentPurchase.Due, 0, MidpointRounding.AwayFromZero);
+                    Prediction2 = Math.Round(CurrentPurchase.Due+10, 0, MidpointRounding.AwayFromZero);
+                    Prediction3 = Math.Round(CurrentPurchase.Due+20, 0, MidpointRounding.AwayFromZero);
+                    Prediction4 = Math.Round(CurrentPurchase.Due+30, 0, MidpointRounding.AwayFromZero);
+                    Prediction5 = Math.Round(CurrentPurchase.Due+40, 0, MidpointRounding.AwayFromZero);
+                }
+                else
+                {
+                    Prediction1 = Math.Round(PaymentSecondValue, 0, MidpointRounding.AwayFromZero);
+                    Prediction2 = Math.Round(PaymentSecondValue+10, 0, MidpointRounding.AwayFromZero);
+                    Prediction3 = Math.Round(PaymentSecondValue+20, 0, MidpointRounding.AwayFromZero);
+                    Prediction4 = Math.Round(PaymentSecondValue+30, 0, MidpointRounding.AwayFromZero);
+                    Prediction5 = Math.Round(PaymentSecondValue+40, 0, MidpointRounding.AwayFromZero);
+                }
+            }
+            else
+               PredictionVisibility = Visibility.Hidden;
+
+
+        }
+
+        private Visibility _predictionVisibility = Visibility.Hidden;
+        public Visibility PredictionVisibility
+        {
+            get { return _predictionVisibility; }
+            set
+            {
+                SetProperty(ref _predictionVisibility, value);
+            }
+        }
+
+
+
+
+
+        public decimal _prediction1;
+        public decimal Prediction1
+        {
+            get { return _prediction1; }
+            set
+            {
+                _prediction1 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public decimal _prediction2;
+        public decimal Prediction2
+        {
+            get { return _prediction2; }
+            set
+            {
+                _prediction2 = value;
+                OnPropertyChanged();
+            }
+        }
+        public decimal _prediction3;
+        public decimal Prediction3
+        {
+            get { return _prediction3; }
+            set
+            {
+                _prediction3 = value;
+                OnPropertyChanged();
+            }
+        }
+        public decimal _prediction4;
+        public decimal Prediction4
+        {
+            get { return _prediction4; }
+            set
+            {
+                _prediction4 = value;
+                OnPropertyChanged();
+            }
+        }
+        public decimal _prediction5;
+        public decimal Prediction5
+        {
+            get { return _prediction5; }
+            set
+            {
+                _prediction5 = value;
+                OnPropertyChanged();
+            }
+        }
+     
+
+
+
+        #endregion
+
         #region PaymentScreen Numpad logics
+
+
+        //OnPredictionPressed.
+        private void PredictionPressed(object obj)
+        {
+            string _obj = obj as string;
+
+            decimal _value = 0.0m;
+
+            if (_obj.Equals("1"))
+                _value = Prediction1;
+            else if (_obj.Equals("2"))
+                _value = Prediction2;
+            else if (_obj.Equals("3"))
+                _value = Prediction3;
+            else if (_obj.Equals("4"))
+                _value = Prediction4;
+            else if (_obj.Equals("5"))
+                _value = Prediction5;
+
+       
+
+            NumpadPrice = _value;
+
+            if (PayScreenPaymentsVisibility == Visibility.Collapsed)
+                PaymentNumpad(null);
+            else
+                PaymentNumpadSecond();
+
+            NumpadPrice = 0;
+
+        }
+
 
         private void PaymentNumpad(object obj)
         {
+            
+
             //This will trigger first payment
             if (PayScreenPaymentsVisibility == Visibility.Collapsed)
                 PaymentNumpadFirst();
@@ -546,7 +689,7 @@ namespace CompleetKassa.ViewModels
             {
                 PayScreenPaymentsVisibility = Visibility.Visible;
                 NumpadCleared(null);
-                PaymentNumpadVisibility = Visibility.Hidden;
+            
                 ClearPaymentOptions();
             }
         
@@ -554,7 +697,7 @@ namespace CompleetKassa.ViewModels
 
         //If in the second payment , the amount pressed is not less than the DUE!
         bool _paymentsGood = false;
-
+       
         //Method for first payment
         private void PaymentNumpadFirst()
         {
@@ -569,6 +712,8 @@ namespace CompleetKassa.ViewModels
                 PaymentSecondValue = _ChangeAfterFirstPay;
                 PaymentSecondText = "Due";
 
+                BoolAllowedToPay = false;
+
             }
             //If the Payment price is higher or equals to the current due
             else
@@ -578,6 +723,10 @@ namespace CompleetKassa.ViewModels
                 PaymentFirstValue = CurrentPurchase.Due;
                 PaymentSecondValue = _Change ;
                 PaymentSecondText = "Change";
+
+                NumpadChange = _Change;
+
+                BoolAllowedToPay = true;
             }
 
             //Set which payment option is selected at first point
@@ -587,7 +736,7 @@ namespace CompleetKassa.ViewModels
                 PaymentFirstText = "Pin";
 
 
-
+            PaymentNumpadVisibility = Visibility.Hidden;
             _paymentsGood = true;
 
         }
@@ -604,14 +753,23 @@ namespace CompleetKassa.ViewModels
 
                 //Set which payment option is selected at second point
                 if (BoolIsCash)
+                {
+                    PaymentNumpadVisibility = Visibility.Visible;
+                    NumpadChange = _ChangeAfterSecondPay;
                     PaymentSecondText = "Cash";
+                }
                 else if (BoolIsPin)
+                {
+                    PaymentNumpadVisibility = Visibility.Hidden;
                     PaymentSecondText = "Pin";
+                }
+                BoolAllowedToPay = true;
 
                 _paymentsGood = true;
             }
             else
             {
+                BoolAllowedToPay = false;
                 _paymentsGood = false;
                 sounds.Error();
             }
@@ -619,9 +777,6 @@ namespace CompleetKassa.ViewModels
            
 
         }
-
-
-
         //_paymentValue is the value of the payment and _paymentText is the Type whether its cash or pin
 
         private decimal _paymentFirstValue;
@@ -632,6 +787,37 @@ namespace CompleetKassa.ViewModels
             {
                 _paymentFirstValue = value;
                 OnPropertyChanged();
+            }
+        }
+
+
+      
+
+        private Visibility _NumpadChangeVisibility = Visibility.Hidden;
+        public Visibility NumpadChangeVisibility
+        {
+            get { return _NumpadChangeVisibility; }
+            set
+            {
+                SetProperty(ref _NumpadChangeVisibility, value);
+            }
+        }
+
+        private decimal _NumpadChange = 5;
+        public decimal NumpadChange
+        {
+            get { return _NumpadChange; }
+            set
+            {
+                _NumpadChange = value;
+                Console.WriteLine(value);
+                if (value == 0)
+                    NumpadChangeVisibility = Visibility.Hidden;
+                else
+                    NumpadChangeVisibility = Visibility.Visible;
+
+                OnPropertyChanged();
+              
             }
         }
 
@@ -679,7 +865,38 @@ namespace CompleetKassa.ViewModels
         }
 
 
+
+
+
         #endregion
+
+        //Bool for if you can pay already.
+        private bool _boolAllowedToPay = false;
+        public bool BoolAllowedToPay
+        {
+            get { return _boolAllowedToPay; }
+            set
+            {
+                SetProperty(ref _boolAllowedToPay, value);
+                if(value==true)
+                    PayColor = (Brush)(new BrushConverter().ConvertFrom("#2E4051"));
+                else
+                    PayColor = (Brush)(new BrushConverter().ConvertFrom("#D6D6D6"));
+
+
+
+            }
+        }
+
+        private Brush _payColor = (Brush)(new BrushConverter().ConvertFrom("#D6D6D6"));
+        public Brush PayColor
+        {
+            get { return _payColor; }
+            set
+            {
+                SetProperty(ref _payColor, value);
+            }
+        }
 
         //On Opening of PayScreen
         private void OpenPayScreen(object item)
@@ -687,6 +904,8 @@ namespace CompleetKassa.ViewModels
             //Due must not 0 to Open the payscreen
             if (CurrentPurchase.Due > 0)
             {
+                BoolAllowedToPay = false;
+
                 NumpadVisibility = Visibility.Hidden;
 
 
@@ -718,8 +937,73 @@ namespace CompleetKassa.ViewModels
             PaymentNumpadVisibility = Visibility.Hidden;
         }
 
+        private bool _boolPrediction1 = false;
+        public bool BoolPrediction1
+        {
+            get { return _boolPrediction1; }
+            set
+            {
+                SetProperty(ref _boolPrediction1, value);
+            }
+        }
+
+    
+        private bool _boolPrediction2 = false;
+        public bool BoolPrediction2
+        {
+            get { return _boolPrediction2; }
+            set
+            {
+                SetProperty(ref _boolPrediction2, value);
+            }
+        }
+
+        private bool _boolPrediction3 = false;
+        public bool BoolPrediction3
+        {
+            get { return _boolPrediction3; }
+            set
+            {
+                SetProperty(ref _boolPrediction3, value);
+            }
+        }
+
+        private bool _boolPrediction4 = false;
+        public bool BoolPrediction4
+        {
+            get { return _boolPrediction4; }
+            set
+            {
+                SetProperty(ref _boolPrediction4, value);
+            }
+        }
+        private bool _boolPrediction5 = false;
+        public bool BoolPrediction5
+        {
+            get { return _boolPrediction5; }
+            set
+            {
+                SetProperty(ref _boolPrediction5, value);
+            }
+        }
+
+        private void ClearPredictionSelection()
+        {
+            BoolPrediction1 = false;
+            BoolPrediction2 = false;
+            BoolPrediction3 = false;
+            BoolPrediction4 = false;
+            BoolPrediction5 = false;
+        }
+
+
+
         public void PaymentOption(object item)
         {
+            ClearPredictionSelection();
+
+
+            SetPrediction();
             //Error means the payment is already done!
             if ((PaymentSecondText.Equals("Change") ||(PaymentSecondValue.Equals(0) && PaymentSecondText.Equals("Due")) ||(PaymentSecondText.Equals("Cash") || PaymentSecondText.Equals("Pin")))  && (PayScreenPaymentsVisibility.Equals(Visibility.Visible)))
             {
@@ -737,22 +1021,31 @@ namespace CompleetKassa.ViewModels
           
         }
         
+        private void ReceiptSideButtons(object item)
+        {
+            OpenPayScreen(null);
+            PayScreenSideButtons(item);
+        }
 
         private void PayScreenSideButtons(object item)
         {
             string _value = item as string;
-
+            
             HidePayScreenComponents();
+
+            
 
             if (_value.Equals("Print"))
             {
                 PayScreenPrintVisibility = Visibility.Visible;
+                BoolOptionPrint = true;
             }
             else if (_value.Equals("Email"))
             {
                 PayScreenSelectionVisibility = Visibility.Visible;
                 PayScreenEmailVisibility = Visibility.Visible;
                 BoolSelectionEmail = true;
+                BoolOptionEmail = true;
 
             }
             else if (_value.Equals("Client"))
@@ -760,6 +1053,7 @@ namespace CompleetKassa.ViewModels
                 PayScreenSelectionVisibility = Visibility.Visible;
                 PayScreenClientVisibility = Visibility.Visible;
                 BoolSelectionClient = true;
+                BoolOptionClient = true;
             }
         }
 

@@ -28,14 +28,25 @@ namespace CompleetKassa.Views.Modules.Sales
             InitializeComponent();
         
         }
+        
 
         // SalesView ds = new SalesView();
         private void Button_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
         {
+            bool BoolAllowedToPay = ((SalesViewModel)DataContext).BoolAllowedToPay;
+
+            if (BoolAllowedToPay)
+            {
+                Console.WriteLine("Accept");
+            }
+            
 
 
-            SalesPaymentNumpad aw = new SalesPaymentNumpad();
-            aw.Message();
+
+
+
+            //SalesPaymentNumpad aw = new SalesPaymentNumpad();
+            //aw.Message();
 
             //var dlg = new PrintDialog();
             //dlg.
@@ -47,5 +58,12 @@ namespace CompleetKassa.Views.Modules.Sales
             //((SalesViewModel)DataContext).ClosePayScreen(null);
 
         }
+
+        private void PaymentOptionsClicked(object sender, MouseButtonEventArgs e)
+        {
+            //SalesPaymentNumpad _payment = new SalesPaymentNumpad();
+            //_payment.ClearPrediction();
+        }
+
     }
 }

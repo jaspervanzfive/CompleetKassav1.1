@@ -167,7 +167,7 @@
                     <!--Payment Button Options-->
                     <StackPanel Orientation="Vertical" Margin="0,0" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                            <RadioButton Command="{Binding OnPaymentOption}" IsChecked="{Binding BoolIsPin}" CommandParameter="Pin" GroupName="payGroup" Background="#2E4051" Style="{StaticResource PayButtons}"  Height="35" Width="150" >
+                            <RadioButton Command="{Binding OnPaymentOption}" IsChecked="{Binding BoolIsPin}" CommandParameter="Pin" GroupName="payGroup" Background="#2E4051" Style="{StaticResource PayButtons}"  Height="35" Width="150" PreviewMouseDown="PaymentOptionsClicked">
                                 <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
                                     <TextBlock Text="PIN" Foreground="White" Style="{StaticResource FontBold}"/>
                                 </Viewbox>
@@ -179,7 +179,7 @@
                             </RadioButton>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10" >
-                            <RadioButton Command="{Binding OnPaymentOption}" IsChecked="{Binding BoolIsCash}" CommandParameter="Cash" GroupName="payGroup" Background="#2E4051" Style="{StaticResource PayButtons}"   Height="35" Width="150"  >
+                            <RadioButton Command="{Binding OnPaymentOption}" IsChecked="{Binding BoolIsCash}" CommandParameter="Cash" GroupName="payGroup" Background="#2E4051" Style="{StaticResource PayButtons}"   Height="35" Width="150" PreviewMouseDown="PaymentOptionsClicked" >
                                 <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
                                     <TextBlock Text="CASH" Foreground="White" Style="{StaticResource FontBold}"/>
                                 </Viewbox>
@@ -197,7 +197,7 @@
                     <!-- cancel and submit-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10" >
                         <Button Style="{StaticResource ButtonCancel}" Command="{Binding OnClosePayScreen}" Background="#F67280" Padding="20" Width="90" Margin="0,0,30,0"/>
-                        <Button Style="{StaticResource ButtonSubmit}" PreviewMouseDown="Button_PreviewMouseDown_1" Background="#2E4051" Padding="20" Width="90" Margin="30,0,0,0"/>
+                        <Button Style="{StaticResource ButtonSubmit}"  PreviewMouseDown="Button_PreviewMouseDown_1" Background="{Binding PayColor}" Padding="20" Width="90" Margin="30,0,0,0"/>
                     </StackPanel>
 
 

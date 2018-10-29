@@ -29,5 +29,8 @@ namespace CompleetKassa.Views.Modules.Sales
         {
             MessageBox.Show(gagi.Text);
         }
+
+       
+
     }
 }
