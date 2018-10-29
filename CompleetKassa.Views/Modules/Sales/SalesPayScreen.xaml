@@ -6,15 +6,22 @@
              xmlns:local="clr-namespace:CompleetKassa.Views"
             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
+                xmlns:viewSales="clr-namespace:CompleetKassa.Views.Modules.Sales"
              d:DesignHeight="701" d:DesignWidth="442">
+    
+    <UserControl.Resources>
+
+    </UserControl.Resources>
 
     
     <Grid Grid.Column="0">
+     
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.82988*"/>
             <ColumnDefinition Width="0.17011*"/>
         </Grid.ColumnDefinitions>
 
+        <viewSales:PrintBonTemplate  x:Name="Grid1" Visibility="Hidden"/>
 
         <Grid Grid.Column="0" Background="#EBEBEB">
             <Grid.RowDefinitions>

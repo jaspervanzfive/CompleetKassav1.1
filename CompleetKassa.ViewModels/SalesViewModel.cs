@@ -695,6 +695,31 @@ namespace CompleetKassa.ViewModels
         
         }
 
+        private decimal _NumpadCash = 0;
+        public decimal NumpadCash
+        {
+            get { return _NumpadCash; }
+            set
+            {
+                _NumpadCash = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+        private decimal _NumpadPin = 0;
+        public decimal NumpadPin
+        {
+            get { return _NumpadPin; }
+            set
+            {
+                _NumpadPin = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+
         //If in the second payment , the amount pressed is not less than the DUE!
         bool _paymentsGood = false;
        
@@ -714,6 +739,9 @@ namespace CompleetKassa.ViewModels
 
                 BoolAllowedToPay = false;
 
+               
+
+
             }
             //If the Payment price is higher or equals to the current due
             else
@@ -727,13 +755,23 @@ namespace CompleetKassa.ViewModels
                 NumpadChange = _Change;
 
                 BoolAllowedToPay = true;
+
+              
+
             }
 
             //Set which payment option is selected at first point
             if (BoolIsCash)
+            {
                 PaymentFirstText = "Cash";
+                NumpadCash = NumpadPrice;
+            }
             else if (BoolIsPin)
+            {
                 PaymentFirstText = "Pin";
+                NumpadPin = PaymentFirstValue;
+            }
+                
 
 
             PaymentNumpadVisibility = Visibility.Hidden;
@@ -757,11 +795,13 @@ namespace CompleetKassa.ViewModels
                     PaymentNumpadVisibility = Visibility.Visible;
                     NumpadChange = _ChangeAfterSecondPay;
                     PaymentSecondText = "Cash";
+                    NumpadCash = NumpadPrice;
                 }
                 else if (BoolIsPin)
                 {
                     PaymentNumpadVisibility = Visibility.Hidden;
                     PaymentSecondText = "Pin";
+                    NumpadPin = PaymentSecondValue;
                 }
                 BoolAllowedToPay = true;
 
@@ -803,7 +843,7 @@ namespace CompleetKassa.ViewModels
             }
         }
 
-        private decimal _NumpadChange = 5;
+        private decimal _NumpadChange =0;
         public decimal NumpadChange
         {
             get { return _NumpadChange; }

@@ -141,6 +141,7 @@ namespace CompleetKassa.Views
 
         }
 
+       
    
         private void Button_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
         {
@@ -158,5 +159,13 @@ namespace CompleetKassa.Views
 
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+           
+
+        }
+
+      
     }
 }

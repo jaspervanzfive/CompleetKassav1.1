@@ -33,13 +33,22 @@ namespace CompleetKassa.Views.Modules.Sales
         // SalesView ds = new SalesView();
         private void Button_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            bool BoolAllowedToPay = ((SalesViewModel)DataContext).BoolAllowedToPay;
-
-            if (BoolAllowedToPay)
-            {
-                Console.WriteLine("Accept");
-            }
+            Grid1.PrintBon();
             
+            //SalesView aw = new SalesView();
+            //aw.TryPrint();
+            //bool BoolAllowedToPay = ((SalesViewModel)DataContext).BoolAllowedToPay;
+
+            //if (BoolAllowedToPay)
+            //{
+
+            //    Console.WriteLine("Accept");
+            //}
+            //else
+            //{
+                
+            //}
+        
 
 
 

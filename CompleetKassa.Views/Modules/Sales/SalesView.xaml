@@ -21,7 +21,7 @@
              
              >
     <UserControl.Resources>
-       
+
 
     </UserControl.Resources>
 
@@ -51,6 +51,7 @@
             <Button  Content="Check" Command="{Binding OnSetDollarDiscount}" HorizontalAlignment="Left" Height="17" Margin="254,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
             <Button x:Name="ButtonQuantityClick" Command="{Binding OnSelectQuantityOption}" CommandParameter="{Binding QuantitySelectOption}" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
             <Button x:Name="ButtonQuantityLongPress" Command="{Binding OnSelectQuantityOptionLongPress}" CommandParameter="Open" HorizontalAlignment="Left" Height="17" Margin="44,10,0,0" VerticalAlignment="Top" Width="80" Visibility="Hidden"/>
+          
         </Grid>
 
         <!--Page-->
@@ -657,8 +658,8 @@
                             <Image Source="ViewIcons/discount.png" Stretch="Uniform" Margin="13,13,18,13" />
                         </Button>
 
-                       
-         
+
+
 
                         <Button  Command="{Binding  OnReceiptSideButtons}" CommandParameter="Print" Grid.Row="2" Style="{StaticResource ReceiptSideButtons2}" Background="#1F2E3C" Margin="0,3,0,3" >
                             <Image Source="ViewIcons/print.png" Stretch="Uniform" Margin="13,13,18,13" />
@@ -706,18 +707,24 @@
             <!-- Parent Categories -->
 
             <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="17*"/>
+                    <ColumnDefinition Width="220*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.05*" />
                     <RowDefinition Height="0.90*" />
                 </Grid.RowDefinitions>
 
-                <Grid Background="#1F2E3C" Margin="5,0">
+                <Grid Background="#1F2E3C" Margin="5,0" Grid.ColumnSpan="2">
                     <TextBlock VerticalAlignment="Center" Text="Category" FontFamily="Arial" Foreground="#0193C6" FontSize="20" HorizontalAlignment="Left" Margin="10,5,5,5"/>
 
                 </Grid>
 
 
-                <ListBox x:Name="parentcat" Grid.Row="1"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch"  ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" Background="{StaticResource Background}" Margin="0,5,0,0">
+
+
+                <ListBox x:Name="parentcat" Grid.Row="1"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch"  ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" Background="{StaticResource Background}" Margin="0,5,0,0" Grid.ColumnSpan="2">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
@@ -779,7 +786,9 @@
                         </Style>
                     </ListBox.ItemContainerStyle>
                 </ListBox>
-                <Grid Grid.Row="1" Visibility="Hidden" >
+             
+
+                <Grid Grid.Row="1" Visibility="Hidden" Grid.ColumnSpan="2" >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -916,12 +925,12 @@
                 <ColumnDefinition Width="0.1737*" />
                 <ColumnDefinition Width="0.481*" />
             </Grid.ColumnDefinitions>
-           
+
             <!-- PayScreen -->
             <Grid  Visibility="{Binding PayScreenVisibility}">
                 <viewSales:SalesPayScreen />
             </Grid>
-         
+
         </Grid>
     </Grid>
 

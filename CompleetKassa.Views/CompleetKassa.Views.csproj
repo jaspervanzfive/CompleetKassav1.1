@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -90,6 +91,9 @@
     </Compile>
     <Compile Include="Modules\Products\ProductsViewCategoryPage.xaml.cs">
       <DependentUpon>ProductsViewCategoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\PrintBonTemplate.xaml.cs">
+      <DependentUpon>PrintBonTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\SalesNumpad.xaml.cs">
       <DependentUpon>SalesNumpad.xaml</DependentUpon>
@@ -173,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\Products\ProductsViewCategoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Sales\PrintBonTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -371,6 +379,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Modules\Sales\ViewIcons\icon-bon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Modules\Sales\ViewIcons\bcode.JPG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="CompleetKassa.Views.Modules.Sales.PrintBonTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CompleetKassa.Views.Modules.Sales"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="1600" d:DesignWidth="302">
+    <Grid Background="White" Name="Grid1x" >
+        <StackPanel Margin="20,10" Orientation="Vertical">
+            <TextBlock Text="compleetshop" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="35" FontFamily="Arial" FontWeight="Bold"/>
+            <TextBlock Text="COMPLEETSHOP" HorizontalAlignment="Center" Margin="10,10,10,0" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+            <TextBlock Text="Malieban 8 - Groenlo" HorizontalAlignment="Center" Margin="10,1,10,0" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+            <TextBlock Text="Tel.: 085- 87 69 659" HorizontalAlignment="Center" Margin="10,1,10,0" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+            <TextBlock Text="MA-VR 9:00 - 17:00 UUR" HorizontalAlignment="Center" Margin="10,1,10,0" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+
+            <TextBlock Text=".........................................................................................." HorizontalAlignment="Center" Margin="0,20,0,5" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+
+
+            <ListBox x:Name="Receiptx" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionMode="{Binding SelectionMode}" SelectedItem="{Binding SelectedPurchasedProduct, Mode=TwoWay}" ItemsSource="{Binding PurchasedProducts}" Margin="10,2,0,2">
+
+                <ListBox.ItemTemplate >
+                    <DataTemplate >
+                        <Grid Margin="0,2,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding ID}" FontFamily="Arial" FontWeight="UltraLight"/>
+                                <TextBlock TextWrapping="Wrap" MaxWidth="135" HorizontalAlignment="Left" FontFamily="Arial" FontWeight="UltraLight">
+                                    <TextBlock.Text >
+                                        <MultiBinding StringFormat='{}{0:C} x {1}' ConverterCulture='nl-NL'>
+                                            <Binding Path="Name"/>
+                                            <Binding Path="Quantity" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap" MaxWidth="135"  HorizontalAlignment="Left" FontFamily="Arial" FontSize="10" FontWeight="UltraLight" Visibility="{Binding DiscountVisibility}">
+                                    <TextBlock.Text >
+                                        <MultiBinding StringFormat='{}({0} : {1:C})' ConverterCulture='nl-NL'>
+                                            <Binding Path="DiscountText"/>
+                                            <Binding Path="Discount" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                            </StackPanel>
+                            <Grid Grid.Column="1">
+                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Price, ConverterCulture=nl-NL, StringFormat=\{0:C\}}" Margin="49,0,0,0" MaxHeight="50"/>
+                            </Grid>
+                        </Grid>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Template" Value="{StaticResource SelectedItem}"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.InputBindings>
+                    <KeyBinding Gesture="Ctrl+A" Command="{Binding OnSelectAllPurchased}" />
+                </ListBox.InputBindings>
+
+            </ListBox>
+
+            
+
+            <TextBlock Text="________________" HorizontalAlignment="Right" Margin="50,-20,10,0" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <TextBlock Text="TOTAAL"/>
+                    <TextBlock Text="PIN"/>
+                    <TextBlock Text="CONTANT"/>
+                    <TextBlock Text="TERUG" Margin="0,10,0,0"/>
+
+                    <TextBlock Text="BTW 21%" Margin="0,50,0,0"/>
+                    <TextBlock Text="BTW 6%" Margin="0,0,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Vertical">
+                    <TextBlock Text="{Binding CurrentPurchase.Due, ConverterCulture=nl-NL, StringFormat=\{0:C\}}"/>
+                    <TextBlock Text="{Binding NumpadPin, ConverterCulture=nl-NL, StringFormat=\{0:C\}}"/>
+                    <TextBlock Text="{Binding NumpadCash, ConverterCulture=nl-NL, StringFormat=\{0:C\}}"/>
+                    <TextBlock Text="{Binding NumpadChange, ConverterCulture=nl-NL, StringFormat=\{0:C\}}" Margin="0,10,0,0"/>
+                    <TextBlock Text="{Binding CurrentPurchase.Tax, ConverterCulture=nl-NL, StringFormat=\{0:C\}}" Margin="0,50,0,0"/>
+                    <TextBlock Text="€ 0,00" Margin="0,0,0,0"/>
+                </StackPanel>
+                
+            </Grid>
+            <TextBlock Text=".........................................................................................." HorizontalAlignment="Center" Margin="0,20,0,5" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+
+            <TextBlock Text="Omruilen binnen 14 dagen Ongebruikt in varpakking" Margin="0,10" TextWrapping="Wrap" MaxWidth="150"  FontSize="12" FontFamily="Arial" FontWeight="UltraLight" HorizontalAlignment="Center" />
+
+            <TextBlock Text=".........................................................................................." HorizontalAlignment="Center" Margin="0,0,0,5" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+              
+                <TextBlock Text="POS 01" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+                <TextBlock Margin="50,-1,0,0" Text="{Binding Source={x:Static sys:DateTime.Now},
+           StringFormat='{}{0: dd-MM-yyyy hh:mm}'}" />
+            </StackPanel>
+            <Image Source="ViewIcons/bcode.jpg" Margin="30,0" />
+            <TextBlock Text="{Binding ReceiptName}" FontSize="12" FontFamily="Arial" FontWeight="UltraLight" HorizontalAlignment="Center"/>
+
+            <TextBlock Text="---" Margin="0,15" FontSize="12" FontFamily="Arial" FontWeight="UltraLight" HorizontalAlignment="Center"/>
+
+            <!--<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock Text="Totaal" Margin="50,0,10,0" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+                <TextBlock Text="$232323" Margin="50,0,10,0" FontSize="12" FontFamily="Arial" FontWeight="UltraLight"/>
+            </StackPanel>-->
+
+         
+
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

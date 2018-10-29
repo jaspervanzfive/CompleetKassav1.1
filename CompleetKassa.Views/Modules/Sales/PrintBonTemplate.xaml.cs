@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,21 +17,20 @@ using System.Windows.Shapes;
 namespace CompleetKassa.Views.Modules.Sales
 {
     /// <summary>
-    /// Interaction logic for SalesPaymentNumpad.xaml
+    /// Interaction logic for PrintBonTemplate.xaml
     /// </summary>
-    public partial class SalesPaymentNumpad : UserControl
+    public partial class PrintBonTemplate : UserControl
     {
-        public SalesPaymentNumpad()
+        public PrintBonTemplate()
         {
             InitializeComponent();
         }
 
-        public void Message()
+        public void PrintBon()
         {
-         
+            var dlg = new PrintDialog();
+           // dlg.PrintQueue = new PrintQueue(new PrintServer(), "Microsoft Print to PDF");
+            dlg.PrintVisual(Grid1x, "s");
         }
-
-       
-
     }
 }
