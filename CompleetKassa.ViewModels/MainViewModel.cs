@@ -81,7 +81,7 @@ namespace CompleetKassa.ViewModels
 
             _currentPageViewModel = DefaultViewModel;
 
-            _mainPageViewModel = null;
+          
 
 
 
@@ -121,14 +121,14 @@ namespace CompleetKassa.ViewModels
             //Login and Lock
             ViewModelLogin= new LoginViewModel()
             {
-               OnClose = new BaseCommand(Close)
+                OnClosePageCommand = new BaseCommand(Close)
             };
             ViewModelLock= new LockViewModel()
             {
-              OnClose  = new BaseCommand(Close)
+               OnClose = new BaseCommand(Close)
             };
 
-
+          
 
 
             // this.CreateContentViewModels ();
@@ -140,8 +140,8 @@ namespace CompleetKassa.ViewModels
             OnChangePageCommand = new BaseCommand (ChangePage);
             OnLockCommand = new BaseCommand(LockCommand);
 
+            _mainPageViewModel = null;
 
-        
 
 
 
@@ -364,6 +364,7 @@ namespace CompleetKassa.ViewModels
 
         public void Close(object obj)
         {
+            Console.WriteLine("close");
             MainPageViewModel = null;
         }
 

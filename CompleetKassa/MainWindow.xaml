@@ -61,6 +61,11 @@
         <DataTemplate DataType="{x:Type viewModels:LockViewModel}">
             <views:LockView/>
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewModels:LoginViewModel}">
+            <views:LoginView/>
+        </DataTemplate>
+        
 
        
 

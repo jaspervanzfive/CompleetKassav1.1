@@ -1,7 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
-using CompleetKassa.Views.Modules.Login;
+using CompleetKassa.Views.Modules;
 using System.Windows.Threading;
 using System;
 using System.Windows.Controls;

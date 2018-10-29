@@ -30,11 +30,11 @@ namespace CompleetKassa.Views.Modules.Sales
         public void PrintBon()
         {
             var dlg = new PrintDialog();
-           // dlg.PrintQueue = new PrintQueue(new PrintServer(), "Microsoft Print to PDF");
+            dlg.PrintQueue = new PrintQueue(new PrintServer(), "Microsoft Print to PDF");
             dlg.PrintVisual(Grid1x, "s");
 
-            ((SalesViewModel)DataContext).ClosePayScreen(null);
-            ((SalesViewModel)DataContext).Pay(null);
+            //((SalesViewModel)DataContext).ClosePayScreen(null);
+            //((SalesViewModel)DataContext).Pay(null);
 
 
         }

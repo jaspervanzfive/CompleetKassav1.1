@@ -1,12 +1,15 @@
-﻿<UserControl x:Class="CompleetKassa.Views.Modules.Login.LoginView"
+﻿<UserControl x:Class="CompleetKassa.Views.LoginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CompleetKassa.Views"
+             xmlns:viewModels="clr-namespace:CompleetKassa.ViewModels;assembly=CompleetKassa.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1366">
-
+    <UserControl.DataContext>
+        <viewModels:LoginViewModel/>
+    </UserControl.DataContext>
 
 
     <Grid x:Name="LoginPage">
@@ -45,7 +48,7 @@
                             <Border CornerRadius="4" BorderBrush="#7D9FAF" BorderThickness="1" Margin="30,15" Height="30" MaxHeight="30"  >
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="pack://application:,,,/CompleetKassa;component/Icons/man-user.png" Stretch="Uniform" Margin="5"></Image>
-                                    <TextBox Width="170" Margin="2,5" Background="Transparent" BorderBrush="Transparent"/>
+                                    <TextBox Width="170" Margin="2,1" Background="Transparent" BorderBrush="Transparent"/>
                                 </StackPanel>
 
                             </Border>
@@ -57,8 +60,10 @@
                                 </StackPanel>
                             </Border>
 
-                            <Border CornerRadius="4" Background="#6CAFBD" Margin="30,15" Height="30" MaxHeight="30" MouseDown="Login_MouseDown">
-
+                            <Border CornerRadius="4" Background="#6CAFBD" Margin="30,15" Height="30" MaxHeight="30" >
+                                <Border.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding OnClose}"/>
+                                </Border.InputBindings>
                                 <TextBlock FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Text="LOGIN" Foreground="#fff" Style="{StaticResource FontBold}" ></TextBlock>
                             </Border>
 
@@ -133,22 +138,6 @@
 
             </Grid>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="128" Margin="348,69,0,0" VerticalAlignment="Top" Width="127" Background="White">
-            <Grid>
-                <Image Source="Images/ink11.jpg" Margin="20,0,20,20" />
-            </Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.7*"/>
-                    <RowDefinition Height="0.3*"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="1" Background="#9B9B9B" Opacity="0.7" Orientation="Vertical">
-                    <TextBlock Text="dasdssdaaadassssssdssdaasdasddassssssssssss" TextWrapping="Wrap" Foreground="White" Margin="4" TextTrimming="CharacterEllipsis" MaxWidth="100" MaxHeight="40"/>
-                </StackPanel>
-            </Grid>
-          
-            
-          
-        </Grid>
+        <Button Command="{Binding OnClosePageCommand}" Content="Button" HorizontalAlignment="Left" Margin="310,136,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </UserControl>

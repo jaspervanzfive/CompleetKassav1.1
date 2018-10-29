@@ -1,8 +1,9 @@
-﻿using System.Windows;
+﻿using CompleetKassa.ViewModels;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace CompleetKassa.Views.Modules.Login
+namespace CompleetKassa.Views
 {
     /// <summary>
     /// Interaction logic for LoginView.xaml
@@ -11,14 +12,15 @@ namespace CompleetKassa.Views.Modules.Login
     {
         public LoginView()
         {
+          
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
+
         }
-        
+
 
         private void PasswordForgotten_Event(object sender, MouseButtonEventArgs e)
         {

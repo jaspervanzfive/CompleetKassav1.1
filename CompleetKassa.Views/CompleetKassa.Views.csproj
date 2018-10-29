@@ -68,6 +68,9 @@
     <Compile Include="Controls\ProductsInfo.xaml.cs">
       <DependentUpon>ProductsInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Login\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Customers\CustomersView.xaml.cs">
       <DependentUpon>CustomersView.xaml</DependentUpon>
     </Compile>
@@ -79,9 +82,6 @@
     </Compile>
     <Compile Include="Modules\Lock\LockView.xaml.cs">
       <DependentUpon>LockView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Login\LoginView.xaml.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Products\ProductsView.xaml.cs">
       <DependentUpon>ProductsView.xaml</DependentUpon>
@@ -148,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Modules\Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Modules\Customers\CustomersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,10 +165,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\Lock\LockView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\Login\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
