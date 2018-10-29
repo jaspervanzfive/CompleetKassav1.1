@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CompleetKassa.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
@@ -31,6 +32,11 @@ namespace CompleetKassa.Views.Modules.Sales
             var dlg = new PrintDialog();
            // dlg.PrintQueue = new PrintQueue(new PrintServer(), "Microsoft Print to PDF");
             dlg.PrintVisual(Grid1x, "s");
+
+            ((SalesViewModel)DataContext).ClosePayScreen(null);
+            ((SalesViewModel)DataContext).Pay(null);
+
+
         }
     }
 }

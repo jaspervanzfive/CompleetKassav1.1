@@ -21,7 +21,7 @@
             <ColumnDefinition Width="0.17011*"/>
         </Grid.ColumnDefinitions>
 
-        <viewSales:PrintBonTemplate  x:Name="Grid1" Visibility="Hidden"/>
+        <viewSales:PrintBonTemplate  x:Name="Grid1" Visibility="Hidden" Height="100000"/>
 
         <Grid Grid.Column="0" Background="#EBEBEB">
             <Grid.RowDefinitions>

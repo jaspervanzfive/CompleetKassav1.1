@@ -14,8 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using CompleetKassa.Views.Modules.Login;
-
-
+using MahApps.Metro.Controls;
 
 namespace CompleetKassa.Views
 {
@@ -83,13 +82,13 @@ namespace CompleetKassa.Views
             var bc = new BrushConverter();
             button.Background = (Brush)bc.ConvertFrom("#C6C6C6");
 
-           // TextBlock txtContent = button.FindChild<TextBlock>(txtName);
+         TextBlock txtContent = button.FindChild<TextBlock>(txtName);
 
-         //   txtContent.Visibility = Visibility.Hidden;
+            txtContent.Visibility = Visibility.Hidden;
 
-            //Image blackImage = button.FindChild<Image>(txtImage);
+            Image blackImage = button.FindChild<Image>(txtImage);
 
-          //  blackImage.Visibility = Visibility.Visible;
+           blackImage.Visibility = Visibility.Visible;
 
         }
 

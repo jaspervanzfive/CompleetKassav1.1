@@ -1976,7 +1976,7 @@ namespace CompleetKassa.ViewModels
         private void GetCategories(IList<ProductModel> products)
         {
             //Dummy Colors of Categories
-            String[] categories_colors= new string[] { "#D0A342", "#B422B9", "#6BB4FA", "#39985D", "#CEBA5E", "#962525" , "#7E8085" };
+            String[] categories_colors= new string[] { "#CEBA5E","#D0A342", "#B422B9", "#6BB4FA", "#39985D", "#CEBA5E", "#962525" , "#7E8085" };
 
             // TODO: Categories can be obtained from DB especially the color
             var categories = products.Select(x => x.Category).Distinct();
@@ -2023,6 +2023,139 @@ namespace CompleetKassa.ViewModels
         private void GetProducts ()
         {
             _dbProductList = new List<ProductModel> {
+                 new ProductModel
+                {
+                    ID = 90002,
+                    Name = "Ink 1 ",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink1.JPG",
+                    Price = 45.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Deluxe",
+                    Tax=5.0m
+                },
+                  new ProductModel
+                {
+                    ID = 90003,
+                    Name = "Ink 2",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink2.jpg",
+                    Price = 35.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Deluxe",
+                    Tax=5.0m
+                },
+                   new ProductModel
+                {
+                    ID = 90004,
+                    Name = "Ink 3 ",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink3.jpg",
+                    Price = 65.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Deluxe",
+                    Tax=5.0m
+                },
+                    new ProductModel
+                {
+                    ID = 90005,
+                    Name = "Ink 4 ",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink4.jpg",
+                    Price = 25.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Basic",
+                    Tax=2.0m
+                },
+                    new ProductModel
+                {
+                    ID = 90006,
+                    Name = "Ink 5 ",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink5.jpg",
+                    Price = 25.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Basic",
+                    Tax=2.0m
+                },
+                    new ProductModel
+                {
+                    ID = 90007,
+                    Name = "Ink 6 ",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink6.jpg",
+                    Price = 25.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Basic",
+                    Tax=2.0m
+                },
+                    new ProductModel
+                {
+                    ID = 90008,
+                    Name = "Ink 7 ",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink7.jpg",
+                    Price = 25.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Premium",
+                    Tax=2.0m
+                },
+                    new ProductModel
+                {
+                    ID = 90009,
+                    Name = "Ink 8 ",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink8.png",
+                    Price = 25.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Premium",
+                    Tax=2.0m
+                },
+
+                     new ProductModel
+                {
+                    ID = 90010,
+                    Name = "Ink 9 ",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink9.jpg",
+                    Price = 25.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Premium",
+                    Tax=2.0m
+                },
+                      new ProductModel
+                {
+                    ID = 90011,
+                    Name = "Ink 10",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink10.jpg",
+                    Price = 25.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Premium",
+                    Tax=2.0m
+                },
+                       new ProductModel
+                {
+                    ID = 90009,
+                    Name = "Ink 11 ",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink11.jpg",
+                    Price = 15.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Premium",
+                    Tax=2.0m
+                }, new ProductModel
+                {
+                    ID = 90009,
+                    Name = "Ink 12",
+                    Image ="/CompleetKassa.ViewModels;component/Images/inks/ink12.jpg",
+                    Price = 55.0m,
+                    // Description = "This is sample 1",
+                    Category = "Ink",
+                    SubCategory = "Premium",
+                    Tax=4.0m
+                },
+
                  new ProductModel
                 {
                     ID = 1,
@@ -2444,7 +2577,7 @@ namespace CompleetKassa.ViewModels
 
         }
 
-        private void Pay(object obj)
+        public void Pay(object obj)
         {
 
 

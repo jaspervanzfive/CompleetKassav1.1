@@ -383,5 +383,10 @@
   <ItemGroup>
     <Resource Include="Modules\Sales\ViewIcons\bcode.JPG" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Modules\Login\Images\ink11.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
